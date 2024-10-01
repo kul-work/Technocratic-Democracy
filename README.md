@@ -2,4 +2,4 @@
 draft basic rules for a democratic society based on technocracy.
 
 Romania based - current state organisation is a semi-presidential representative democratic republic.
-The presented plan describe the transition to a technocratic semi-direct democracy presidential republic.
+The presented plan describes the transition to a technocratic semi-direct democracy presidential republic.
