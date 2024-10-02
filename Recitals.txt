@@ -1,19 +1,19 @@
 EXPUNEREA DE MOTIVE
 
 Se constanta:
-- Forma democratiei vest-europene adaptata la spatiul euro-atlantic extins se dovedeste lenta, si intrand intr-un ciclu autofag.
+- Democratia vest-europena adaptata la spatiul euro-atlantic extins se dovedeste a fi lenta pentru inceputul sec. XXI si deturnabila prin lipsa incapacitatea implementarilor mecanismelor de control la nivel micro. Ea a fost utila societatilor la sfarsitul sec. XX, insa societatile deservite au inceput sa intr-un ciclu autofag.
 - Democratia reprezentativa este usor coruptibila.
-- Procesul electoral se bazeaza mult pe media care este usor influentata de sfere politice.
-- Puterea se imparte de facto intre 2-3 partide mari care fac o rotatie slaba a procesului de decizie, ajungand de fapt sa reprezinte in pricipal interesele ale unor jucatori din piata economica ce deseori pentru maximarea propriului profit actiunea impotriva interesului general.
-- Populatia ajunge sa fie slab reprezentata prin delegare.
-- Alegerile (nationale si locale, chiar si in interiorul partidelor) se dovedesc manipulabile prin actiuni care profita de bias-uri umane si prin tehnici de manipulare de masa.
+- Procesul electoral se bazeaza mult pe media care este usor influentata de sferele politice.
+- Puterea se imparte de facto intre 2-3 partide mari care fac o rotatie minora in procesul de decizie, ajungand de fapt sa reprezinte in pricipal interesele ale unor jucatori din piata economica, ce deseori pentru maximarea propriului profit actioneaza impotriva interesului general.
+- Populatia ajunge sa fie slab reprezentata prin delegare, alesii fiind deconectati de alegatori.
+- Alegerile (nationale si locale, si chiar si in interiorul partidelor) se dovedesc manipulabile prin actiuni care profita de bias-uri umane prin tehnici de manipulare de masa.
 
 - Procesul legislativ este greoi si este de obicei necoordonat cu cel executiv, asemeni prea birocratic si neautomatizat.
-- Incompetenta este inca un factor perturbator major, desi pe trend evident descendent
+- Incompetenta este inca un factor perturbator major, desi pe un trend evident descendent.
 - Viziunile globale economice si politice sunt fragmentate, inconsistente; efortul de guvernare concentradu-se pe termen scurt, in principiu pe tehnica de 'a stinge focuri'.
 
 Se propune:
-- Folosirea technologiei, care intre timp a ajuns accesibila si cu grad mare de penetrare la populatie, pentru stabilirea, atingerea si urmarirea obiectielor. Blockchain, inteligenta artificiala si mass-compute putand suplini aceste cerinte.
-- Implicarea majora a populatiei in factorul decizional in mod dreptat, in acelasi timp pastrand gradul de reprezentare in aparatul de stat cat mai precis
-- Introducerea criteriilor de competenta la nivel legislativ si decizional - aducandu-l spre modelul de corporatie economica, si technocratizarea majoritara a executivului.
+- Folosirea technologiei, care intre timp a ajuns accesibila si cu grad mare de penetrare la populatie, pentru stabilirea, atingerea si urmarirea obiectielor. Blockchain, inteligenta artificiala, smartphone-ul si mass-computing putand satisface aceste nevoi.
+- Implicarea majora a populatiei in factorul decizional in mod dreptat, in acelasi timp pastrand gradul de reprezentare in aparatul de stat cat mai adecvat.
+- Introducerea criteriilor de competenta la nivel legislativ si decizional - aducandu-l spre modelul corporativ, si technocratizarea majoritara a executivului.
 - Micsorarea factorului politic in mixtiunea executiva si refactorizarea sa in societate.
