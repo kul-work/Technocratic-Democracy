@@ -1,24 +1,26 @@
 EXPUNEREA DE MOTIVE
 
-Se constanta:
-- Democratia vest-europena adaptata la spatiul euro-atlantic extins se dovedeste a fi lenta pentru inceputul sec. XXI si deturnabila prin lipsa incapacitatea implementarilor mecanismelor de control la nivel micro. Ea a fost utila societatilor la sfarsitul sec. XX, insa societatile deservite au inceput sa intr-un ciclu autofag.
-- Democratia reprezentativa este usor coruptibila.
-- Procesul electoral se bazeaza mult pe media care este usor influentata de sferele politice.
-- Puterea se imparte de facto intre 2-3 partide mari care fac o rotatie minora in procesul de decizie, ajungand de fapt sa reprezinte in pricipal interesele ale unor jucatori din piata economica, ce deseori pentru maximarea propriului profit actioneaza impotriva interesului general.
-- Populatia ajunge sa fie slab reprezentata prin delegare, alesii fiind deconectati de alegatori.
-- Alegerile (nationale si locale, si chiar si in interiorul partidelor) se dovedesc manipulabile prin actiuni care profita de bias-uri umane prin tehnici de manipulare de masa.
+Observații
 
-- Procesul legislativ este greoi si este de obicei necoordonat cu cel executiv, asemeni prea birocratic si neautomatizat.
-- Legile se fac deseori fara a studia coresponzator impactul. Cele dovedite defectuase se corecteaza greoi, feedbackul principal care conteaza la cele majore fiind protestele, ceea ce duce acumularea rapida de tensiune sociala.
-- Incompetenta este inca un factor perturbator major, desi pe un trend evident descendent.
-- Viziunile globale economice si politice sunt fragmentate, inconsistente; efortul de guvernare concentradu-se pe termen scurt, in principiu pe tehnica de 'a stinge focuri'.
+* Democrația vestic-europeană adaptată la spațiul euro-atlantic, deși a fost utilă la sfârșitul secolului XX, acum intră într-un ciclu autofag.
+* Democrația reprezentativă este vulnerabilă la corupție.
+* Procesul electoral depinde mult de media, care poate fi influențată de politicieni.
+* Puterea este concentrată în 2-3 partide mari, care fac o rotire minoră în decizii. Aceste partide reprezintă adesea interesele unor jucători economici, acționând deseori împotriva interesului general pentru profit.
+* Reprezentarea populației este slabă. Aleșii sunt adesea deconectați de alegători.
+* Alegerile, fie ele naționale, locale sau interne, pot fi manipulate prin tehnici de manipulare a maselor ce profită de varii bias-uri umane.
+* Procesul legislativ este greoi și necoordonat cu cel executiv, fiind prea birocratic și neautomatizat.
+* Legile sunt adesea adoptate fără o evaluare adecvată a impactului. Cele defectuoase sunt corectate greu, generând tensiuni sociale, iar protestele devin principala formă de feedback.
+* Incompetența rămâne un factor major de perturbare, deși pe un trend evident descendent.
+* Viziunile globale economice și politice sunt fragmentate și inconsistente. Guvernarea se concentrează pe soluții pe termen scurt.
 
-Se propune:
-- Folosirea technologiei, care intre timp a ajuns accesibila si cu grad mare de penetrare la populatie, pentru stabilirea, atingerea si urmarirea obiectielor. Blockchain, inteligenta artificiala, smartphone-ul si mass-computing putand satisface aceste nevoi.
-- Implicarea majora a populatiei in factorul decizional in mod dreptat, in acelasi timp pastrand gradul de reprezentare in aparatul de stat cat mai adecvat.
-- Introducerea criteriilor de competenta la nivel legislativ si decizional - aducandu-l spre modelul corporativ; si technocratizarea majoritara a executivului.
-- Micsorarea factorului politic in mixtiunea executiva si refactorizarea sa in societate.
+Propuneri
+
+* Utilizarea tehnologiei precum blockchain, inteligență artificială, smartphone-uri și mass-computing, pentru stabilirea și urmărirea obiectivelor.
+* Introducerea criteriilor de competență la nivel legislativ și decizional, adoptând un model corporativ; majoritatea executivului ar trebui să fie tehnocratizată.
+* Implicarea activă a populației în procesul decizional, menținând totodată o reprezentativitate adecvată în aparatul de stat.
+* Reducerea influenței politice în execuție și refacerea acesteia în societate.
 
 
-Alte consideratii:
-- TBD
+Alte considerații
+
+* TBD
