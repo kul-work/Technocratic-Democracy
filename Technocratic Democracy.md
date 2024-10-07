@@ -36,7 +36,7 @@ Legislativ
 
 **Prelungirea Mandatului**
 
-* La finalul mandatului, un parlamentar poate solicita prelungirea acestuia printr-o audiere în comisia de admitere, fără concurs.
+* La finalul mandatului un parlamentar poate solicita prelungirea acestuia printr-o audiere în comisia de admitere, fără concurs.
 
 **Demisia și Concedierea Parlamentarilor**
 
@@ -59,7 +59,7 @@ Referendumuri
 
 **Propunerea și Validarea Temelor**
 
-* Parlamentul propune principalele teme legislative, care sunt validate prin referendum electronic de către cetățeni. Votul se face cu CNP și semnătură electronică.
+* Parlamentul propune principalele teme legislative, care sunt validate prin referendum electronic de către cetățeni. Votul se votează pe bază de CNP și semnătură electronică.
 
 **Tipuri de Referendumuri**
 
@@ -72,7 +72,7 @@ Referendumuri
 
 **Documentație și Tehnologie**
 
-* Fiecare referendum va avea documentație și un rezumat. Rezultatele vor fi înregistrate folosind tehnologia blockchain pentru a asigura anonimatul votanților.
+* Fiecare referendum va avea atașat documentație și un rezumat. Rezultatele vor fi înregistrate folosind tehnologia blockchain asigurând extra și anonimizarea votanților.
 
 **Delegarea Votului**
 
@@ -82,9 +82,6 @@ Referendumuri
 **Puncte pentru Participare**
 
 * Participarea la referendumuri legislative va aduce puncte care pot fi folosite în sisteme de gamificare, validate prin studii de fezabilitate și impact.
-
-**Reguli pentru Organizații și Partide**
-
 * Relația dintre organizațiile de expertiză și partidele politice este reglementată separat în legea partidelor.
 
 **Monitorizarea Referendumurilor**

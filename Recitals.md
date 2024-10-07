@@ -15,10 +15,10 @@ EXPUNEREA DE MOTIVE
 
 **Propuneri**
 
-* Utilizarea tehnologiei precum blockchain, inteligență artificială, smartphone-uri și mass-computing, pentru stabilirea și urmărirea obiectivelor.
+* Utilizarea tehnologiei precum blockchain, inteligență artificială, smartphone-uri și mass-computing pentru stabilirea și urmărirea obiectivelor.
 * Introducerea criteriilor de competență la nivel legislativ și decizional, adoptând un model corporativ; majoritatea executivului ar trebui să fie tehnocratizată.
 * Implicarea activă a populației în procesul decizional, menținând totodată o reprezentativitate adecvată în aparatul de stat.
-* Reducerea influenței politice în execuție și refacerea acesteia în societate.
+* Reducerea influenței politice în execuție și refactorizarea sa în societate.
 
 
 **Alte considerații**
