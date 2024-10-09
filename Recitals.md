@@ -21,5 +21,8 @@ EXPUNEREA DE MOTIVE
 * Reducerea influenței politice în execuție și refactorizarea sa în societate.
 
 
+**Scop**
+* Crearea unui simulator de societate (asemănător jocului The Sims) pe baza unor modele simplificate de cetățean și guvernare în care se pot testa diferite scenarii legislative și măsura impactul lor socio-economic.
+
 **Alte considerații**
 - TBD
