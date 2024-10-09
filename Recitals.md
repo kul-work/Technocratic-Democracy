@@ -22,7 +22,7 @@ EXPUNEREA DE MOTIVE
 
 
 **Scop**
-* Crearea unui simulator de societate (asemănător jocului The Sims) pe baza unor modele simplificate de cetățean și guvernare în care se pot testa diferite scenarii legislative și măsura impactul lor socio-economic.
+* Crearea unui simulator de societate (asemănător jocului The Sims), care integrează modele simplificate de cetățeni, sisteme macroeconomice și instituții publice cu caracter public sau privat. În cadrul acestuia, se pot simula diverse scenarii legislative și analiza impactul lor asupra societății, inclusiv asupra evenimentelor cu impact social major.
 
 **Alte considerații**
 - TBD
