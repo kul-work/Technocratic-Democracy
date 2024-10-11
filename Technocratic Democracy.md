@@ -59,7 +59,7 @@ Referendumuri
 
 **Teme și condiții de participare**
 
-* Parlamentul propune principalele teme legislative, care sunt validate prin referendum electronic de către cetățeni. Votul se efectuează pe bază de CNP și semnătură electronică. Vârsta minimă de participare este 21 de ani.
+* Parlamentul propune principalele teme legislative, care sunt validate prin referendum electronic de către cetățeni. Votul se efectuează pe bază de CNP și semnătură electronică. Vârsta minimă de participare este 16 de ani.
 
 **Tipuri de Referendumuri**
 
