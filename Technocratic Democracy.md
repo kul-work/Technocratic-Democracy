@@ -1,6 +1,6 @@
 DEMOCRAȚIE TECHNOCRATIZATĂ SEMI-PARTICIPATIVĂ
 
-Planul "Democrația Tehnocratică" propune o reformă a sistemului politic, vizând o guvernare mai eficientă și rațională. Acesta sugerează înlocuirea politicienilor tradiționali cu specialiști în diverse domenii, capabili să ia decizii informate pentru binele comun. Această abordare promite o democrație mai funcțională, bazată pe cunoștințe specializate și pe consensul public, redefinind astfel relația dintre guvernanți și guvernați.
+Planul "Democrația Tehnocratică" propune o reformă a sistemului politic, vizând o guvernare mai eficientă și rațională. Acesta sugerează înlocuirea politicienilor tradiționali cu specialiști în diverse domenii, capabili să ia decizii informate pentru binele comun. Obiectivul este crearea unei democrații mai funcționale, bazată pe cunoștințe specializate și pe consensul public, redefinind astfel relația dintre guvernanți și guvernați.
 
 Noul sistem îmbină elemente de democrație directă cu competența tehnocrată, căutând un echilibru între expertiza profesională și participarea cetățenească. Referendumurile joacă un rol central în validarea deciziilor legislative, asigurând astfel implicarea activă a populației în procesul decizional.
 
