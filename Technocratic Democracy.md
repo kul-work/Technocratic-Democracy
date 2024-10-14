@@ -152,6 +152,6 @@ Partide politice
 ===
 - TBD
 
-Presa
+Presă / Media
 ===
 - WD
