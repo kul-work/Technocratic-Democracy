@@ -60,6 +60,7 @@ class Parliament:
         self.deputy_seats = total_seats - self.senate_seats
         self.members = []
         self.admission_committee = []
+        self.quorum_percentage = 0.5  # 50% of members required for quorum
 
     def add_member(self, member):
         if len(self.members) < self.total_seats:
@@ -80,16 +81,28 @@ class Parliament:
     def conduct_admission_interview(self, candidate):
         # Simplified admission process
         return random.random() > 0.3  # 70% chance of admission
+    
+    def has_quorum(self):
+        return len(self.members) >= self.total_seats * self.quorum_percentage
 
     def propose_internal_legislation(self):
+        if not self.has_quorum():
+            print("Cannot propose legislation: No quorum")
+            return False
         # Simplified internal legislation proposal
         return random.random() > 0.5  # 50% chance of proposal acceptance
 
     def process_external_legislation(self, organization):
+        if not self.has_quorum():
+            print("Cannot process legislation: No quorum")
+            return False
         # Simplified external legislation proposal
         return random.random() > 0.6  # 40% chance of proposal acceptance
 
     def vote_no_confidence(self):
+        if not self.has_quorum():
+            print("Cannot vote: No quorum")
+            return False
         # Simplified no-confidence vote
         return random.random() > 0.7  # 30% chance of success
 
@@ -137,5 +150,8 @@ if parliament.process_external_legislation(org):
     print("External legislation from civic organization processed successfully")
 
 # Simulate no-confidence vote
-if parliament.vote_no_confidence():
-    print("No-confidence vote succeeded")
+if parliament.has_quorum():
+    if parliament.vote_no_confidence():
+        print("No-confidence vote succeeded")
+else:
+    print("Cannot hold no-confidence vote: No quorum")

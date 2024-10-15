@@ -1,9 +1,19 @@
+from enum import Enum
+
+class CitizenshipStatus(Enum):
+    CITIZEN = "Citizen"
+    PERMANENT_RESIDENT = "Permanent Resident"
+    TEMPORARY_RESIDENT = "Temporary Resident"
+    UNDOCUMENTED = "Undocumented"
+
 class Citizen:
-    def __init__(self, age, sex, location):
+    def __init__(self, age, sex, region):
         # Demographic characteristics
         self.age = age
         self.sex = sex
-        self.location = location
+        self.region = region
+        # TODO: Add 'county' attribute and link it with 'region'
+        self.citizenship_status = CitizenshipStatus.CITIZEN
         self.is_immigrant = False
         self.years_in_country = 0  # To immigrants only
         
@@ -36,6 +46,9 @@ class Citizen:
         self.consumption = 0
         self.media_usage = {}
         self.leisure_activities = []
+
+    def has_voting_rights(self):
+        return self.citizenship_status == CitizenshipStatus.CITIZEN and self.age >= 16
         
     def update(self, economy, policies, social_environment):
         # Logic for updating the citizen's state
