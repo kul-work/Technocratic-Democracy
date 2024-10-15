@@ -4,6 +4,8 @@ class Citizen:
         self.age = age
         self.sex = sex
         self.location = location
+        self.is_immigrant = False
+        self.years_in_country = 0  # To immigrants only
         
         # Economic factors
         self.income = 0
