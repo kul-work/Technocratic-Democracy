@@ -57,7 +57,7 @@ class Government:
         self.emergency_end_date = None
 
     def appoint_government_manager(self, parliamentarian):
-        if len(self.government_managers) < 3:
+        if len(self.government_managers) <= 3:
             self.government_managers.append(parliamentarian)
             return True
         return False

@@ -10,6 +10,11 @@ class ParliamentaryStatus(Enum):
     ON_BREAK = "On Break"
     FORMER = "Former"  # Useful for historical tracking and analytics
 
+class GovernmentRole(Enum):
+    NONE = "None"
+    PRIME_MINISTER = "Prime Minister"
+    GOVERNMENT_MANAGER = "Government Manager"
+
 class ActivityScore:
     def __init__(self):
         self.legislative_initiatives = 0
@@ -34,15 +39,28 @@ class Parliamentarian:
         self.is_minority = False
         self.is_scholarship = False
         self.admission_committee_member = False
+        self.government_role = GovernmentRole.NONE
 
     def update_status(self):
-        if self.years_served >= 10:
+        if self.government_role != GovernmentRole.NONE:
+            self.status = ParliamentaryStatus.GOVERNMENT_MEMBER
+        elif self.years_served >= 10:
             self.status = ParliamentaryStatus.ON_BREAK
             self.years_served = 0
             self.consecutive_terms = 0
+        else:
+            self.status = ParliamentaryStatus.ACTIVE
 
     def get_activity_score(self):
         return self.activity_score.calculate()
+    
+    def assign_government_role(self, role):
+        self.government_role = role
+        self.update_status()
+
+    def remove_government_role(self):
+        self.government_role = GovernmentRole.NONE
+        self.update_status()
 
 # TODO: Move this to a separate file for civic organizations
 class CivicOrganization:

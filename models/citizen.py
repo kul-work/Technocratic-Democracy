@@ -1,5 +1,7 @@
 from enum import Enum
 
+MIN_LEGAL_VOTING_AGE = 16
+
 class CitizenshipStatus(Enum):
     CITIZEN = "Citizen"
     PERMANENT_RESIDENT = "Permanent Resident"
@@ -48,7 +50,7 @@ class Citizen:
         self.leisure_activities = []
 
     def has_voting_rights(self):
-        return self.citizenship_status == CitizenshipStatus.CITIZEN and self.age >= 16
+        return self.citizenship_status == CitizenshipStatus.CITIZEN and self.age >= MIN_LEGAL_VOTING_AGE
         
     def update(self, economy, policies, social_environment):
         # Logic for updating the citizen's state
