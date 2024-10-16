@@ -70,6 +70,17 @@ class CivicOrganization:
     def propose_candidate(self, chamber):
         # Simplified candidate proposal
         return Parliamentarian(None, chamber)
+    
+class Legislation:
+    def __init__(self, title, proposer, content):
+        self.title = title
+        self.proposer = proposer
+        self.content = content
+        self.votes_for = 0
+        self.votes_against = 0
+
+    def calculate_result(self):
+        return self.votes_for > self.votes_against
 
 class Parliament:
     def __init__(self, total_seats):
@@ -79,6 +90,8 @@ class Parliament:
         self.members = []
         self.admission_committee = []
         self.quorum_percentage = 0.5  # 50% of members required for quorum
+        self.proposed_legislation = []
+
 
     def add_member(self, member):
         if len(self.members) < self.total_seats:
@@ -116,6 +129,25 @@ class Parliament:
             return False
         # Simplified external legislation proposal
         return random.random() > 0.6  # 40% chance of proposal acceptance
+    
+    def propose_legislation(self, title, proposer, content):
+        if not self.has_quorum():
+            print("Cannot propose legislation: No quorum")
+            return False
+        legislation = Legislation(title, proposer, content)
+        self.proposed_legislation.append(legislation)
+        return True
+
+    def vote_on_legislation(self, legislation):
+        if not self.has_quorum():
+            print("Cannot vote: No quorum")
+            return False
+        for member in self.members:
+            if random.random() > 0.5:
+                legislation.votes_for += 1
+            else:
+                legislation.votes_against += 1
+        return legislation.calculate_result()
 
     def vote_no_confidence(self):
         if not self.has_quorum():
@@ -132,6 +164,14 @@ class Parliament:
     def vote_for_admission_committee(self, nominee):
         # Simplified voting process
         return random.random() > 0.4  # 60% chance of approval
+    
+    def initiate_presidential_suspension(self) -> bool:
+        # Simplified logic for initiating presidential suspension
+        return random.random() > 0.9
+
+    def conduct_suspension_referendum(self) -> bool:
+        # Simplified logic for conducting a suspension referendum
+        return random.random() > 0.7
 
 # Example usage
 parliament = Parliament(300)  # 300 total seats
@@ -166,6 +206,16 @@ if parliament.propose_internal_legislation():
 # Simulate external legislation proposal
 if parliament.process_external_legislation(org):
     print("External legislation from civic organization processed successfully")
+
+# Simulate legislation proposal
+if parliament.propose_legislation("Economic Reform", "Parliament", "Content of the economic reform..."):
+    print("Legislation proposed successfully")
+
+legislation = parliament.proposed_legislation[0]
+if parliament.vote_on_legislation(legislation):
+    print(f"Legislation '{legislation.title}' passed")
+else:
+    print(f"Legislation '{legislation.title}' failed")
 
 # Simulate no-confidence vote
 if parliament.has_quorum():
