@@ -9,6 +9,7 @@ class ParliamentaryStatus(Enum):
     ACTIVE = "Active"
     ON_BREAK = "On Break"
     FORMER = "Former"  # Useful for historical tracking and analytics
+    GOVERNMENT_MEMBER = "Government Member"
 
 class GovernmentRole(Enum):
     NONE = "None"
@@ -112,9 +113,10 @@ class Parliament:
     def conduct_admission_interview(self, candidate):
         # Simplified admission process
         return random.random() > 0.3  # 70% chance of admission
-    
+        
     def has_quorum(self):
-        return len(self.members) >= self.total_seats * self.quorum_percentage
+        active_members = sum(1 for member in self.members if member.status != ParliamentaryStatus.GOVERNMENT_MEMBER)
+        return active_members >= self.total_seats * self.quorum_percentage
 
     def propose_internal_legislation(self):
         if not self.has_quorum():
