@@ -5,6 +5,7 @@ from typing import List, Optional
 
 from legislative import Parliament
 
+## Presidential Candidates and Elections
 class ExamType(Enum):
     FOREIGN_POLICY = "Foreign Policy"
     HISTORY = "History"
@@ -38,6 +39,21 @@ class PresidentialCandidate:
             if not any(result.exam_type == exam and result.score >= 0.7 for result in self.exam_results):
                 return False
         return True
+    
+class PresidentialElection:
+    def __init__(self):
+        self.candidates = []
+
+    def register_candidate(self, candidate):
+        if candidate.has_passed_exams():
+            self.candidates.append(candidate)
+
+    def conduct_election(self):
+        if not self.candidates:
+            return None
+        winner = random.choice(self.candidates)
+        return President(winner.name)
+## END Presidential Candidates and Elections
 
 class President:
     def __init__(self, name):
@@ -60,21 +76,6 @@ class President:
         # Simplified logic for calling a referendum
         return random.random() > 0.8
 
-class PresidentialElection:
-    def __init__(self):
-        self.candidates = []
-
-    def register_candidate(self, candidate):
-        if candidate.has_passed_exams():
-            self.candidates.append(candidate)
-
-    def conduct_election(self):
-        if not self.candidates:
-            return None
-        winner = random.choice(self.candidates)
-        return President(winner.name)
-
-# Example usage
 candidate1 = PresidentialCandidate("John Doe", is_foreign=False)
 candidate2 = PresidentialCandidate("Jane Smith", is_foreign=True)
 
