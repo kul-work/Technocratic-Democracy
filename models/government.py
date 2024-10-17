@@ -1,8 +1,11 @@
 from enum import Enum
 from datetime import datetime, timedelta
 import random
-from legislative import Parliamentarian, Parliament, Chamber
+
 from citizen import Citizen, CitizenshipStatus
+from president import President
+from legislative import Parliamentarian, Parliament, Chamber
+
 
 MAX_ADVISORS = 12
 
@@ -90,17 +93,6 @@ class Government:
             return True
         return False
 
-# TODO: Move this class to a separate file
-class President:
-    def choose_prime_minister(self, parliament):
-        while True:
-            candidate = self.nominate_candidate()
-            if parliament.has_quorum() and parliament.propose_internal_legislation():
-                return candidate
-        
-    def nominate_candidate(self):
-        # Simplified simulation of nomination
-        return "Prime Minister Candidate"
 
 # Example usage
 president = President()

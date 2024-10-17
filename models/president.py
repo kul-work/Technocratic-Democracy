@@ -3,7 +3,7 @@ from enum import Enum
 from datetime import datetime, timedelta
 from typing import List, Optional
 
-from legislative import Parliament
+from legislative import Parliament, Parliamentarian
 
 ## Presidential Candidates and Elections
 class ExamType(Enum):
@@ -75,6 +75,16 @@ class President:
     def call_referendum(self, law):
         # Simplified logic for calling a referendum
         return random.random() > 0.8
+    
+    def choose_prime_minister(self, parliament):
+        while True:
+            candidate = self.nominate_candidate()
+            if parliament.has_quorum() and parliament.propose_internal_legislation():
+                return candidate
+                    
+    def nominate_candidate(self):
+        # Simplified simulation of nomination
+        return "Prime Minister Candidate"
 
 candidate1 = PresidentialCandidate("John Doe", is_foreign=False)
 candidate2 = PresidentialCandidate("Jane Smith", is_foreign=True)
