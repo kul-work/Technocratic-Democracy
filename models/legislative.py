@@ -2,6 +2,8 @@ from enum import Enum
 from typing import List, Optional
 import random
 
+from referendum import ReferendumType, Referendum, ReferendumSystem
+
 class Chamber(Enum):
     SENATE = "Senate"
     DEPUTIES = "Chamber of Deputies"
@@ -43,7 +45,6 @@ class Parliamentarian:
         self.admission_committee_member = False
         self.government_role = GovernmentRole.NONE
         self.political_party: None
-
 
     def update_status(self) -> None:
         if self.government_role != GovernmentRole.NONE:
@@ -99,6 +100,7 @@ class Parliament:
         self.proposed_legislation = []
         self.passed_legislation = []
         self.failed_legislation = []
+        self.referendum_system = ReferendumSystem(self)
 
     def add_member(self, member: Parliamentarian) -> bool:
         if len(self.members) < self.total_seats:
@@ -170,6 +172,9 @@ class Parliament:
             legislation.status = "Failed"
         self.proposed_legislation.remove(legislation)
         return result
+    
+    def propose_referendum(self, title: str, description: str, referendum_type: ReferendumType) -> Referendum:
+        return self.referendum_system.propose_referendum(title, description, referendum_type)
 
     def vote_no_confidence(self) -> bool:
         if not self.has_quorum():

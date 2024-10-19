@@ -20,7 +20,7 @@ class NationalBank:
         self.monetary_policy = MonetaryPolicy.NEUTRAL
         self.interest_rate = 2.0  # Starting interest rate (%)
         self.reserve_requirement = 10.0  # Starting reserve requirement (%)
-        self.foreign_exchange_reserves = 1000000000  # Starting forex reserves ($)
+        self.foreign_exchange_reserves = 1_000_000_000  # Starting forex reserves ($)
         self.economic_indicators: Dict[EconomicIndicator, float] = {
             EconomicIndicator.INFLATION_RATE: 2.0,
             EconomicIndicator.UNEMPLOYMENT_RATE: 5.0,
@@ -69,7 +69,7 @@ class NationalBank:
 
     def print_money(self, amount: float) -> None:
         # Simplified model: printing money increases inflation
-        self.economic_indicators[EconomicIndicator.INFLATION_RATE] += amount / 1000000000
+        self.economic_indicators[EconomicIndicator.INFLATION_RATE] += amount / 1_000_000_000
 
     def update_economic_indicators(self) -> None:
         # Simplified model for updating economic indicators

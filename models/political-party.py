@@ -26,7 +26,7 @@ class PoliticalParty:
         self.ideology = ideology
         self.members: List[int] = []  # List of citizen IDs
         self.popularity: float = 0.0
-        self.funds: float = 10000.0  # Starting funds
+        self.funds: float = 10_000.0  # Starting funds
         self.policies: Dict[PolicyArea, float] = {area: random.uniform(-1, 1) for area in PolicyArea}
 
     def recruit_member(self, citizen_id: int) -> None:
@@ -98,7 +98,7 @@ political_system.register_party(party3)
 # Simulate some activities
 for party in political_system.parties:
     for _ in range(100):  # Recruit some members
-        party.recruit_member(random.randint(1, 10000))
+        party.recruit_member(random.randint(1, 10_000))
     
     party.campaign(5000)  # Conduct a campaign
 

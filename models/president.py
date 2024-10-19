@@ -5,12 +5,14 @@ from typing import List, Optional
 
 from citizen import Citizen, CitizenshipStatus
 from legislative import Parliament, Parliamentarian, Legislation
+from referendum import ReferendumType, Referendum, ReferendumSystem
 
 class President:
     def __init__(self, name):
         self.name = name
         self.term_start_date = datetime.now()
         self.term_end_date = self.term_start_date + timedelta(days=5*365)  # 5 years term
+        self.referendum_system = ReferendumSystem(Parliament) #TODO - will fail, current parlament ??
 
     def is_term_expired(self) -> bool:
         return datetime.now() > self.term_end_date
@@ -26,6 +28,11 @@ class President:
     def call_referendum(self, law: Legislation) -> bool:
         # Simplified logic for calling a referendum
         return random.random() > 0.8
+    
+    def propose_referendum(self, title: str, description: str, referendum_type: ReferendumType) -> Referendum:
+        return self.referendum_system.propose_referendum(title, description, referendum_type)
+    
+    # TODO : clarify propose_referendum() vs call_referendum(), should be just 1 for the simplified model
     
     def choose_prime_minister(self, parliament: Parliament) -> Parliamentarian:
         while True:

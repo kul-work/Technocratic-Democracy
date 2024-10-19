@@ -19,6 +19,11 @@ class EmploymentStatus(Enum):
 
 class Citizen:
     def __init__(self, age: int, sex: str, region: str):
+
+        # Electronic identity
+        self.id = random.randint(10_000_000, 99_999_999)  # Simplified ID, should be a CNP
+        self.electronic_signature = f"sig_{self.id}"  # Simplified signature
+
         # Demographic characteristics
         self.age = age
         self.sex = sex
