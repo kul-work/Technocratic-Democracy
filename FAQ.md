@@ -1,4 +1,5 @@
-Technocratic Democracy: Frequently Asked Questions
+# **FAQ** - Frequently Asked Questions
+
 **1. What are the main weaknesses of current Western democratic systems?**
 
 Contemporary Western democracies, though successful in the late 20th century, face several challenges:
