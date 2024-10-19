@@ -108,12 +108,12 @@ for _ in range(12):  # Simulate 12 months
         national_bank.set_monetary_policy(random.choice(list(MonetaryPolicy)))
     
     if random.random() < 0.2:
-        national_bank.conduct_open_market_operations(random.uniform(-1000000, 1000000))
+        national_bank.conduct_open_market_operations(random.uniform(-1_000_000, 1_000_000))
     
     if random.random() < 0.1:
-        national_bank.intervene_in_forex_market(random.uniform(-100000000, 100000000))
+        national_bank.intervene_in_forex_market(random.uniform(-100_000_000, 100_000_000))
     
     if random.random() < 0.05:
-        national_bank.print_money(random.uniform(100000000, 1000000000))
+        national_bank.print_money(random.uniform(100_000_000, 1_000_000_000))
 
 print(national_bank.generate_economic_report())

@@ -3,8 +3,41 @@ from enum import Enum
 from datetime import datetime, timedelta
 from typing import List, Optional
 
-from legislative import Parliament, Parliamentarian
+from citizen import Citizen, CitizenshipStatus
+from legislative import Parliament, Parliamentarian, Legislation
 
+class President:
+    def __init__(self, name):
+        self.name = name
+        self.term_start_date = datetime.now()
+        self.term_end_date = self.term_start_date + timedelta(days=5*365)  # 5 years term
+
+    def is_term_expired(self) -> bool:
+        return datetime.now() > self.term_end_date
+
+    def propose_dismissal(self, parliamentarian: Parliamentarian) -> bool:
+        # Simplified logic for proposing dismissal
+        return random.random() > 0.7
+
+    def veto_dismissal(self, parliamentarian: Parliamentarian) -> bool:
+        # Simplified logic for vetoing dismissal
+        return random.random() > 0.6
+
+    def call_referendum(self, law: Legislation) -> bool:
+        # Simplified logic for calling a referendum
+        return random.random() > 0.8
+    
+    def choose_prime_minister(self, parliament: Parliament) -> Parliamentarian:
+        while True:
+            candidate = self.nominate_candidate('Margaret Thatcher')
+            if parliament.has_quorum() and parliament.propose_internal_legislation():
+                return candidate
+                    
+    def nominate_candidate(self, name: str) -> Parliamentarian:
+        # Simplified simulation of nomination
+        # TODO: link param 'name' to Parliament
+        return Parliamentarian()
+    
 ## Presidential Candidates and Elections
 class ExamType(Enum):
     FOREIGN_POLICY = "Foreign Policy"
@@ -20,16 +53,16 @@ class ExamResult:
         self.score = score
 
 class PresidentialCandidate:
-    def __init__(self, name, is_foreign):
+    def __init__(self, name: str, is_foreign: bool):
         self.name = name
         self.is_foreign = is_foreign
         self.exam_results = []
 
-    def take_exam(self, exam_type):
+    def take_exam(self, exam_type: ExamType) -> None:
         score = 0.7 + (0.3 * random.random())  # Simplified exam scoring
         self.exam_results.append(ExamResult(exam_type, score))
 
-    def has_passed_exams(self):
+    def has_passed_exams(self) -> bool:
         required_exams = [ExamType.FOREIGN_POLICY, ExamType.HISTORY, ExamType.ECONOMY, 
                           ExamType.INTERNAL_LEGISLATION, ExamType.MEDICAL]
         if self.is_foreign:
@@ -38,53 +71,22 @@ class PresidentialCandidate:
         for exam in required_exams:
             if not any(result.exam_type == exam and result.score >= 0.7 for result in self.exam_results):
                 return False
-        return True
+        return True    
     
 class PresidentialElection:
     def __init__(self):
         self.candidates = []
 
-    def register_candidate(self, candidate):
+    def register_candidate(self, candidate: 'Citizen') -> Citizen:
         if candidate.has_passed_exams():
             self.candidates.append(candidate)
 
-    def conduct_election(self):
+    def conduct_election(self) -> President:
         if not self.candidates:
             return None
         winner = random.choice(self.candidates)
         return President(winner.name)
 ## END Presidential Candidates and Elections
-
-class President:
-    def __init__(self, name):
-        self.name = name
-        self.term_start_date = datetime.now()
-        self.term_end_date = self.term_start_date + timedelta(days=5*365)  # 5 years term
-
-    def is_term_expired(self):
-        return datetime.now() > self.term_end_date
-
-    def propose_dismissal(self, parliamentarian):
-        # Simplified logic for proposing dismissal
-        return random.random() > 0.7
-
-    def veto_dismissal(self, parliamentarian):
-        # Simplified logic for vetoing dismissal
-        return random.random() > 0.6
-
-    def call_referendum(self, law):
-        # Simplified logic for calling a referendum
-        return random.random() > 0.8
-    
-    def choose_prime_minister(self, parliament):
-        while True:
-            candidate = self.nominate_candidate()
-            if parliament.has_quorum() and parliament.propose_internal_legislation():
-                return candidate
-                    
-    def nominate_candidate(self):
-        # Simplified simulation of nomination
-        return "Prime Minister Candidate"
 
 candidate1 = PresidentialCandidate("John Doe", is_foreign=False)
 candidate2 = PresidentialCandidate("Jane Smith", is_foreign=True)

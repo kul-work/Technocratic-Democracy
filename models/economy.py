@@ -3,7 +3,7 @@ import random
 class EconomicModel:
     def __init__(self):
         # Initialize economic indicators
-        self.gdp = 1000000000000  # Initial GDP (trillion)
+        self.gdp = 1_000_000_000_000  # Initial GDP (trillion)
         self.inflation_rate = 0.02  # 2% initial inflation
         self.unemployment_rate = 0.05  # 5% initial unemployment
         self.trade_balance = 0  # Neutral trade balance
@@ -17,7 +17,7 @@ class EconomicModel:
         }
 
         # Labor market
-        self.labor_force = 50000000  # Total labor force
+        self.labor_force = 50_000_000  # Total labor force
         self.employed = self.labor_force * (1 - self.unemployment_rate)
         self.average_wage = self.gdp / self.employed
 
@@ -35,7 +35,7 @@ class EconomicModel:
         self.interest_rate = 0.01  # 1% interest rate
         self.money_supply = self.gdp * 1.5  # M2 money supply
 
-    def simulate_year(self):
+    def simulate_year(self) -> None:
         self.update_sectors()
         self.update_labor_market()
         self.update_fiscal_system()
@@ -53,18 +53,18 @@ class EconomicModel:
         self.update_fiscal_system()
         self.update_financial_system()
 
-    def update_sectors(self):
+    def update_sectors(self) -> None:
         for sector in self.sectors:
             self.sectors[sector] = max(0, min(1, self.sectors[sector] + random.uniform(-0.02, 0.02)))
         # Normalize sector percentages
         total = sum(self.sectors.values())
         self.sectors = {k: v / total for k, v in self.sectors.items()}
 
-    def update_labor_market(self):
+    def update_labor_market(self) -> None:
         self.employed = self.labor_force * (1 - self.unemployment_rate)
         self.average_wage = self.gdp / self.employed
 
-    def update_fiscal_system(self):
+    def update_fiscal_system(self) -> None:
         # Calculate government revenue
         income_tax = self.income_tax_rate * self.average_wage * self.employed
         corporate_tax = self.corporate_tax_rate * self.gdp * 0.15  # Assume corporate profits are 15% of GDP
@@ -86,15 +86,16 @@ class EconomicModel:
         self.vat_rate = max(0, min(0.3, self.vat_rate + random.uniform(-0.01, 0.01)))
         self.social_security_rate = max(0, min(0.3, self.social_security_rate + random.uniform(-0.01, 0.01)))
 
-    def update_financial_system(self):
+    def update_financial_system(self) -> None:
         self.interest_rate = max(0, self.interest_rate + random.uniform(-0.005, 0.005))
         self.money_supply *= (1 + random.uniform(-0.05, 0.07))
 
     def apply_policy(self, policy):
+    #def apply_policy(self, policy: 'Policy'):
         # Method to apply economic policies
         pass
 
-    def get_economic_indicators(self):
+    def get_economic_indicators(self) -> None:
         return {
             'GDP': self.gdp,
             'Inflation Rate': self.inflation_rate,
