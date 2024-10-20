@@ -28,4 +28,4 @@ EXPUNEREA DE MOTIVE
 
 **Alte considerații**
 
-- TBD
+* TBD

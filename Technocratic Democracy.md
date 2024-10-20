@@ -144,13 +144,12 @@ Planul "Democrația Tehnocratică" propune o reformă a sistemului politic, viz�
 
 ## Justiție
 
-    TBD
+* TBD
 
 ## Partide politice
 
-    TBD
-
+* TBD
 
 ## Presă / Media
 
-    WD
+* WD
