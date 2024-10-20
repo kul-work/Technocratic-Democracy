@@ -1,7 +1,7 @@
-Critica
+# Criticism
 
-- model simplist si incomplet
-- nu se evita <a target="_blank" href="https://imgur.com/a/inginerie-sociala-nlyAg5e">ingineria sociala</a>
-- risc crescut de _'voter fatigue'_
-- risc de dezorganizare (haos, anarhie) prin participativare excesiva
-  - <sub>(ex. vezi <a target="_blank" href="https://imgur.com/a/participatory-democracy-fail-zjGJOWO">comentariile</a> de pe retelele sociale la o postare populara; acelea pe subiecte politice cu atat mai mult)</sub>
+- Simplistic and incomplete model
+- Does not avoid [social engineering](https://imgur.com/a/inginerie-sociala-nlyAg5e)
+- Increased risk of _'voter fatigue'_
+- Risk of disorganization (chaos, anarchy) due to excessive participation
+  - <sub>(e.g., see [the comments](https://imgur.com/a/participatory-democracy-fail-zjGJOWO) on social media for a popular post; especially those on political topics)</sub>
