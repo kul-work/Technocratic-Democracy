@@ -13,7 +13,8 @@ class EconomicModel:
             'industry': 0.3,
             'services': 0.6,
             'agriculture': 0.05,
-            'technology': 0.05
+            'technology': 0.05,
+            'finance': 0.05
         }
 
         # Labor market
@@ -113,11 +114,3 @@ class EconomicModel:
             'Interest Rate': self.interest_rate,
             'Money Supply': self.money_supply
         }
-
-# Example usage
-economy = EconomicModel()
-for year in range(5):
-    economy.simulate_year()
-    print(f"Year {year + 1} Economic Indicators:")
-    print(economy.get_economic_indicators())
-    print("\n")

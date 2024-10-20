@@ -104,31 +104,3 @@ class MediaLandscape:
             return "Right"
         else:
             return "Far Right"
-
-# Example usage
-media_landscape = MediaLandscape()
-
-# Add various media outlets
-media_landscape.add_outlet(MediaOutlet("Daily Chronicle", MediaType.TRADITIONAL_NEWSPAPER))
-media_landscape.add_outlet(MediaOutlet("Global News Network", MediaType.TV_NETWORK))
-media_landscape.add_outlet(MediaOutlet("TechTruth", MediaType.ONLINE_NEWS_PORTAL))
-media_landscape.add_outlet(MediaOutlet("SocialPulse", MediaType.SOCIAL_MEDIA_PLATFORM))
-media_landscape.add_outlet(MediaOutlet("Independent Voice", MediaType.INDEPENDENT_JOURNALIST))
-
-# Simulate several news cycles
-for _ in range(10):
-    news_cycle = media_landscape.simulate_news_cycle()
-
-print(media_landscape.generate_media_report())
-
-# Example of how news could affect other parts of the simulation
-def process_news_cycle(news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
-    for news in news_cycle:
-        if news['category'] == NewsCategory.POLITICS:
-            # Affect citizen's trust in government
-            for citizen in citizens:
-                citizen.trust_in_government += news['impact'] * 0.01 * (1 if news['bias'] > 0 else -1)
-        elif news['category'] == NewsCategory.ECONOMY:
-            # Affect government's economic policy
-            government.adjust_economic_policy(news['impact'] * 0.1)
-        # ... handle other categories

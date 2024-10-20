@@ -83,38 +83,3 @@ class PoliticalSystem:
                 title = f"{party.ideology.value} {policy_area.value} Reform Act"
                 content = f"Proposed by {party.name} to reform {policy_area.value} according to {party.ideology.value} principles."
                 parliament.propose_legislation(title, party.name, content)
-
-# Example usage
-political_system = PoliticalSystem()
-
-party1 = PoliticalParty("Progressive Alliance", Ideology.CENTER_LEFT)
-party2 = PoliticalParty("Conservative Union", Ideology.CENTER_RIGHT)
-party3 = PoliticalParty("Green Future", Ideology.LEFT)
-
-political_system.register_party(party1)
-political_system.register_party(party2)
-political_system.register_party(party3)
-
-# Simulate some activities
-for party in political_system.parties:
-    for _ in range(100):  # Recruit some members
-        party.recruit_member(random.randint(1, 10_000))
-    
-    party.campaign(5000)  # Conduct a campaign
-
-    for _ in range(3):  # Propose some policies
-        area = random.choice(list(PolicyArea))
-        strength = random.uniform(-1, 1)
-        party.propose_policy(area, strength)
-
-# Simulate an election
-parliament = Parliament(300)
-political_system.conduct_election(parliament)
-
-# Simulate proposing legislation
-political_system.propose_legislation(parliament)
-
-print(f"Total political system popularity: {political_system.total_popularity()}")
-for party in political_system.get_most_popular_parties(3):
-    print(f"{party.name}: Popularity = {party.popularity:.2f}, Members = {len(party.members)}")
-    print(f"  Key policies: {', '.join(f'{area.value}: {strength:.2f}' for area, strength in party.policies.items() if abs(strength) > 0.5)}")

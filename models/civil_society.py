@@ -86,35 +86,3 @@ class CivilSociety:
                 activity = random.choice(list(ActivityType))
                 if org.organize_activity(activity):
                     print(f"{org.name} organized a {activity.value} in response to '{legislation.title}'")
-
-# Example usage
-civil_society = CivilSociety()
-
-org1 = CivicOrganization("Green Earth", CauseType.ENVIRONMENTAL)
-org2 = CivicOrganization("Education for All", CauseType.EDUCATION)
-org3 = CivicOrganization("Health First", CauseType.HEALTHCARE)
-
-civil_society.register_organization(org1)
-civil_society.register_organization(org2)
-civil_society.register_organization(org3)
-
-# Simulate some activities
-for org in civil_society.organizations:
-    for _ in range(10):  # Recruit some members
-        org.recruit_member(random.randint(1, 1000))
-    
-    for _ in range(5):  # Organize some activities
-        activity = random.choice(list(ActivityType))
-        org.organize_activity(activity)
-
-# Simulate proposing legislation
-parliament = Parliament(300)  # Assuming we have a Parliament instance
-civil_society.propose_legislation(parliament)
-
-# Simulate reacting to legislation
-if parliament.proposed_legislation:
-    civil_society.react_to_legislation(parliament.proposed_legislation[0])
-
-print(f"Total civil society influence: {civil_society.total_influence()}")
-for org in civil_society.get_most_influential_orgs(3):
-    print(f"{org.name}: Influence = {org.influence:.2f}, Members = {len(org.members)}")

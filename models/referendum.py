@@ -115,32 +115,3 @@ class ReferendumSystem:
             "completed": sum(1 for ref in self.referendums if ref.status == ReferendumStatus.COMPLETED),
             "failed": sum(1 for ref in self.referendums if ref.status == ReferendumStatus.FAILED)
         }
-
-# Example usage
-parliament = Parliament(300)
-citizens = [Citizen(random.randint(16, 80), f"Region_{i}") for i in range(10)]
-
-# Propose and start a referendum
-referendum = parliament.propose_referendum("New Economic Policy", "Description of the policy", ReferendumType.NATIONAL)
-parliament.referendum_system.start_referendum(referendum)
-
-# Simulate voting
-for citizen in citizens:
-    parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
-
-# Complete the referendum
-parliament.referendum_system.complete_referendum(referendum)
-
-# Check results
-print(f"Referendum '{referendum.title}' results:")
-print(f"Votes For: {referendum.votes_for}")
-print(f"Votes Against: {referendum.votes_against}")
-print(f"Total Votes: {referendum.total_votes}")
-print(f"Status: {referendum.status}")
-print(f"Blockchain Hash: {referendum.blockchain_hash}")
-
-# Monitor referendums
-print("\nReferendum Monitoring:")
-monitoring_results = parliament.referendum_system.monitor_referendums()
-for key, value in monitoring_results.items():
-    print(f"{key.capitalize()}: {value}")
