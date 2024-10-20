@@ -9,9 +9,9 @@ Obiectivul este crearea unei democrații mai funcționale, bazată pe cunoștin�
 
 Elemente cheie:
 
+* Modelul își propune să abordeze paradoxul dintre „modelul pieței” și „modelul polisului”.
 * Noul sistem îmbină elemente de democrație directă cu competența tehnocrată, căutând un echilibru între expertiza profesională și participarea cetățenească.
 * Referendumurile joacă un rol central în validarea deciziilor legislative, asigurând astfel implicarea activă a populației în procesul decizional.
-* Modelul își propune să abordeze paradoxul dintre „modelul pieței” și „modelul polisului”
 
 ## Legislativ
 
