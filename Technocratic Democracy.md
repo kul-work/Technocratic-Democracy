@@ -1,11 +1,12 @@
+# Technocratic Democracy
+
 DEMOCRAȚIE TECHNOCRATIZATĂ SEMI-PARTICIPATIVĂ
 
 Planul "Democrația Tehnocratică" propune o reformă a sistemului politic, vizând o guvernare mai eficientă și rațională. Acesta sugerează înlocuirea politicienilor tradiționali cu specialiști în diverse domenii, capabili să ia decizii informate pentru binele comun. Obiectivul este crearea unei democrații mai funcționale, bazată pe cunoștințe specializate și pe consensul public, redefinind astfel relația dintre guvernanți și guvernați.
 
-Noul sistem îmbină elemente de democrație directă cu competența tehnocrată, căutând un echilibru între expertiza profesională și participarea cetățenească. Referendumurile joacă un rol central în validarea deciziilor legislative, asigurând astfel implicarea activă a populației în procesul decizional.
+    Noul sistem îmbină elemente de democrație directă cu competența tehnocrată, căutând un echilibru între expertiza profesională și participarea cetățenească. Referendumurile joacă un rol central în validarea deciziilor legislative, asigurând astfel implicarea activă a populației în procesul decizional.
 
-Legislativ
-===
+## Legislativ
 
 **Structura Parlamentului**
 
@@ -58,8 +59,7 @@ Legislativ
 
 * Grupurile parlamentare pot depune oricând o moțiune de cenzură împotriva guvernului actual.
 
-Referendumuri
-===
+## Referendumuri
 
 **Teme și condiții de participare**
 
@@ -92,9 +92,7 @@ Referendumuri
 
 * O comisie parlamentară permanentă va urmări desfășurarea referendumurilor și impactul acestora. Aceasta va stabili reguli pentru auto-reglarea frecvenței referendumurilor în funcție de importanța lor.
 
-
-Președinție
-===
+## Președinție
 
 **Alegerea Președintelui**
 
@@ -114,8 +112,8 @@ Președinție
 
 * Senatul poate iniția procedura de suspendare sau anulare a mandatului președintelui, consultând populația prin referendum.
 
-Executiv
-===
+## Executiv
+
 
 **Alegerea Prim-ministrului**
 
@@ -144,14 +142,15 @@ Executiv
 * Executivul se dizolvă automat după 3 ani, cu excepția stărilor de urgență care nu pot dura mai mult de 4 luni.
 * Nu există limite privind numărul de realegeri pentru prim-ministru sau numirile consilierilor guvernamentali.
 
-Justiție
-===
-- TBD
+## Justiție
 
-Partide politice
-===
-- TBD
+    TBD
 
-Presă / Media
-===
-- WD
+## Partide politice
+
+    TBD
+
+
+## Presă / Media
+
+    WD

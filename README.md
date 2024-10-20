@@ -1,4 +1,4 @@
-# Technocratic-Democracy
+# Technocratic Democracy
 
 Basic outline of rules for a democratic society based on technocracy.
 
