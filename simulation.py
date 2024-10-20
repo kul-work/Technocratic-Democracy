@@ -72,8 +72,8 @@ class Simulation:
         president = presidential_election.conduct_election()
         print(f"{president.name} has been elected as President.")
 
-        # Simulate parliamentary election
-        political_system.conduct_election(parliament)
+        # Simulate parliamentary composition and seat allocation
+        political_system.form_parliament(parliament)
 
         # Form government
         if parliament.has_quorum():
