@@ -1,4 +1,3 @@
-# Importuri necesare
 import random
 
 from simulation import run_simulation
