@@ -66,6 +66,7 @@ class PoliticalSystem:
     def total_popularity(self) -> float:
         return sum(party.popularity for party in self.parties)
 
+    # TODO: To remove; there are no parliamentary elections in this model
     def conduct_election(self, parliament: 'Parliament') -> None:
         total_seats = len(parliament.members)
         for party in self.parties:
