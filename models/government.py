@@ -3,9 +3,8 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional
 import random
 
-from citizen import Citizen, CitizenshipStatus
-from president import President
-from legislative import Parliamentarian, Parliament, Chamber
+from .citizen import *
+from .legislative import *
 
 MAX_ADVISORS = 12
 EMERGENCY_DURATION = 120  # days

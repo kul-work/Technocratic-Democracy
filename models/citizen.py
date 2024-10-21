@@ -79,12 +79,12 @@ class Citizen:
         # Update income, savings, and debt based on economic conditions
         pass
 
-    def _update_social_factors(self) -> None:
+    def _update_social_factors(self, social_environmen) -> None:
     #def _update_social_factors(self, social_environment: 'SocialEnvironment') -> None:
         # Update happiness, social capital, and trust based on social conditions
         pass
 
-    def _apply_policy_effects(self) -> None:
+    def _apply_policy_effects(self, policies) -> None:
     #def _apply_policy_effects(self, policies: List['Policy']) -> None:
         # Apply the effects of various policies on the citizen
         pass

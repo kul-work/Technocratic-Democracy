@@ -90,8 +90,8 @@ class Simulation:
 
         # Simulate presidential election
         presidential_candidates = [
-            PresidentialCandidate("John Doe", is_foreign=False),
-            PresidentialCandidate("Jane Smith", is_foreign=True)
+            PresidentialCandidate("Ion Iliescu", is_foreign=False),
+            PresidentialCandidate("Ion Ratiu", is_foreign=True)
         ]
         for candidate in presidential_candidates:
             for exam_type in ExamType:
@@ -169,8 +169,8 @@ class Simulation:
 
             # Presidential actions
             if random.random() < 0.1:
-                member_to_dismiss = random.choice(parliament.members)
-                if president.propose_dismissal(member_to_dismiss):
+                member_to_dismiss = random.choice(parliament.members) if parliament.members else None
+                if member_to_dismiss is not None and president.propose_dismissal(member_to_dismiss):
                     print(f"President proposed dismissal of parliamentarian {member_to_dismiss.id}")
                     if not president.veto_dismissal(member_to_dismiss):
                         parliament.remove_member(member_to_dismiss)

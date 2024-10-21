@@ -1,7 +1,7 @@
 import random
 from typing import List
 
-from models.citizen import Citizen
+from .citizen import Citizen
 
 class SocietySystem:
     def __init__(self, initial_population: int):

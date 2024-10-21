@@ -2,8 +2,8 @@ from enum import Enum
 from typing import List, Dict
 import random
 
-from citizen import Citizen
-from legislative import Parliamentarian, Parliament, Chamber
+from .citizen import Citizen
+from .legislative import *
 
 class Ideology(Enum):
     LEFT = "Left"

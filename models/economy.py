@@ -54,6 +54,25 @@ class EconomicModel:
         self.update_fiscal_system()
         self.update_financial_system()
 
+    def simulate_month(self) -> None:
+        self.update_sectors()
+        self.update_labor_market()
+        self.update_fiscal_system()
+        self.update_financial_system()
+
+        # Simulate economic changes for one month
+        # TODO: add more realistic growth
+        self.gdp *= (1 + random.uniform(-0.01, 0.02))  # GDP growth between -1% and 2%
+        self.inflation_rate = max(0, self.inflation_rate + random.uniform(-0.01, 0.01))
+        self.unemployment_rate = max(0, min(1, self.unemployment_rate + random.uniform(-0.02, 0.02)))
+        self.trade_balance += random.uniform(-0.1, 0.1) * self.gdp
+
+        # Update other economic variables
+        self.update_sectors()
+        self.update_labor_market()
+        self.update_fiscal_system()
+        self.update_financial_system()
+
     def update_sectors(self) -> None:
         for sector in self.sectors:
             self.sectors[sector] = max(0, min(1, self.sectors[sector] + random.uniform(-0.02, 0.02)))

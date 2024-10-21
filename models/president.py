@@ -3,9 +3,9 @@ from enum import Enum
 from datetime import datetime, timedelta
 from typing import List, Optional
 
-from citizen import Citizen, CitizenshipStatus
-from legislative import Parliament, Parliamentarian, Legislation
-from referendum import ReferendumType, Referendum, ReferendumSystem
+from .citizen import *
+from .legislative import *
+from .referendum import *
 
 class President:
     def __init__(self, name):

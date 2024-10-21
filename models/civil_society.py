@@ -2,7 +2,7 @@ from enum import Enum
 from typing import List, Dict
 import random
 
-from legislative import Legislation, Parliament
+from .legislative import *
 
 class CauseType(Enum):
     ENVIRONMENTAL = "Environmental"

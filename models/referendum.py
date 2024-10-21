@@ -1,11 +1,18 @@
 from enum import Enum
 from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, TYPE_CHECKING
 import random
 
-# Assuming these are imported from other modules
-from citizen import Citizen
-from legislative import Parliament
+#from .citizen import *
+#from .legislative import Parliament
+
+import importlib
+citizen = importlib.import_module(".citizen", package=__package__)
+legislative = importlib.import_module(".legislative", package=__package__)
+
+# if TYPE_CHECKING:
+#     from .citizen import Citizen
+#     from .legislative import Parliament
 
 class ReferendumType(Enum):
     NATIONAL = "National"
@@ -43,8 +50,8 @@ class ExpertOrganization:
         self.delegated_votes: int = 0
 
 class ReferendumSystem:
-    def __init__(self, parliament: Parliament):
-        self.parliament: Parliament = parliament
+    def __init__(self, parliament):
+        self.parliament = parliament
         self.referendums: List[Referendum] = []
         self.expert_organizations: List[ExpertOrganization] = []
         self.participation_points: Dict[int, int] = {}  # Citizen ID to points
@@ -66,7 +73,7 @@ class ReferendumSystem:
             return True
         return False
 
-    def vote(self, citizen: Citizen, referendum: Referendum, vote: bool) -> bool:
+    def vote(self, citizen, referendum: Referendum, vote: bool) -> bool:
         if referendum.status == ReferendumStatus.ACTIVE and citizen.age >= self.min_voting_age:
             if vote:
                 referendum.votes_for += 1
@@ -77,7 +84,7 @@ class ReferendumSystem:
             return True
         return False
 
-    def delegate_vote(self, citizen: Citizen, expert: ExpertOrganization, referendum: Referendum) -> bool:
+    def delegate_vote(self, citizen, expert: ExpertOrganization, referendum: Referendum) -> bool:
         if referendum.type in [ReferendumType.REGIONAL, ReferendumType.LOCAL]:
             expert.delegated_votes += 1
             return True

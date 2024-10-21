@@ -1,8 +1,10 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 import random
 
-from referendum import ReferendumType, Referendum, ReferendumSystem
+#from .referendum import *
+import importlib
+referendum = importlib.import_module(".referendum", package=__package__)
 
 class Chamber(Enum):
     SENATE = "Senate"
@@ -100,7 +102,7 @@ class Parliament:
         self.proposed_legislation = []
         self.passed_legislation = []
         self.failed_legislation = []
-        self.referendum_system = ReferendumSystem(self)
+        self.referendum_system = referendum.ReferendumSystem(self)
 
     def add_member(self, member: Parliamentarian) -> bool:
         if len(self.members) < self.total_seats:
@@ -173,7 +175,7 @@ class Parliament:
         self.proposed_legislation.remove(legislation)
         return result
     
-    def propose_referendum(self, title: str, description: str, referendum_type: ReferendumType) -> Referendum:
+    def propose_referendum(self, title: str, description: str, referendum_type):
         return self.referendum_system.propose_referendum(title, description, referendum_type)
 
     def vote_no_confidence(self) -> bool:

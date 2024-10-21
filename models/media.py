@@ -2,8 +2,8 @@ from enum import Enum
 from typing import List, Dict
 import random
 
-from citizen import Citizen
-from government import Government 
+from .citizen import Citizen
+from .government import Government 
 
 class MediaType(Enum):
     TRADITIONAL_NEWSPAPER = "Traditional Newspaper"
