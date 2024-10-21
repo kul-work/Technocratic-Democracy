@@ -12,6 +12,18 @@ from models.media import *
 class Simulation:
     def __init__(self):
         pass
+
+    # Example of how news could affect other parts of the simulation
+    def process_news_cycle(news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
+        for news in news_cycle:
+            if news['category'] == NewsCategory.POLITICS:
+                # Affect citizen's trust in government
+                for citizen in citizens:
+                    citizen.trust_in_government += news['impact'] * 0.01 * (1 if news['bias'] > 0 else -1)
+            elif news['category'] == NewsCategory.ECONOMY:
+                # Affect government's economic policy
+                government.adjust_economic_policy(news['impact'] * 0.1)
+            # ... handle other categories
     
     # Main simulation logic
     def run(self):
@@ -19,7 +31,8 @@ class Simulation:
         political_system = PoliticalSystem()
         civil_society = CivilSociety()
         economy = EconomicModel()
-        national_bank = NationalBank("Central Bank of Technokratia")
+        
+        national_bank = NationalBank("Central Bank of Teknos")
         media_landscape = MediaLandscape()
         parliament = Parliament(300)
         
@@ -31,9 +44,19 @@ class Simulation:
         ]
         for party in parties:
             political_system.register_party(party)
-            party.recruit_members(100)
+
+            # Recruit some members
+            for _ in range(100):  
+                party.recruit_member(random.randint(1, 10_000))
+
+            # Conduct a campaign                
             party.campaign(5000)
-            party.propose_policies(3)
+
+            # Propose some policies
+            for _ in range(3):  
+                area = random.choice(list(PolicyArea))
+                strength = random.uniform(-1, 1)
+                party.propose_policy(area, strength)
 
         civic_orgs = [
             CivicOrganization("Green Earth", CauseType.ENVIRONMENTAL),
@@ -42,8 +65,15 @@ class Simulation:
         ]
         for org in civic_orgs:
             civil_society.register_organization(org)
-            org.recruit_members(50)
-            org.organize_activities(3)
+
+            # Recruit some members
+            for _ in range(10):  # Recruit some members
+                org.recruit_member(random.randint(1, 1000))
+
+            # Organize some activities
+            for _ in range(5):
+                activity = random.choice(list(ActivityType))
+                org.organize_activity(activity)
 
         # Set up media outlets
         media_outlets = [
@@ -96,8 +126,19 @@ class Simulation:
             # Economic updates
             economy.simulate_month()
             national_bank.update_economic_indicators()
+
+            # Random bank policy decisions
             if random.random() < 0.3:
                 national_bank.set_monetary_policy(random.choice(list(MonetaryPolicy)))
+            
+            if random.random() < 0.2:
+                national_bank.conduct_open_market_operations(random.uniform(-1_000_000, 1_000_000))
+            
+            if random.random() < 0.1:
+                national_bank.intervene_in_forex_market(random.uniform(-100_000_000, 100_000_000))
+            
+            if random.random() < 0.05:
+                national_bank.print_money(random.uniform(100_000_000, 1_000_000_000))
 
             # Government operations
             if 'government' in locals():
@@ -141,7 +182,7 @@ class Simulation:
 
             # Media influence
             news_cycle = media_landscape.simulate_news_cycle()
-            # TODO: Implement process_news_cycle to affect citizens and government
+            # TODO: Apply process_news_cycle() to affect citizens and government
 
             # Civil society activities
             if random.random() < 0.2:
@@ -157,7 +198,12 @@ class Simulation:
         print(national_bank.generate_economic_report())
         print(media_landscape.generate_media_report())
         print(f"Total political system popularity: {political_system.total_popularity()}")
+        # for party in political_system.get_most_popular_parties(3):
+        #     print(f"{party.name}: Popularity = {party.popularity:.2f}, Members = {len(party.members)}")
+        #     print(f"  Key policies: {', '.join(f'{area.value}: {strength:.2f}' for area, strength in party.policies.items() if abs(strength) > 0.5)}")
         print(f"Total civil society influence: {civil_society.total_influence()}")
+        # for org in civil_society.get_most_influential_orgs(3):
+        #     print(f"{org.name}: Influence = {org.influence:.2f}, Members = {len(org.members)}")
 
 def run_simulation():
     simulation = Simulation()
