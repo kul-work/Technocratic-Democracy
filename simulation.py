@@ -1,4 +1,5 @@
 from models.citizen import *
+from models.society import *
 from models.legislative import *
 from models.government import *
 from models.president import *
@@ -11,6 +12,7 @@ from models.media import *
 
 class Simulation:
     def __init__(self):
+        self.society = SocietySystem(initial_population=100_000)  # Start with 100,000 citizens
         pass
 
     # Example of how news could affect other parts of the simulation
@@ -123,6 +125,9 @@ class Simulation:
         for month in range(48):
             print(f"\n--- Month {month + 1} ---")
 
+            # Update population
+            self.society.update_population()
+
             # Economic updates
             economy.simulate_month()
             national_bank.update_economic_indicators()
@@ -175,8 +180,9 @@ class Simulation:
             if random.random() < 0.05:
                 referendum = parliament.propose_referendum(f"Referendum {month}", f"Description of referendum {month}", ReferendumType.NATIONAL)
                 parliament.referendum_system.start_referendum(referendum)
-                for citizen in range(1000):  # Simulate 1000 citizens voting
-                    parliament.referendum_system.vote(Citizen(random.randint(18, 80), f"Region_{random.randint(1,10)}"), referendum, random.choice([True, False]))
+                voting_population = self.society.get_voting_population()
+                for citizen in voting_population:
+                    parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
                 parliament.referendum_system.complete_referendum(referendum)
                 print(f"Referendum '{referendum.title}' results: For: {referendum.votes_for}, Against: {referendum.votes_against}")
 
