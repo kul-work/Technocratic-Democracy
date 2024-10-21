@@ -1,8 +1,8 @@
 # Recitals
 
-EXPUNEREA DE MOTIVE
+## EXPUNEREA DE MOTIVE
 
-**Observații**
+### Observații
 
 * Democrația vestic-europeană adaptată la spațiul euro-atlantic a intrat într-un ciclu autofag, având în vedere că a fost utilă societății la sfârșitul secolului XX.
 * Procesul electoral depinde mult de media, care poate fi influențată de politicieni.
@@ -14,18 +14,17 @@ EXPUNEREA DE MOTIVE
 * Viziunile globale economice și politice sunt fragmentate și inconsistente. Guvernarea se concentrează pe soluții pe termen scurt.
 * Incompetența rămâne un factor major de perturbare, deși pe un trend evident descendent.
 
-**Propuneri**
+### Propuneri
 
 * Utilizarea tehnologiei precum inteligență artificială, blockchain, smartphone-uri și mass-computing pentru stabilirea și urmărirea obiectivelor.
 * Introducerea criteriilor de competență la nivel legislativ și decizional, adoptând un model corporativ; în mod ideal majoritatea executivului ar fi bine să fie tehnocratizată.
 * Implicarea activă a populației în procesul decizional, menținând totodată o reprezentativitate adecvată în aparatul de stat.
 * Reducerea influenței politice în execuție și refactorizarea sa în societate.
 
-
-**Scop**
+### Scop
 
 * Folosirea regulilor din `Technocratic Democracy` precum specificații pentru crearea unui simulator societal (asemănător jocului The Sims), care integrează modele simplificate de cetățeni, sisteme macroeconomice și instituții publice cu caracter public sau privat, precum și interacțiile dintre acestea. În cadrul acestui simulator s-ar putea rula diverse scenarii legislative și analiza impactul lor asupra societății, inclusiv efectele evenimentelor cu impact social major.
 
-**Alte considerații**
+### Alte considerații
 
 * TBD
