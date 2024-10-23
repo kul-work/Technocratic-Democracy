@@ -1,3 +1,6 @@
+import logging
+from config import *
+
 from models.citizen import *
 from models.society import *
 from models.legislative import *
@@ -11,9 +14,19 @@ from models.bank_national import *
 from models.media import *
 
 class Simulation:
-    def __init__(self):
-        self.society = SocietySystem(initial_population=1_000_000)  # Start with 1M citizens
-        pass
+    def __init__(self, debug_mode=False):
+        global DEBUG_MODE
+        DEBUG_MODE = debug_mode
+        self.society = SocietySystem(initial_population=10_000)  # Start with 10K citizens
+        
+        # Set up logging
+        logging.basicConfig(level=logging.DEBUG if DEBUG_MODE else logging.INFO,
+                            format='%(asctime)s - %(levelname)s - %(message)s')
+        self.logger = logging.getLogger(__name__)
+
+    def debug_print(self, message):
+        if DEBUG_MODE:
+            self.logger.debug(message)
 
     # Example of how news could affect other parts of the simulation
     def process_news_cycle(news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
@@ -29,6 +42,8 @@ class Simulation:
     
     # Main simulation logic
     def run(self):
+        self.debug_print("Starting simulation...")
+        
         # Initialize core components
         political_system = PoliticalSystem()
         civil_society = CivilSociety()
@@ -46,6 +61,7 @@ class Simulation:
         ]
         for party in parties:
             political_system.register_party(party)
+            self.debug_print(f"Registered party: {party.name}")
 
             # Recruit some members
             for _ in range(100):  
@@ -104,6 +120,12 @@ class Simulation:
         president = presidential_election.conduct_election()
         print(f"{president.name} has been elected as President.")
 
+        # Fill the parliament with active members
+        for _ in range(300):
+            member = Parliamentarian(None, Chamber.DEPUTIES)
+            member.status = ParliamentaryStatus.ACTIVE
+            parliament.add_member(member)
+
         # Simulate parliamentary composition and seat allocation
         political_system.form_parliament(parliament)
 
@@ -123,14 +145,16 @@ class Simulation:
 
         # Main simulation loop (e.g., 4 years / 48 months)
         for month in range(48):
-            print(f"\n--- Month {month + 1} ---")
+            self.debug_print(f"\n--- Month {month + 1} ---")
 
             # Update population
             self.society.update_population()
+            self.debug_print(f"Updated population. Current size: {len(self.society.citizens)}")
 
             # Economic updates
             economy.simulate_month()
             national_bank.update_economic_indicators()
+            self.debug_print(f"Updated economic indicators: {national_bank.print_economic_indicators()}")
 
             # Random bank policy decisions
             if random.random() < 0.3:
@@ -199,7 +223,7 @@ class Simulation:
                 party.campaign(1000)  # Smaller ongoing campaigns
 
         # End of simulation reports
-        print("\n--- End of Simulation Reports ---")
+        self.debug_print("\n--- End of Simulation Reports ---")
         print(economy.get_economic_indicators())
         print(national_bank.generate_economic_report())
         print(media_landscape.generate_media_report())
@@ -211,6 +235,12 @@ class Simulation:
         # for org in civil_society.get_most_influential_orgs(3):
         #     print(f"{org.name}: Influence = {org.influence:.2f}, Members = {len(org.members)}")
 
-def run_simulation():
-    simulation = Simulation()
+def run_simulation(debug_mode=False):
+    global DEBUG_MODE
+    DEBUG_MODE = debug_mode
+    simulation = Simulation(debug_mode)
+    simulation.run()
+
+if __name__ == "__main__":
+    simulation = Simulation(debug_mode=True)
     simulation.run()

@@ -6,6 +6,8 @@ import random
 import importlib
 referendum = importlib.import_module(".referendum", package=__package__)
 
+from config import *
+
 class Chamber(Enum):
     SENATE = "Senate"
     DEPUTIES = "Chamber of Deputies"
@@ -57,6 +59,8 @@ class Parliamentarian:
             self.consecutive_terms = 0
         else:
             self.status = ParliamentaryStatus.ACTIVE
+        if DEBUG_MODE:
+            print(f"Member {self.id} status updated to {self.status}")        
 
     def get_activity_score(self) -> int:
         return self.activity_score.calculate()
@@ -107,7 +111,10 @@ class Parliament:
     def add_member(self, member: Parliamentarian) -> bool:
         if len(self.members) < self.total_seats:
             member.id = len(self.members) + 1
+            member.status = ParliamentaryStatus.ACTIVE
             self.members.append(member)
+            if DEBUG_MODE:
+                print(f"Added member {member.id} to Parliament")
             return True
         return False
 
@@ -146,10 +153,13 @@ class Parliament:
     
     def propose_legislation(self, title: str, proposer: str, content: str) -> bool:
         if not self.has_quorum():
-            print("Cannot propose legislation: No quorum")
+            if DEBUG_MODE:
+                print("Cannot propose legislation: No quorum")
             return False
         legislation = Legislation(title, proposer, content)
         self.proposed_legislation.append(legislation)
+        if DEBUG_MODE:
+            print(f"Proposed legislation: {title}")
         return True
 
     def vote_on_legislation(self, legislation: Legislation) -> bool:

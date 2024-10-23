@@ -95,3 +95,15 @@ class NationalBank:
             else:
                 report += f"  {indicator.value}: {value:.2f}%\n"
         return report
+    
+    def print_economic_indicators(self):
+        formatted_indicators = {}
+        for indicator, value in self.economic_indicators.items():
+            if indicator == EconomicIndicator.EXCHANGE_RATE:
+                formatted_indicators[indicator.value] = f"{value:.4f}"
+            elif indicator == EconomicIndicator.INTEREST_RATE:
+                formatted_indicators[indicator.value] = f"{value:.2f}%"
+            else:
+                formatted_indicators[indicator.value] = f"{value:.2f}%"
+        
+        return formatted_indicators
