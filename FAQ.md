@@ -1,6 +1,10 @@
 # **FAQ** - Frequently Asked Questions
 
-**1. What are the main weaknesses of current Western democratic systems?**
+**What is the difference between the representive democracy and the participatory democray?**
+
+Representative democracy involves citizens electing officials to make decisions on their behalf, while participatory democracy emphasizes direct citizen involvement in decision-making processes.
+
+**What are the main weaknesses of current Western democratic systems?**
 
 Contemporary Western democracies, though successful in the late 20th century, face several challenges:
 
@@ -12,7 +16,7 @@ Contemporary Western democracies, though successful in the late 20th century, fa
     * Lack of Impact Assessment: Laws are often passed without proper societal impact evaluation, leading to social tensions and protests as the primary feedback mechanism.
     * Short-Term Vision: Governments prioritize short-term solutions, lacking comprehensive and consistent economic and political visions.
 
-**2. What is Technocratic Democracy and how does it address these issues?**
+**What is Technocratic Democracy and how does it address these issues?**
 
 Technocratic Democracy aims to reform political systems for greater efficiency and rationality. It proposes:
 
@@ -20,7 +24,7 @@ Technocratic Democracy aims to reform political systems for greater efficiency a
     * Semi-Participatory System: Combining elements of direct democracy with technocratic competence, balancing expert knowledge and public participation.
     * Referendums: Utilizing referendums to validate legislative decisions, ensuring active citizen involvement in the decision-making process.
 
-**3. How would the legislative branch function in a Technocratic Democracy?**
+**How would the legislative branch function in a Technocratic Democracy?**
 
 The Parliament would consist of two chambers with membership proportional to the population, including the diaspora. Key features include:
 
@@ -30,7 +34,7 @@ The Parliament would consist of two chambers with membership proportional to the
     * Term Limits: Parliamentarians serve 2 or 4-year terms (maximum 3 consecutive), with mandatory breaks after 10 years.
     * Accountability: Motions of censure and dismissal procedures would ensure accountability for misconduct.
 
-**4. What is the role of referendums in this system?**
+**What is the role of referendums in this system?**
 
 Referendums serve as a vital tool for public participation and validation of legislative decisions. Key aspects include:
 
@@ -40,7 +44,7 @@ Referendums serve as a vital tool for public participation and validation of leg
     * Transparency and Security: Blockchain technology ensures transparent and anonymous vote recording.
     * Vote Delegation: Voters can delegate their vote to registered experts or organizations for specific local/regional referendums.
 
-**5. How is the executive branch structured?**
+**How is the executive branch structured?**
 
 The executive branch is designed for efficient and accountable governance:
 
@@ -51,7 +55,7 @@ The executive branch is designed for efficient and accountable governance:
     * Governmental Managers: Three managers, chosen from Parliament by the Prime Minister, oversee government operations.
     * Exceptional Legislative Decisions: The executive can enact temporary decisions requiring post-factum approval via local/regional referendums.
 
-**6. What are the key features of the Presidential role?**
+**What are the key features of the Presidential role?**
 
 The President holds significant powers within the system:
 
@@ -60,10 +64,10 @@ The President holds significant powers within the system:
     * Legislative Review: Can submit enacted laws to a national referendum for a vote of confidence.
     * Accountability: Subject to suspension or removal by the Senate, after consulting the population through a referendum.
 
-**7. How does this model impact traditional political parties?**
+**How does this model impact traditional political parties?**
 
 The role of traditional political parties is redefined within the Technocratic Democracy framework and is currently under development.
 
-**8. What is the role of media and the press in a Technocratic Democracy?**
+**What is the role of media and the press in a Technocratic Democracy?**
 
 The specific role and regulations governing media and the press in this model are currently under development. The role of the media and the press is minimal in its simulation.
