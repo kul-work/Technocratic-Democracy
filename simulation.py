@@ -12,7 +12,7 @@ from models.media import *
 
 class Simulation:
     def __init__(self):
-        self.society = SocietySystem(initial_population=100_000)  # Start with 100,000 citizens
+        self.society = SocietySystem(initial_population=1_000_000)  # Start with 1M citizens
         pass
 
     # Example of how news could affect other parts of the simulation
@@ -203,11 +203,11 @@ class Simulation:
         print(economy.get_economic_indicators())
         print(national_bank.generate_economic_report())
         print(media_landscape.generate_media_report())
-        print(f"Total political system popularity: {political_system.total_popularity()}")
+        print(f"Total political system popularity: {political_system.total_popularity():.2f}")
         # for party in political_system.get_most_popular_parties(3):
         #     print(f"{party.name}: Popularity = {party.popularity:.2f}, Members = {len(party.members)}")
         #     print(f"  Key policies: {', '.join(f'{area.value}: {strength:.2f}' for area, strength in party.policies.items() if abs(strength) > 0.5)}")
-        print(f"Total civil society influence: {civil_society.total_influence()}")
+        print(f"Total civil society influence: {civil_society.total_influence():.2f}")
         # for org in civil_society.get_most_influential_orgs(3):
         #     print(f"{org.name}: Influence = {org.influence:.2f}, Members = {len(org.members)}")
 

@@ -115,21 +115,24 @@ class EconomicModel:
         # Method to apply economic policies
         pass
 
+    def print_sectors(self):
+        return {sector: round(value, 2) for sector, value in self.sectors.items()}
+
     def get_economic_indicators(self) -> None:
         return {
-            'GDP': self.gdp,
-            'Inflation Rate': self.inflation_rate,
-            'Unemployment Rate': self.unemployment_rate,
-            'Trade Balance': self.trade_balance,
-            'Sectors': self.sectors,
-            'Average Wage': self.average_wage,
-            'Government Revenue': self.government_revenue,
-            'Government Spending': self.government_spending,
-            'Budget Balance': self.budget_balance,
-            'Income Tax Rate': self.income_tax_rate,
-            'Corporate Tax Rate': self.corporate_tax_rate,
-            'VAT Rate': self.vat_rate,
-            'Social Security Rate': self.social_security_rate,
-            'Interest Rate': self.interest_rate,
-            'Money Supply': self.money_supply
+            'GDP': f"{self.gdp:.2f}",
+            'Inflation Rate': f"{self.inflation_rate:.2f}",
+            'Unemployment Rate': f"{self.unemployment_rate:.2f}",
+            'Trade Balance': f"{self.trade_balance:.2f}",
+            'Sectors': self.print_sectors(),
+            'Average Wage': f"{self.average_wage:.2f}",
+            'Government Revenue': f"{self.government_revenue:.2f}",
+            'Government Spending': f"{self.government_spending:.2f}",
+            'Budget Balance': f"{self.budget_balance:.2f}",
+            'Income Tax Rate': f"{self.income_tax_rate:.2f}",
+            'Corporate Tax Rate': f"{self.corporate_tax_rate:.2f}",
+            'VAT Rate': f"{self.vat_rate:.2f}",
+            'Social Security Rate': f"{self.social_security_rate:.2f}",
+            'Interest Rate': f"{self.interest_rate:.2f}",
+            'Money Supply': f"{self.money_supply:.2f}"
         }

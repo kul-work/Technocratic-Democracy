@@ -87,7 +87,7 @@ class MediaLandscape:
         for outlet in self.get_most_influential_outlets(5):
             report += f"  {outlet.name} ({outlet.media_type.value}):\n"
             report += f"    Credibility: {outlet.credibility:.2f}%\n"
-            report += f"    Audience Reach: {outlet.audience_reach:,}\n"
+            report += f"    Audience Reach: {outlet.audience_reach:.2f}\n"
             report += f"    Bias: {outlet.bias:.2f} ({self.bias_to_string(outlet.bias)})\n"
             report += f"    Sensationalism: {outlet.sensationalism:.2f}\n"
         return report
