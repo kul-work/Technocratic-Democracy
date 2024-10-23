@@ -8,7 +8,7 @@ class TestParliament(unittest.TestCase):
     def test_parliament_quorum(self):
         # Fill the parliament with active members
         for _ in range(300):
-            member = Parliamentarian(None, Chamber.DEPUTIES)
+            member = Parliamentarian(Chamber.DEPUTIES)
             member.status = ParliamentaryStatus.ACTIVE
             self.parliament.add_member(member)
 

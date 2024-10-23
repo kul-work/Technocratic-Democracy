@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import List, Optional, TYPE_CHECKING
 import random
+from uuid import uuid4
 
 #from .referendum import *
 import importlib
@@ -37,8 +38,8 @@ class ActivityScore:
         )
 
 class Parliamentarian:
-    def __init__(self, id: Optional[int], chamber: Optional[Chamber]):
-        self.id = id
+    def __init__(self, chamber: Optional[Chamber]):
+        self.id = str(uuid4())  # Generate a unique UUID
         self.chamber = chamber
         self.years_served = 0
         self.consecutive_terms = 0  # TODO: Implement detailed term logic (2 vs 4 years, max 3 consecutive terms)
@@ -73,6 +74,10 @@ class Parliamentarian:
         self.government_role = GovernmentRole.NONE
         self.update_status()
 
+    # Simplified output of a parliamentarian
+    def __str__(self) -> str:
+        return f"Parliamentarian #{self.id[:8]}"  # Show only first 8 characters of UUID for readability
+
 # TODO: Move this to a separate file for civic organizations
 class CivicOrganization:
     def __init__(self, name: str):
@@ -80,7 +85,7 @@ class CivicOrganization:
 
     def propose_candidate(self, chamber) -> Parliamentarian:
         # Simplified candidate proposal
-        return Parliamentarian(None, chamber)
+        return Parliamentarian(chamber)
     
 class Legislation:
     def __init__(self, title: str, proposer: str, content: str):
@@ -211,3 +216,31 @@ class Parliament:
     def conduct_suspension_referendum(self) -> bool:
         # Simplified logic for conducting a suspension referendum
         return random.random() > 0.7
+    
+    def ratify_government(self, government) -> bool:
+        if not self.has_quorum():
+            if DEBUG_MODE:
+                print("Cannot ratify government: No quorum")
+            return False
+
+        votes_needed = self.total_seats * 0.51  # Absolute majority needed
+        votes_for = 0
+
+        # Count votes from active members
+        for member in self.members:
+            if member.status == ParliamentaryStatus.ACTIVE:
+                # Simplified voting logic:
+                # - Government members always vote in favor
+                # - Others have a 60% chance of voting in favor
+                if member.government_role != GovernmentRole.NONE:
+                    votes_for += 1
+                elif random.random() < 0.6:
+                    votes_for += 1
+
+        ratified = votes_for >= votes_needed
+        
+        if DEBUG_MODE:
+            print(f"Government ratification {'succeeded' if ratified else 'failed'}")
+            print(f"Votes for: {votes_for}, Needed: {votes_needed}")
+
+        return ratified

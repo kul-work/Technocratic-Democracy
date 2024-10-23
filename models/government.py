@@ -1,10 +1,18 @@
 from enum import Enum
 from datetime import datetime, timedelta
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, TYPE_CHECKING
 import random
 
-from .citizen import *
-from .legislative import *
+#from .citizen import *
+#from .legislative import *
+
+import importlib
+citizen = importlib.import_module(".citizen", package=__package__)
+legislative = importlib.import_module(".legislative", package=__package__)
+
+# if TYPE_CHECKING:
+#     from .citizen import Citizen
+#     from .legislative import Parliament
 
 MAX_ADVISORS = 12
 EMERGENCY_DURATION = 120  # days
@@ -35,7 +43,8 @@ class Ministry:
         self.type = ministry_type
         self.advisors = []
         self.minister = None
-        self.budget: 0.0
+        self.budget = 0.0
+        self.efficiency = 0.0
 
     def add_advisor(self, advisor: Advisor) -> bool:
         if len(self.advisors) <= MAX_ADVISORS:
@@ -61,7 +70,7 @@ class Ministry:
         self.efficiency = max(0.5, min(1.0, self.efficiency))
 
 class Government:
-    def __init__(self, prime_minister: Parliamentarian):
+    def __init__(self, prime_minister):
         self.prime_minister = prime_minister
         self.ministries = {ministry_type: Ministry(ministry_type) for ministry_type in MinistryType}
         self.government_managers = []
@@ -69,12 +78,29 @@ class Government:
         self.formation_date = datetime.now()
         self.dissolution_date = self.formation_date + timedelta(days=3*365)
         self.emergency_end_date = None
+        self.total_budget = 0.0
+        self.approval_rating = 0.0
 
-    def appoint_government_manager(self, parliamentarian: Parliamentarian) -> bool:
+    def appoint_government_manager(self, parliamentarian) -> bool:
         if len(self.government_managers) <= 3:
             self.government_managers.append(parliamentarian)
             return True
         return False
+    
+    def form_ministries(self):
+        for ministry_type in MinistryType:
+            ministry = self.ministries[ministry_type]
+            # Create some advisors
+            for _ in range(random.randint(3, MAX_ADVISORS)):
+                advisor = Advisor(f"Advisor {_}")
+                ministry.add_advisor(advisor)
+            
+            # Set a random advisor as minister
+            if ministry.advisors:
+                minister = random.choice(ministry.advisors)
+                ministry.set_minister(minister)
+
+        self.allocate_budget()
 
     def initiate_emergency_decree(self, region: str) -> bool:
         # Simplified implementation
@@ -113,3 +139,34 @@ class Government:
         avg_efficiency = sum(ministry.efficiency for ministry in self.ministries.values()) / len(self.ministries)
         self.approval_rating = (self.approval_rating + avg_efficiency * 100) / 2
         self.approval_rating = max(0, min(100, self.approval_rating))
+
+    def adjust_economic_policy(self, influence_factor: float) -> None:
+        """
+        Adjusts the economic policy based on external influences (like news impact).
+        
+        Args:
+            influence_factor (float): A factor that influences economic policy
+                - Positive values (0 to 1) represent favorable economic conditions
+                - Negative values (-1 to 0) represent unfavorable economic conditions
+                
+        Effects:
+            - Adjusts the Ministry of Economy's efficiency
+            - Updates the budget allocation if the impact is significant
+            - May trigger emergency measures for extreme values
+        """
+        economy_ministry = self.ministries[MinistryType.ECONOMY]
+        
+        # Adjust ministry efficiency based on the influence factor
+        # Clamp the result between 0.5 and 1.0
+        new_efficiency = economy_ministry.efficiency + (influence_factor * 0.1)
+        economy_ministry.efficiency = max(0.5, min(1.0, new_efficiency))
+        
+        # For significant economic changes, adjust the budget allocation
+        if abs(influence_factor) > 0.5:
+            # Increase or decrease the ministry's budget by up to 10%
+            budget_change = economy_ministry.budget * (influence_factor * 0.1)
+            economy_ministry.budget += budget_change
+            
+        # For extreme negative conditions, consider emergency measures
+        if influence_factor < -0.8:
+            self.declare_emergency()

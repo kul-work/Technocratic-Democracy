@@ -121,8 +121,12 @@ class Simulation:
         print(f"{president.name} has been elected as President.")
 
         # Fill the parliament with active members
-        for _ in range(300):
-            member = Parliamentarian(None, Chamber.DEPUTIES)
+        for i in range(300):
+            if i <= 180:
+                chamber = Chamber.DEPUTIES
+            else:
+                chamber = Chamber.SENATE
+            member = Parliamentarian(chamber)  # No need to pass ID anymore
             member.status = ParliamentaryStatus.ACTIVE
             parliament.add_member(member)
 
@@ -143,8 +147,8 @@ class Simulation:
         else:
             print("Parliament lacks quorum. Cannot proceed with government formation.")
 
-        # Main simulation loop (e.g., 4 years / 48 months)
-        for month in range(48):
+        # Main simulation loop
+        for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
             self.debug_print(f"\n--- Month {month + 1} ---")
 
             # Update population

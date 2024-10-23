@@ -36,14 +36,14 @@ class President:
     
     def choose_prime_minister(self, parliament: Parliament) -> Parliamentarian:
         while True:
-            candidate = self.nominate_candidate('Margaret Thatcher')
+            candidate = self.nominate_candidate('Nicolae Vacaroiu')
             if parliament.has_quorum() and parliament.propose_internal_legislation():
                 return candidate
                     
     def nominate_candidate(self, name: str) -> Parliamentarian:
         # Simplified simulation of nomination
         # TODO: link param 'name' to Parliament
-        return Parliamentarian()
+        return Parliamentarian(random.choice([Chamber.DEPUTIES, Chamber.SENATE]))
     
 ## Presidential Candidates and Elections
 class ExamType(Enum):
