@@ -84,6 +84,7 @@ class NationalBank:
 
     def generate_economic_report(self) -> str:
         report = f"Economic Report for {self.name}:\n"
+        report += "\n"
         report += f"Monetary Policy: {self.monetary_policy.value}\n"
         report += f"Interest Rate: {self.interest_rate:.2f}%\n"
         report += f"Reserve Requirement: {self.reserve_requirement:.2f}%\n"

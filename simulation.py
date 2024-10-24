@@ -13,6 +13,8 @@ from models.economy import *
 from models.bank_national import *
 from models.media import *
 
+from models.society_state import SocietyState, SocietyStateType
+
 class Simulation:
     def __init__(self, debug_mode=False):
         global DEBUG_MODE
@@ -22,6 +24,8 @@ class Simulation:
         logging.basicConfig(level=logging.DEBUG if DEBUG_MODE else logging.INFO,
                             format='%(asctime)s - %(levelname)s - %(message)s')
         self.logger = logging.getLogger(__name__)        
+
+        self.society_state = SocietyState()
 
     def debug_print(self, message):
         if DEBUG_MODE:
@@ -38,21 +42,22 @@ class Simulation:
                 # Affect government's economic policy
                 government.adjust_economic_policy(news['impact'] * 0.1)
             # ... handle other categories
-    
+
     # Main simulation logic
     def run(self):
         self.debug_print("Starting simulation...")
-        
+    
         # Initialize core components
         society = SocietySystem(initial_population=10_000)  # Start with 10K citizens
 
         political_system = PoliticalSystem()
         civil_society = CivilSociety()
-        economy = EconomicModel()
-        
-        national_bank = NationalBank("Central Bank of Teknos")
-        media_landscape = MediaLandscape()
         parliament = Parliament(300)
+
+        national_bank = NationalBank("Central Bank of Technocratia")
+        economy = EconomicModel()
+
+        media_landscape = MediaLandscape()
         
         # Set up political parties and civic organizations
         parties = [
@@ -63,7 +68,7 @@ class Simulation:
         for party in parties:
             political_system.register_party(party)
             self.debug_print(f"Registered party: {party.name}")
-
+            
             # Recruit some members
             for _ in range(100):  
                 party.recruit_member(random.randint(1, 10_000))
@@ -136,7 +141,7 @@ class Simulation:
 
         # Initialize government as None
         government = None
-        
+       
         # Try to form government
         if parliament.has_quorum():
             prime_minister = president.choose_prime_minister(parliament)
@@ -155,6 +160,36 @@ class Simulation:
         for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
             self.debug_print(f"\n--- Month {month + 1} ---")
             
+            # Collect data from various society systems
+            economic_data = {
+                'gdp_growth': economy.get_gdp_growth(),
+                'inflation': national_bank.get_inflation_rate(),
+                'unemployment': economy.get_unemployment_rate()
+            }          
+
+            political_data = {
+                'government_approval': government.approval_rating if government else 0.0,
+                'parliament_effectiveness': parliament.get_effectiveness_score(),
+                'political_stability': political_system.get_stability_score()
+            }          
+
+            social_data = {
+                'social_cohesion': civil_society.get_cohesion_score(),
+                'media_trust': media_landscape.get_trust_score(),
+                'citizen_satisfaction': society.get_satisfaction_score()
+            }            
+
+            # Update society state
+            self.society_state.update_indicators(economic_data, political_data, social_data)          
+
+            # React to state changes
+            if self.society_state.current_state == SocietyStateType.ECONOMIC_CRISIS:
+                national_bank.emergency_measures()
+                government.implement_austerity()
+            elif self.society_state.current_state == SocietyStateType.SOCIAL_UNREST:
+                civil_society.increase_activism()
+                media_landscape.increase_coverage()
+
             # Update population
             society.update_population()
             self.debug_print(f"Updated population. Current size: {len(society.citizens)}")
@@ -167,13 +202,10 @@ class Simulation:
             # Random bank policy decisions
             if random.random() < 0.3:
                 national_bank.set_monetary_policy(random.choice(list(MonetaryPolicy)))
-            
             if random.random() < 0.2:
                 national_bank.conduct_open_market_operations(random.uniform(-1_000_000, 1_000_000))
-            
             if random.random() < 0.1:
-                national_bank.intervene_in_forex_market(random.uniform(-100_000_000, 100_000_000))
-            
+                national_bank.intervene_in_forex_market(random.uniform(-100_000_000, 100_000_000))            
             if random.random() < 0.05:
                 national_bank.print_money(random.uniform(100_000_000, 1_000_000_000))
 
@@ -189,8 +221,8 @@ class Simulation:
 
             # Parliamentary activities
             if random.random() < 0.4:
-                parliament.propose_legislation(f"Bill {month}", "Parliament", f"Content of bill {month}")
-            
+                parliament.propose_legislation(f"Bill {month}", "Parliament", f"Content of bill {month}")           
+
             if parliament.proposed_legislation:
                 legislation = parliament.proposed_legislation[0]
                 if parliament.vote_on_legislation(legislation):
@@ -231,11 +263,14 @@ class Simulation:
                 party.campaign(1000)  # Smaller ongoing campaigns
 
         # Simulation reports
-        print("\n--- Reports ---")
+        print("\n--- Simulation Reports ---")
         print(f"Economic indicators: {economy.get_economic_indicators()}")
+        print("\n--")
         print(national_bank.generate_economic_report())
+        print("\n--")
         if not DEBUG_MODE:
             print(media_landscape.generate_media_report())
+            print("\n--")
         print(f"Total political system popularity: {political_system.total_popularity():.2f}")
         # for party in political_system.get_most_popular_parties(3):
         #     print(f"{party.name}: Popularity = {party.popularity:.2f}, Members = {len(party.members)}")
@@ -243,6 +278,10 @@ class Simulation:
         print(f"Total civil society influence: {civil_society.total_influence():.2f}")
         # for org in civil_society.get_most_influential_orgs(3):
         #     print(f"{org.name}: Influence = {org.influence:.2f}, Members = {len(org.members)}")
+
+        # Add to the simulation reports section
+        print("\n--- Society State Report ---")
+        print(self.society_state.get_state_report())
 
 def run_simulation(debug_mode=False):
     global DEBUG_MODE
