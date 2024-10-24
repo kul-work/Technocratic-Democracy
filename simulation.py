@@ -230,9 +230,9 @@ class Simulation:
             for party in political_system.parties:
                 party.campaign(1000)  # Smaller ongoing campaigns
 
-        # End of simulation reports
-        self.debug_print("\n--- End of Simulation Reports ---")
-        print(economy.get_economic_indicators())
+        # Simulation reports
+        print("\n--- Reports ---")
+        print(f"Economic indicators: {economy.get_economic_indicators()}")
         print(national_bank.generate_economic_report())
         if not DEBUG_MODE:
             print(media_landscape.generate_media_report())
