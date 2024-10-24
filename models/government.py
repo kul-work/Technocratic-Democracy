@@ -44,7 +44,7 @@ class Ministry:
         self.advisors = []
         self.minister = None
         self.budget = 0.0
-        self.efficiency = 0.0
+        self.efficiency = random.uniform(0.6, 0.9)  # Start with a random baseline efficiency
 
     def add_advisor(self, advisor: Advisor) -> bool:
         if len(self.advisors) <= MAX_ADVISORS:
@@ -64,10 +64,19 @@ class Ministry:
     def allocate_budget(self, amount: float) -> None:
         self.budget = amount
 
-    def update_efficiency(self) -> None: # TODO - where to use this??
+    def update_efficiency(self) -> None:
+        base_efficiency = self.efficiency
+        
+        # Minister's expertise influences efficiency
         if self.minister:
-            self.efficiency = (self.efficiency + self.minister.expertise) / 2
-        self.efficiency = max(0.5, min(1.0, self.efficiency))
+            minister_influence = self.minister.expertise * 0.3
+            advisor_influence = sum(advisor.efficiency for advisor in self.advisors) / (len(self.advisors) if self.advisors else 1) * 0.2
+            
+            # Add some random fluctuation (-5% to +5%)
+            random_factor = random.uniform(-0.05, 0.05)
+            
+            self.efficiency = base_efficiency + minister_influence + advisor_influence + random_factor
+            self.efficiency = max(0.5, min(1.0, self.efficiency))
 
 class Government:
     def __init__(self, prime_minister):
@@ -79,7 +88,7 @@ class Government:
         self.dissolution_date = self.formation_date + timedelta(days=3*365)
         self.emergency_end_date = None
         self.total_budget = 0.0
-        self.approval_rating = 0.0
+        self.approval_rating = 50.0  # Start with a neutral approval rating
 
     def appoint_government_manager(self, parliamentarian) -> bool:
         if len(self.government_managers) <= 3:
@@ -135,7 +144,11 @@ class Government:
             ministry.allocate_budget(self.total_budget / len(self.ministries))
 
     def update_approval_rating(self) -> None:
-        # Simplified approval rating update based on ministry efficiencies
+        # First update each ministry's efficiency
+        for ministry in self.ministries.values():
+            ministry.update_efficiency()
+        
+        # Calculate new approval rating based on ministry efficiencies
         avg_efficiency = sum(ministry.efficiency for ministry in self.ministries.values()) / len(self.ministries)
         self.approval_rating = (self.approval_rating + avg_efficiency * 100) / 2
         self.approval_rating = max(0, min(100, self.approval_rating))
