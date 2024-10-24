@@ -230,7 +230,8 @@ class Simulation:
         self.debug_print("\n--- End of Simulation Reports ---")
         print(economy.get_economic_indicators())
         print(national_bank.generate_economic_report())
-        print(media_landscape.generate_media_report())
+        if not DEBUG_MODE:
+            print(media_landscape.generate_media_report())
         print(f"Total political system popularity: {political_system.total_popularity():.2f}")
         # for party in political_system.get_most_popular_parties(3):
         #     print(f"{party.name}: Popularity = {party.popularity:.2f}, Members = {len(party.members)}")
