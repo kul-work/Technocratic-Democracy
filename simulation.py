@@ -17,12 +17,11 @@ class Simulation:
     def __init__(self, debug_mode=False):
         global DEBUG_MODE
         DEBUG_MODE = debug_mode
-        self.society = SocietySystem(initial_population=10_000)  # Start with 10K citizens
-        
+
         # Set up logging
         logging.basicConfig(level=logging.DEBUG if DEBUG_MODE else logging.INFO,
                             format='%(asctime)s - %(levelname)s - %(message)s')
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(__name__)        
 
     def debug_print(self, message):
         if DEBUG_MODE:
@@ -45,6 +44,8 @@ class Simulation:
         self.debug_print("Starting simulation...")
         
         # Initialize core components
+        society = SocietySystem(initial_population=10_000)  # Start with 10K citizens
+
         political_system = PoliticalSystem()
         civil_society = CivilSociety()
         economy = EconomicModel()
@@ -133,27 +134,30 @@ class Simulation:
         # Simulate parliamentary composition and seat allocation
         political_system.form_parliament(parliament)
 
-        # Form government
+        # Initialize government as None
+        government = None
+        
+        # Try to form government
         if parliament.has_quorum():
             prime_minister = president.choose_prime_minister(parliament)
             print(f"{prime_minister} has been elected as Prime Minister.")
             government = Government(prime_minister)
-            government.form_ministries()
             
             if parliament.ratify_government(government):
                 print("Government successfully formed and ratified!")
             else:
                 print("Government ratification failed.")
+                government = None
         else:
             print("Parliament lacks quorum. Cannot proceed with government formation.")
 
-        # Main simulation loop
+        # Main loop simulation
         for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
             self.debug_print(f"\n--- Month {month + 1} ---")
-
+            
             # Update population
-            self.society.update_population()
-            self.debug_print(f"Updated population. Current size: {len(self.society.citizens)}")
+            society.update_population()
+            self.debug_print(f"Updated population. Current size: {len(society.citizens)}")
 
             # Economic updates
             economy.simulate_month()
@@ -174,7 +178,7 @@ class Simulation:
                 national_bank.print_money(random.uniform(100_000_000, 1_000_000_000))
 
             # Government operations
-            if 'government' in locals():
+            if government is not None:
                 government.update_approval_rating()
                 print(f"Government approval rating: {government.approval_rating:.2f}%")
 
@@ -208,7 +212,7 @@ class Simulation:
             if random.random() < 0.05:
                 referendum = parliament.propose_referendum(f"Referendum {month}", f"Description of referendum {month}", ReferendumType.NATIONAL)
                 parliament.referendum_system.start_referendum(referendum)
-                voting_population = self.society.get_voting_population()
+                voting_population = society.get_voting_population()
                 for citizen in voting_population:
                     parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
                 parliament.referendum_system.complete_referendum(referendum)
