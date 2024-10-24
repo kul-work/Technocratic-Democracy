@@ -1,119 +1,127 @@
 $ python.exe c:/share/TD/main.py
 Ion Ratiu has been elected as President.
-Parliamentarian #52e42092 has been elected as Prime Minister.
+Parliamentarian #3c905957 has been elected as Prime Minister.
 Government successfully formed and ratified!
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 3' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 7' passed
-Government approval rating: 0.00%
-Legislation 'Bill 8' passed
-Referendum 'Referendum 8' results: For: 4506, Against: 4701
-Government approval rating: 0.00%
-Legislation 'Bill 9' passed
-Government approval rating: 0.00%
+Government approval rating: 62.78%
+Government approval rating: 69.17%
+Legislation 'Bill 1' passed
+Government approval rating: 72.37%
+Legislation 'Bill 2' passed
+Government approval rating: 73.96%
+Government approval rating: 74.76%
+Legislation 'Bill 4' passed
+Government approval rating: 75.16%
+Legislation 'Bill 5' passed
+Government approval rating: 75.36%
+Government approval rating: 75.46%
+Government approval rating: 75.51%
+Government approval rating: 75.54%
+Referendum 'Referendum 9' results: For: 4396, Against: 4390
+Government approval rating: 75.55%
 Legislation 'Bill 10' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Healthcare Improvement Act' passed
-Government approval rating: 0.00%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Bill 12' passed
+Government approval rating: 75.56%
 Legislation 'Bill 13' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
+Government approval rating: 75.56%
+Legislation 'Bill 14' passed      
+Government approval rating: 75.56%
+Legislation 'Bill 15' passed      
+Government approval rating: 75.56%
 Legislation 'Bill 16' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 22' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Bill 20' passed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Healthcare Improvement Act' passed
+Government approval rating: 75.56%
 Legislation 'Bill 24' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 27' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 36' passed
-Government approval rating: 0.00%
-Legislation 'Bill 37' passed
-Referendum 'Referendum 37' results: For: 5021, Against: 4979
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 40' passed
-Government approval rating: 0.00%
-Legislation 'Bill 41' passed
-Referendum 'Referendum 41' results: For: 5039, Against: 4961
-Government approval rating: 0.00%
+Government approval rating: 75.56%
+Legislation 'Bill 26' passed
+Government approval rating: 75.56%
+President proposed dismissal of parliamentarian 262
+Parliamentarian 262 has been dismissed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Bill 29' passed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Bill 32' passed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Bill 34' passed
+Government approval rating: 75.56%
+Legislation 'Bill 35' passed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Healthcare Improvement Act' passed
+Referendum 'Referendum 37' results: For: 5312, Against: 5206
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Bill 39' passed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Government approval rating: 75.56%
 Legislation 'Bill 42' passed
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Government approval rating: 0.00%
-Legislation 'Bill 45' passed
-Government approval rating: 0.00%
-Legislation 'Bill 46' passed
-Government approval rating: 0.00%
-{'GDP': '1211114357222.66', 'Inflation Rate': '0.04', 'Unemployment Rate': '0.03', 'Trade Balance': '-380973818485.64', 'Sectors': {'industry': 0.33, 'services': 0.52, 'agriculture': 0.08, 'technology': 0.02, 'finance': 0.04}, 'Average Wage': '24997.94', 'Government Revenue': '693183087277.06', 'Government Spending': '724298232098.31', 'Budget Balance': '-31115144821.25', 'Income Tax Rate': '0.20', 'Corporate Tax Rate': '0.30', 'VAT Rate': '0.23', 'Social Security Rate': '0.18', 'Interest Rate': '0.02', 'Money Supply': '2563138346900.98'}
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+Legislation 'Environmental Improvement Act' passed
+Government approval rating: 75.56%
+Legislation 'Bill 44' passed
+Government approval rating: 75.56%
+Government approval rating: 75.56%
+
+--- Reports ---
+Economic indicators: {'GDP': '1177167853858.83', 'Inflation Rate': '0.01', 'Unemployment Rate': '0.03', 'Trade Balance': '156104494730.50', 'Sectors': {'industry': 0.37, 'services': 0.42, 'agriculture': 0.12, 'technology': 0.08, 'finance': 0.0}, 'Average Wage': '24153.80', 'Government Revenue': '540145148673.15', 'Government Spending': '547238469477.47', 'Budget Balance': '-7093320804.32', 'Income Tax Rate': '0.13', 'Corporate Tax Rate': '0.38', 'VAT Rate': '0.23', 'Social Security Rate': '0.13', 'Interest Rate': '0.03', 'Money Supply': '3103171081704.69'}
 Economic Report for Central Bank of Teknos:
-Monetary Policy: Contractionary
-Interest Rate: 1.75%
+Monetary Policy: Expansionary
+Interest Rate: 2.25%
 Reserve Requirement: 10.00%
-Foreign Exchange Reserves: $888,806,594.8763717
+Foreign Exchange Reserves: $979,210,164.9997126
 
 Economic Indicators:
-  Inflation Rate: 1.37%
-  Unemployment Rate: 5.21%
-  GDP Growth: 1.53%
-  Interest Rate: 1.75%
-  Exchange Rate: 1.1257
+  Inflation Rate: 3.18%
+  Unemployment Rate: 5.51%
+  GDP Growth: 3.17%
+  Interest Rate: 2.25%
+  Exchange Rate: 1.0237
 
 Media Landscape Report:
-Public Trust in Media: 27.91%
+Public Trust in Media: 49.06%
 
 Top 5 Most Influential Outlets:
   TechTruth (Online News Portal):
     Credibility: 100.00%
-    Audience Reach: 8879.29
-    Bias: 0.66 (Far Right)
-    Sensationalism: 0.00
+    Audience Reach: 1181.56
+    Bias: -0.28 (Left)
+    Sensationalism: 0.09
   SocialPulse (Social Media Platform):
     Credibility: 100.00%
-    Audience Reach: 1888.87
-    Bias: -0.46 (Left)
-    Sensationalism: 0.49
+    Audience Reach: 940.53
+    Bias: -0.92 (Far Left)
+    Sensationalism: 0.04
   Daily Chronicle (Traditional Newspaper):
     Credibility: 100.00%
-    Audience Reach: 1000.22
-    Bias: 0.15 (Center)
-    Sensationalism: 0.47
+    Audience Reach: 917.55
+    Bias: -0.45 (Left)
+    Sensationalism: 0.61
   Global News Network (TV Network):
     Credibility: 100.00%
-    Audience Reach: 724.92
-    Bias: 0.14 (Center)
-    Sensationalism: 0.61
+    Audience Reach: 865.91
+    Bias: -0.81 (Far Left)
+    Sensationalism: 0.40
   Independent Voice (Independent Journalist):
     Credibility: 100.00%
-    Audience Reach: 522.66
-    Bias: -0.54 (Left)
-    Sensationalism: 0.43
+    Audience Reach: 733.46
+    Bias: -0.20 (Center)
+    Sensationalism: 0.56
 
-Total political system popularity: 4.81
-Total civil society influence: 3.62
+Total political system popularity: 4.32
+Total civil society influence: 3.89
