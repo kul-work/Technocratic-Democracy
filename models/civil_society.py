@@ -3,7 +3,7 @@ from typing import List, Dict
 import random
 
 from .legislative import *
-from .sector import SectorType
+from .economy_sector import EconomySectorType
 
 class CauseType(Enum):
     ENVIRONMENTAL = "Environmental"
@@ -28,10 +28,10 @@ class CivicOrganization:
         self.members: List[int] = []  # List of citizen IDs
         self.influence: float = 0.0
         self.funds: float = 1000.0  # Starting funds
-        self.sector_focus = random.choice([SectorType.PUBLIC, SectorType.PRIVATE, None])  # None means both
+        self.sector_focus = random.choice([EconomySectorType.PUBLIC, EconomySectorType.PRIVATE, None])  # None means both
         self.sector_influence = {
-            SectorType.PUBLIC: random.uniform(0, 1),
-            SectorType.PRIVATE: random.uniform(0, 1)
+            EconomySectorType.PUBLIC: random.uniform(0, 1),
+            EconomySectorType.PRIVATE: random.uniform(0, 1)
         }
 
     def recruit_member(self, citizen_id: int) -> None:
@@ -44,10 +44,10 @@ class CivicOrganization:
             self.members.remove(citizen_id)
             self.influence = max(0, self.influence - 0.1)
 
-    def organize_activity(self, activity: ActivityType, target_sector: SectorType = None) -> bool:
+    def organize_activity(self, activity: ActivityType, target_sector: EconomySectorType = None) -> bool:
         """Organize activity with specific sector focus"""
         if target_sector is None:
-            target_sector = self.sector_focus if self.sector_focus else random.choice([SectorType.PUBLIC, SectorType.PRIVATE])
+            target_sector = self.sector_focus if self.sector_focus else random.choice([EconomySectorType.PUBLIC, EconomySectorType.PRIVATE])
             
         cost = {
             ActivityType.PROTEST: 500,

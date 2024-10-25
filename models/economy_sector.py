@@ -1,12 +1,12 @@
 from enum import Enum
 
-class SectorType(Enum):
+class EconomySectorType(Enum):
     PUBLIC = "Public"
     PRIVATE = "Private"
     MIXED = "Mixed"
 
-class Sector:
-    def __init__(self, name: str, sector_type: SectorType):
+class EconomySector:
+    def __init__(self, name: str, sector_type: EconomySectorType):
         self.name = name
         self.sector_type = sector_type
         self.gdp_share = 0.0

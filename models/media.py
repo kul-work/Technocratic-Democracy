@@ -4,7 +4,7 @@ import random
 
 from .citizen import Citizen
 from .government import Government 
-from .sector import SectorType
+from .economy_sector import EconomySectorType
 
 class MediaType(Enum):
     TRADITIONAL_NEWSPAPER = "Traditional Newspaper"
@@ -30,8 +30,8 @@ class MediaOutlet:
         self.bias = random.uniform(-1, 1)  # -1 (left) to 1 (right)
         self.sensationalism = random.uniform(0, 1)  # 0 (factual) to 1 (sensational)
         self.sector_coverage = {
-            SectorType.PUBLIC: random.uniform(0.3, 0.7),   # Coverage balance between sectors
-            SectorType.PRIVATE: random.uniform(0.3, 0.7)
+            EconomySectorType.PUBLIC: random.uniform(0.3, 0.7),   # Coverage balance between sectors
+            EconomySectorType.PRIVATE: random.uniform(0.3, 0.7)
         }
         
     def publish_news(self, category: NewsCategory, factuality: float) -> Dict:
@@ -51,9 +51,9 @@ class MediaOutlet:
         
         # Add sector-specific reporting
         focused_sector = random.choices(
-            [SectorType.PUBLIC, SectorType.PRIVATE],
-            weights=[self.sector_coverage[SectorType.PUBLIC], 
-                    self.sector_coverage[SectorType.PRIVATE]]
+            [EconomySectorType.PUBLIC, EconomySectorType.PRIVATE],
+            weights=[self.sector_coverage[EconomySectorType.PUBLIC], 
+                    self.sector_coverage[EconomySectorType.PRIVATE]]
         )[0]
         
         result.update({
