@@ -25,7 +25,7 @@ class EconomicModel:
         self.trade_balance = 0  # Neutral trade balance
 
         # Economic sectors (percentage of GDP)
-        # TODO: sync it with government.py / MinistryType
+        # TODO: sync it with government.py / MinistryType - #later
         self.sectors = {
             # Public sectors
             'public_administration': EconomicSector('Public Administration', SectorType.PUBLIC),
