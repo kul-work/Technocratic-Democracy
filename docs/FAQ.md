@@ -1,5 +1,9 @@
 # **FAQ** - Frequently Asked Questions
 
+**What is a social simulation?**
+
+A [social simulation](https://www.youtube.com/watch?v=O3rJwrcgB_0 "until min 2:39") is a model that replicates real-world scenarios, allowing key actors of society to interact and affect decisions within a controlled environment. It helps individuals understand complex social dynamics and fosters collaborative solutions to pressing issues.
+
 **What is the difference between the representive democracy and the participatory democray?**
 
 Representative democracy involves citizens electing officials to make decisions on their behalf, while participatory democracy emphasizes direct citizen involvement in decision-making processes.
