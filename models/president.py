@@ -25,6 +25,7 @@ class President:
         # Simplified logic for vetoing dismissal
         return random.random() > 0.6
 
+    #TODO: use it
     def call_referendum(self, law: Legislation) -> bool:
         # Simplified logic for calling a referendum
         return random.random() > 0.8
@@ -32,13 +33,14 @@ class President:
     def propose_referendum(self, title: str, description: str, referendum_type: ReferendumType) -> Referendum:
         return self.referendum_system.propose_referendum(title, description, referendum_type)
     
-    # TODO : clarify propose_referendum() vs call_referendum(), should be just 1 for the simplified model
-    
     def choose_prime_minister(self, parliament: Parliament) -> Parliamentarian:
         while True:
-            candidate = self.nominate_candidate('Nicolae Vacaroiu')
-            if parliament.has_quorum() and parliament.propose_internal_legislation():
-                return candidate
+            pm = 'Nicolae Vacaroiu'
+            candidate = self.nominate_candidate(pm)
+            if parliament.has_quorum() and parliament.propose_legislation('New Prime Minister', "President", f'Appointment of {pm} as Prime Minister', ignore_quorum=True):
+                legislation = parliament.proposed_legislation[-1]  # Get the last proposed legislation
+                if parliament.vote_on_legislation(legislation, ignore_quorum=True):
+                    return candidate
                     
     def nominate_candidate(self, name: str) -> Parliamentarian:
         # Simplified simulation of nomination

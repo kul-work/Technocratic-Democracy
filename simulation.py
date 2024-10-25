@@ -226,7 +226,8 @@ class Simulation:
                 legislation = parliament.proposed_legislation[0]
                 if parliament.vote_on_legislation(legislation):
                     print(f"Legislation '{legislation.title}' passed")
-                    civil_society.react_to_legislation(legislation)
+                    if random.choice([True, False,  False, False]):
+                        civil_society.react_to_legislation(legislation)
                 else:
                     print(f"Legislation '{legislation.title}' failed")
 

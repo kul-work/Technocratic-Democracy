@@ -4,8 +4,12 @@ import random
 from uuid import uuid4
 
 #from .referendum import *
+#from .civil_society import *
+
 import importlib
 referendum = importlib.import_module(".referendum", package=__package__)
+civil_society = importlib.import_module(".civil_society", package=__package__)
+
 
 from config import *
 
@@ -77,15 +81,6 @@ class Parliamentarian:
     # Simplified output of a parliamentarian
     def __str__(self) -> str:
         return f"Parliamentarian #{self.id[:8]}"  # Show only first 8 characters of UUID for readability
-
-# TODO: link this to civil_society.py
-class CivicOrganization:
-    def __init__(self, name: str):
-        self.name = name
-
-    def propose_candidate(self, chamber) -> Parliamentarian:
-        # Simplified candidate proposal
-        return Parliamentarian(chamber)
     
 class Legislation:
     def __init__(self, title: str, proposer: str, content: str):
@@ -139,36 +134,29 @@ class Parliament:
     def has_quorum(self):
         active_members = sum(1 for member in self.members if member.status == ParliamentaryStatus.ACTIVE)
         return active_members >= self.total_seats * self.quorum_percentage
-
-    # TODO: remove this??
-    def propose_internal_legislation(self) -> bool:
-        if not self.has_quorum():
-            print("Cannot propose legislation: No quorum")
+    
+    def propose_legislation(self, title: str, proposer: str, content: str, ignore_quorum: bool = False) -> bool:
+        if not ignore_quorum and not self.has_quorum():
+            if DEBUG_MODE:
+                print("Cannot propose legislation: No quorum")
             return False
-        # Simplified internal legislation proposal
-        return random.random() > 0.5  # 50% chance of proposal acceptance
-
-    # TODO: remove this??
-    def process_external_legislation(self, organization: CivicOrganization) -> bool:
-        if not self.has_quorum():
+        if random.random() > 0.5:  # 50% chance of proposal acceptance
+            legislation = Legislation(title, proposer, content)
+            self.proposed_legislation.append(legislation)
+            if DEBUG_MODE:
+                print(f"Proposed legislation: {title}")
+            return True
+        return False
+    
+    def process_external_legislation(self, organization, ignore_quorum: bool = False) -> bool:
+        if not ignore_quorum and not self.has_quorum():
             print("Cannot process legislation: No quorum")
             return False
         # Simplified external legislation proposal
         return random.random() > 0.6  # 40% chance of proposal acceptance
-    
-    def propose_legislation(self, title: str, proposer: str, content: str) -> bool:
-        if not self.has_quorum():
-            if DEBUG_MODE:
-                print("Cannot propose legislation: No quorum")
-            return False
-        legislation = Legislation(title, proposer, content)
-        self.proposed_legislation.append(legislation)
-        if DEBUG_MODE:
-            print(f"Proposed legislation: {title}")
-        return True
 
-    def vote_on_legislation(self, legislation: Legislation) -> bool:
-        if not self.has_quorum():
+    def vote_on_legislation(self, legislation: Legislation, ignore_quorum: bool = False) -> bool:
+        if not ignore_quorum and not self.has_quorum():
             print("Cannot vote: No quorum")
             return False
         for member in self.members:

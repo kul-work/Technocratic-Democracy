@@ -156,5 +156,3 @@ class SocietyState:
             },
             'state_history': [(prev.value, curr.value) for prev, curr in self.state_history[-5:]]  # Last 5 transitions
         }
-
-#TODO - should be integrated with society class?
