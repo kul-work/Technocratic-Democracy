@@ -1,16 +1,14 @@
 # Technocratic Democracy
 
-SEMI-PARTICIPATORY TECHNOCRATIC DEMOCRACY
-
-The "Technocratic Democracy" plan proposes a reform of the political system aimed at more efficient and rational governance. It suggests replacing traditional politicians with specialists in various fields, capable of making informed decisions for the common good.
+The "Technocratic Democracy" plan proposes reforming the political system to achieve more efficient and rational governance. It suggests replacing traditional politicians with specialists in various fields capable of making informed decisions for the common good.
 
 The objective is to create a more functional democracy based on specialized knowledge and public consensus, thereby redefining the relationship between the governed and the governors.
 
 Key Elements:
 
-* The model aims to address the paradox between the "market model" and the "polis model."
+* The model aims to address the paradox between the "market model" and the "polis model".
 * The new system combines elements of direct democracy with technocratic competence, seeking a balance between professional expertise and citizen participation.
-* Referendums play a central role in validating legislative decisions, ensuring active public involvement in the decision-making process.
+* Referendums play a central role in validating legislative decisions and ensuring active public involvement in the decision-making process.
 
 ## Legislative
 
@@ -51,7 +49,7 @@ Key Elements:
 
 ### Resignation and Dismissal of Parliamentarians
 
-* Parliamentarians can resign with notice. They can also be dismissed for national treason, proven corruption, or serious misconduct. Dismissal requires unanimous vote in the chamber.
+* Parliamentarians can resign with notice. They can also be dismissed for national treason, proven corruption, or serious misconduct. Dismissal requires a unanimous vote in the chamber.
 
 ### National Elections
 
@@ -107,16 +105,16 @@ Key Elements:
 ### Candidacy Criteria
 
 * Anyone can run for president if they pass an exam that checks knowledge in foreign policy, history, economics, domestic legislation, and undergoes a medical examination.
-* A foreign citizen may run if they have a state language certificate at B1 level.
+* A foreign citizen may run if they have a state language certificate at the B1 level.
 
 ### Presidential Rights
 
 * The president can propose the dismissal of any parliamentarian and has veto power over parliamentary dismissals.
-* They may send an already promulgated law to national referendum for a vote of confidence.
+* They may send an already promulgated law to a national referendum for a vote of confidence.
 
 ### Suspension of the President
 
-* The Senate can initiate suspension or annulment procedures for the president's mandate, consulting the population through referendum.
+* The Senate can initiate suspension or annulment procedures for the president's mandate, consulting the population through a referendum.
 
 ## Executive
 

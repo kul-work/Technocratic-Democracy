@@ -12,7 +12,7 @@ class President:
         self.name = name
         self.term_start_date = datetime.now()
         self.term_end_date = self.term_start_date + timedelta(days=5*365)  # 5 years term
-        self.referendum_system = ReferendumSystem(Parliament) #TODO - will fail, current parlament ??
+        self.referendum_system = ReferendumSystem(Parliament) #TODO: will fail, current parlament ??
 
     def is_term_expired(self) -> bool:
         return datetime.now() > self.term_end_date

@@ -12,7 +12,7 @@
 * The legislative process is unwieldy and poorly coordinated with the executive branch, being overly bureaucratic and not automated.
 * Laws are often adopted without adequate assessment of their societal impact. Defective laws are then difficult to correct, generating social tensions, and protests become the primary form of feedback—an aggressive self-regulation process.
 * Global economic and political visions are fragmented and inconsistent. Governance focuses on short-term solutions.
-* Incompetence remains a major disruptive factor, although it is on a clearly declining trend.
+* Incompetence remains a major disruptive factor, although it is on a declining trend.
 
 ### Proposals
 
