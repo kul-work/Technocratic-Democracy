@@ -47,7 +47,7 @@ class SocietySystem:
                 new_citizen = self.create_random_citizen()
                 self.citizens.append(new_citizen)
         elif growth_chance < 0.1:  # 10% chance for population decline
-            for _ in range(min(decline_batch, current_pop)):  # Ensure we don't remove more than existing #TODO: Check if this is correct
+            for _ in range(min(decline_batch, current_pop)):  # Ensure we don't remove more than existing #TODO: Check if this is correct with unittests
                 if self.citizens:
                     self.citizens.pop()
 

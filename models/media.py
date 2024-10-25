@@ -4,6 +4,7 @@ import random
 
 from .citizen import Citizen
 from .government import Government 
+from .sector import SectorType
 
 class MediaType(Enum):
     TRADITIONAL_NEWSPAPER = "Traditional Newspaper"
@@ -28,18 +29,39 @@ class MediaOutlet:
         self.audience_reach = 1000  # Number of people reached
         self.bias = random.uniform(-1, 1)  # -1 (left) to 1 (right)
         self.sensationalism = random.uniform(0, 1)  # 0 (factual) to 1 (sensational)
-
+        self.sector_coverage = {
+            SectorType.PUBLIC: random.uniform(0.3, 0.7),   # Coverage balance between sectors
+            SectorType.PRIVATE: random.uniform(0.3, 0.7)
+        }
+        
     def publish_news(self, category: NewsCategory, factuality: float) -> Dict:
         perceived_factuality = factuality * (1 - self.sensationalism)
         impact = self.audience_reach * (self.credibility / 100)
-        
-        return {
-            "outlet": self.name,
-            "category": category,
-            "factuality": perceived_factuality,
+
+        result = {
+            'outlet_name': self.name,
+            'media_type': self.media_type.value,
+            'category': category.value,
+            'factuality': perceived_factuality,
+            'credibility': self.credibility,
             "impact": impact,
-            "bias": self.bias
+            'bias': self.bias,
+            'sensationalism': self.sensationalism
         }
+        
+        # Add sector-specific reporting
+        focused_sector = random.choices(
+            [SectorType.PUBLIC, SectorType.PRIVATE],
+            weights=[self.sector_coverage[SectorType.PUBLIC], 
+                    self.sector_coverage[SectorType.PRIVATE]]
+        )[0]
+        
+        result.update({
+            'sector_focus': focused_sector.value,
+            'sector_coverage': self.sector_coverage[focused_sector]
+        })
+        
+        return result
 
     def update_credibility(self, factuality: float) -> None:
         credibility_change = (factuality - 0.5) * 10  # -5 to +5
@@ -142,5 +164,3 @@ class MediaLandscape:
             report += f"    Bias: {outlet.bias:.2f} ({self.bias_to_string(outlet.bias)})\n"
             report += f"    Sensationalism: {outlet.sensationalism:.2f}\n"
         return report
-
-

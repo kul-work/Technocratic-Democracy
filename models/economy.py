@@ -1,4 +1,20 @@
 import random
+from enum import Enum
+from typing import Dict
+
+class SectorType(Enum):
+    PUBLIC = "Public"
+    PRIVATE = "Private"
+
+class EconomicSector:
+    def __init__(self, name: str, sector_type: SectorType):
+        self.name = name
+        self.sector_type = sector_type
+        self.gdp_share = 0.0
+        self.employment_share = 0.0
+        self.efficiency = random.uniform(0.6, 0.9)
+        self.innovation_rate = random.uniform(0.1, 0.3)
+        self.budget = 0.0
 
 class EconomicModel:
     def __init__(self):
@@ -9,14 +25,25 @@ class EconomicModel:
         self.trade_balance = 0  # Neutral trade balance
 
         # Economic sectors (percentage of GDP)
+        # TODO: sync it with government.py / MinistryType
         self.sectors = {
-            'industry': 0.3,
-            'services': 0.6,
-            'agriculture': 0.05,
-            'technology': 0.05,
-            'finance': 0.05
+            # Public sectors
+            'public_administration': EconomicSector('Public Administration', SectorType.PUBLIC),
+            'healthcare': EconomicSector('Healthcare', SectorType.PUBLIC),
+            'education': EconomicSector('Education', SectorType.PUBLIC),
+            'defense': EconomicSector('Defense', SectorType.PUBLIC),
+            
+            # Private sectors
+            'manufacturing': EconomicSector('Manufacturing', SectorType.PRIVATE),
+            'services': EconomicSector('Services', SectorType.PRIVATE),
+            'technology': EconomicSector('Technology', SectorType.PRIVATE),
+            'finance': EconomicSector('Finance', SectorType.PRIVATE),
+            'agriculture': EconomicSector('Agriculture', SectorType.PRIVATE)
         }
-
+        
+        # Initialize sector shares
+        self._initialize_sector_shares()
+        
         # Labor market
         self.labor_force = 50_000_000  # Total labor force
         self.employed = self.labor_force * (1 - self.unemployment_rate)
@@ -35,6 +62,23 @@ class EconomicModel:
         # Financial system
         self.interest_rate = 0.01  # 1% interest rate
         self.money_supply = self.gdp * 1.5  # M2 money supply
+
+    def _initialize_sector_shares(self):
+        # Public sector typically represents 30-50% of GDP in European countries
+        public_share = random.uniform(0.3, 0.5)
+        private_share = 1.0 - public_share
+        
+        public_sectors = [s for s in self.sectors.values() if s.sector_type == SectorType.PUBLIC]
+        private_sectors = [s for s in self.sectors.values() if s.sector_type == SectorType.PRIVATE]
+        
+        # Distribute shares within each sector type
+        for sector in public_sectors:
+            sector.gdp_share = public_share / len(public_sectors)
+            sector.employment_share = public_share / len(public_sectors)
+            
+        for sector in private_sectors:
+            sector.gdp_share = private_share / len(private_sectors)
+            sector.employment_share = private_share / len(private_sectors)
 
     def simulate_year(self) -> None:
         self.update_sectors()
@@ -67,18 +111,61 @@ class EconomicModel:
         self.unemployment_rate = max(0, min(1, self.unemployment_rate + random.uniform(-0.02, 0.02)))
         self.trade_balance += random.uniform(-0.1, 0.1) * self.gdp
 
+        # Add sector interaction simulation
+        self._simulate_sector_interactions()
+        
+        # Update economic indicators based on sector performance
+        self._update_economic_indicators()
+
         # Update other economic variables
         self.update_sectors()
         self.update_labor_market()
         self.update_fiscal_system()
         self.update_financial_system()
 
+    def _simulate_sector_interactions(self):
+        """Simulate interactions between public and private sectors"""
+        public_efficiency = sum(s.efficiency for s in self.sectors.values() 
+                              if s.sector_type == SectorType.PUBLIC)
+        private_innovation = sum(s.innovation_rate for s in self.sectors.values() 
+                               if s.sector_type == SectorType.PRIVATE)
+        
+        # Public sector efficiency affects private sector growth
+        for sector in self.sectors.values():
+            if sector.sector_type == SectorType.PRIVATE:
+                sector.gdp_share *= (1 + 0.01 * public_efficiency * random.uniform(0.8, 1.2))
+                
+        # Private sector innovation affects public sector efficiency
+        for sector in self.sectors.values():
+            if sector.sector_type == SectorType.PUBLIC:
+                sector.efficiency *= (1 + 0.005 * private_innovation * random.uniform(0.8, 1.2))
+
+    def _update_economic_indicators(self):
+        """Update economic indicators based on sector performance"""
+        # Calculate total GDP growth based on sector performance
+        public_gdp_growth = sum(s.gdp_share * s.efficiency for s in self.sectors.values() 
+                               if s.sector_type == SectorType.PUBLIC)
+        private_gdp_growth = sum(s.gdp_share * (1 + s.innovation_rate) for s in self.sectors.values() 
+                                if s.sector_type == SectorType.PRIVATE)
+        
+        self.gdp *= (1 + (public_gdp_growth + private_gdp_growth) * 0.1)
+        
+        # Update unemployment based on sector employment changes
+        public_employment = sum(s.employment_share for s in self.sectors.values() 
+                              if s.sector_type == SectorType.PUBLIC)
+        private_employment = sum(s.employment_share for s in self.sectors.values() 
+                               if s.sector_type == SectorType.PRIVATE)
+        
+        self.unemployment_rate = 1.0 - (public_employment + private_employment)
+
     def update_sectors(self) -> None:
         for sector in self.sectors:
-            self.sectors[sector] = max(0, min(1, self.sectors[sector] + random.uniform(-0.02, 0.02)))
+            self.sectors[sector].gdp_share = max(0, min(1, self.sectors[sector].gdp_share + random.uniform(-0.02, 0.02)))
+            self.sectors[sector].employment_share = max(0, min(1, self.sectors[sector].employment_share + random.uniform(-0.02, 0.02)))
         # Normalize sector percentages
-        total = sum(self.sectors.values())
-        self.sectors = {k: v / total for k, v in self.sectors.items()}
+        total = sum(sector.gdp_share for sector in self.sectors.values())
+        for sector in self.sectors.values():
+            sector.gdp_share /= total
 
     def update_labor_market(self) -> None:
         self.employed = self.labor_force * (1 - self.unemployment_rate)
@@ -115,9 +202,6 @@ class EconomicModel:
         # Method to apply economic policies
         pass
 
-    def print_sectors(self):
-        return {sector: round(value, 2) for sector, value in self.sectors.items()}
-
     def get_economic_indicators(self) -> None:
         return {
             'GDP': f"{self.gdp:.2f}",
@@ -145,3 +229,18 @@ class EconomicModel:
 
     def get_unemployment_rate(self) -> float:
         return self.unemployment_rate
+        
+    def print_sectors(self):
+        return {sector.name: round(sector.gdp_share, 2) for sector in self.sectors.values()}
+
+    def get_sector_report(self) -> Dict[str, Dict]:
+        """Generate a detailed report of all sectors"""
+        return {
+            name: {
+                'type': sector.sector_type.value,
+                'gdp_share': f"{sector.gdp_share:.2%}",
+                'employment_share': f"{sector.employment_share:.2%}",
+                'efficiency': f"{sector.efficiency:.2f}",
+                'innovation_rate': f"{sector.innovation_rate:.2f}"
+            } for name, sector in self.sectors.items()
+        }

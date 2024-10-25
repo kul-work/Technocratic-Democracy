@@ -78,7 +78,7 @@ class Parliamentarian:
     def __str__(self) -> str:
         return f"Parliamentarian #{self.id[:8]}"  # Show only first 8 characters of UUID for readability
 
-# TODO: Move this to a separate file for civic organizations
+# TODO: link this to civil_society.py
 class CivicOrganization:
     def __init__(self, name: str):
         self.name = name

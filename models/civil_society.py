@@ -3,6 +3,7 @@ from typing import List, Dict
 import random
 
 from .legislative import *
+from .sector import SectorType
 
 class CauseType(Enum):
     ENVIRONMENTAL = "Environmental"
@@ -27,6 +28,11 @@ class CivicOrganization:
         self.members: List[int] = []  # List of citizen IDs
         self.influence: float = 0.0
         self.funds: float = 1000.0  # Starting funds
+        self.sector_focus = random.choice([SectorType.PUBLIC, SectorType.PRIVATE, None])  # None means both
+        self.sector_influence = {
+            SectorType.PUBLIC: random.uniform(0, 1),
+            SectorType.PRIVATE: random.uniform(0, 1)
+        }
 
     def recruit_member(self, citizen_id: int) -> None:
         if citizen_id not in self.members:
@@ -38,7 +44,11 @@ class CivicOrganization:
             self.members.remove(citizen_id)
             self.influence = max(0, self.influence - 0.1)
 
-    def organize_activity(self, activity: ActivityType) -> bool:
+    def organize_activity(self, activity: ActivityType, target_sector: SectorType = None) -> bool:
+        """Organize activity with specific sector focus"""
+        if target_sector is None:
+            target_sector = self.sector_focus if self.sector_focus else random.choice([SectorType.PUBLIC, SectorType.PRIVATE])
+            
         cost = {
             ActivityType.PROTEST: 500,
             ActivityType.PETITION: 100,
@@ -51,6 +61,10 @@ class CivicOrganization:
         if self.funds >= cost[activity]:
             self.funds -= cost[activity]
             self.influence += 0.5 * random.random()
+            # Increase influence in target sector
+            self.sector_influence[target_sector] += 0.1 * random.random()
+            # Normalize influence
+            self.sector_influence[target_sector] = min(1.0, self.sector_influence[target_sector])
             return True
         return False
 

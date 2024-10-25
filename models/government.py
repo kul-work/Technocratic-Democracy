@@ -18,13 +18,23 @@ MAX_ADVISORS = 12
 EMERGENCY_DURATION = 120  # days
 
 class MinistryType(Enum):
-    ECONOMY = "Ministry of Economy"
-    FOREIGN_AFFAIRS = "Ministry of Foreign Affairs"
-    DEFENSE = "Ministry of National Defense"
-    EDUCATION = "Ministry of Education"
-    HEALTH = "Ministry of Health"
-    LABOR = "Ministry of Labor"
-    CULTURE = "Ministry of Culture"
+    ADMINISTRATION = "Public Administration"
+    HEALTHCARE = "Healthcare"
+    EDUCATION = "Education"
+    DEFENSE = "Defense"
+    ECONOMY = "Economy"
+    INDUSTRY = "Industry"
+    AGRICULTURE = "Agriculture"
+    FINANCE = "Finance"
+    LABOR = "Labor"
+    INFRASTRUCTURE = "Infrastructure"
+    FOREIGN_AFFAIRS = "Foreign Affairs"
+    CULTURE = "Culture"
+
+class SectorType(Enum):
+    PUBLIC = "Public"
+    PRIVATE = "Private"
+    MIXED = "Mixed"
 
 class GovernmentStatus(Enum):
     ACTIVE = "Active"
@@ -39,12 +49,37 @@ class Advisor:
         self.efficiency: float = random.uniform(0.5, 1.0)  # scale
 
 class Ministry:
-    def __init__(self, ministry_type: MinistryType):
-        self.type = ministry_type
-        self.advisors = []
-        self.minister = None
+    def __init__(self, name: str, ministry_type: MinistryType):
+        self.name = name
+        self.ministry_type = ministry_type
+        self.sector_type = self._determine_sector_type()
         self.budget = 0.0
-        self.efficiency = random.uniform(0.6, 0.9)  # Start with a random baseline efficiency
+        self.efficiency = random.uniform(0.5, 0.8)
+        self.staff_count = random.randint(100, 1000)
+        self.projects: List[str] = []
+        self.regulations: List[str] = []
+        self.advisors: List[Advisor] = []
+        self.minister: Optional[Advisor] = None
+
+    def _determine_sector_type(self) -> SectorType:
+        """Determine sector type based on ministry type"""
+        public_ministries = [
+            MinistryType.ADMINISTRATION,
+            MinistryType.HEALTHCARE,
+            MinistryType.EDUCATION,
+            MinistryType.DEFENSE
+        ]
+        private_ministries = [
+            MinistryType.ECONOMY,
+            MinistryType.INDUSTRY,
+            MinistryType.AGRICULTURE,
+            MinistryType.CULTURE
+        ]
+        if self.ministry_type in public_ministries:
+            return SectorType.PUBLIC
+        elif self.ministry_type in private_ministries:
+            return SectorType.PRIVATE
+        return SectorType.MIXED
 
     def add_advisor(self, advisor: Advisor) -> bool:
         if len(self.advisors) <= MAX_ADVISORS:
@@ -81,7 +116,7 @@ class Ministry:
 class Government:
     def __init__(self, prime_minister):
         self.prime_minister = prime_minister
-        self.ministries = {ministry_type: Ministry(ministry_type) for ministry_type in MinistryType}
+        self.ministries = {ministry_type: Ministry(ministry_type.value, ministry_type) for ministry_type in MinistryType}
         self.government_managers = []
         self.status = GovernmentStatus.ACTIVE
         self.formation_date = datetime.now()
@@ -205,3 +240,4 @@ class Government:
         
         # Update approval rating to reflect austerity measures
         self.approval_rating = max(10.0, self.approval_rating - 15.0)  # Austerity typically reduces approval
+
