@@ -136,3 +136,12 @@ class EconomicModel:
             'Interest Rate': f"{self.interest_rate:.2f}",
             'Money Supply': f"{self.money_supply:.2f}"
         }
+
+    def get_gdp_growth(self) -> float:
+        """Returns the GDP growth rate"""
+        # GDP growth is already calculated in simulate_month/year
+        # We'll return it as a percentage
+        return (self.gdp / (self.gdp / (1 + random.uniform(-0.01, 0.02)))) - 1
+
+    def get_unemployment_rate(self) -> float:
+        return self.unemployment_rate

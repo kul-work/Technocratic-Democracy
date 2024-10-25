@@ -23,16 +23,14 @@ class Simulation:
         # Set up logging
         logging.basicConfig(level=logging.DEBUG if DEBUG_MODE else logging.INFO,
                             format='%(asctime)s - %(levelname)s - %(message)s')
-        self.logger = logging.getLogger(__name__)        
-
-        self.society_state = SocietyState()
+        self.logger = logging.getLogger(__name__)                
 
     def debug_print(self, message):
         if DEBUG_MODE:
             self.logger.debug(message)
-
-    # Example of how news could affect other parts of the simulation
+    
     def process_news_cycle(news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
+    # Example of how news could affect other parts of the simulation
         for news in news_cycle:
             if news['category'] == NewsCategory.POLITICS:
                 # Affect citizen's trust in government
@@ -43,12 +41,17 @@ class Simulation:
                 government.adjust_economic_policy(news['impact'] * 0.1)
             # ... handle other categories
 
+    def update_public_trust(self, society_data):
+        # Example calculation for updating public trust
+        self.public_trust = (society_data['citizen_satisfaction'] + society_data['media_trust']) / 2
+
     # Main simulation logic
     def run(self):
         self.debug_print("Starting simulation...")
     
         # Initialize core components
         society = SocietySystem(initial_population=10_000)  # Start with 10K citizens
+        society_state = SocietyState()
 
         political_system = PoliticalSystem()
         civil_society = CivilSociety()
@@ -159,7 +162,11 @@ class Simulation:
         # Main loop simulation
         for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
             self.debug_print(f"\n--- Month {month + 1} ---")
-            
+
+            # Update population
+            society.update_population()
+            self.debug_print(f"Updated population. Current size: {len(society.citizens)}")
+
             # Collect data from various society systems
             economic_data = {
                 'gdp_growth': economy.get_gdp_growth(),
@@ -180,19 +187,11 @@ class Simulation:
             }            
 
             # Update society state
-            self.society_state.update_indicators(economic_data, political_data, social_data)          
+            society_state.update_indicators(economic_data, political_data, social_data)
 
-            # React to state changes
-            if self.society_state.current_state == SocietyStateType.ECONOMIC_CRISIS:
-                national_bank.emergency_measures()
-                government.implement_austerity()
-            elif self.society_state.current_state == SocietyStateType.SOCIAL_UNREST:
-                civil_society.increase_activism()
-                media_landscape.increase_coverage()
-
-            # Update population
-            society.update_population()
-            self.debug_print(f"Updated population. Current size: {len(society.citizens)}")
+            # Update public trust
+            self.update_public_trust(social_data)
+            self.debug_print(f"Updated public trust: {self.public_trust}")
 
             # Economic updates
             economy.simulate_month()
@@ -262,6 +261,14 @@ class Simulation:
             for party in political_system.parties:
                 party.campaign(1000)  # Smaller ongoing campaigns
 
+            # React to state changes
+            if society_state.current_state == SocietyStateType.ECONOMIC_CRISIS:
+                national_bank.emergency_measures()
+                government.implement_austerity()
+            elif society_state.current_state == SocietyStateType.SOCIAL_UNREST:
+                civil_society.increase_activism()
+                media_landscape.increase_coverage()
+
         # Simulation reports
         print("\n--- Simulation Reports ---")
         print(f"Economic indicators: {economy.get_economic_indicators()}")
@@ -281,7 +288,8 @@ class Simulation:
 
         # Add to the simulation reports section
         print("\n--- Society State Report ---")
-        print(self.society_state.get_state_report())
+        print(society_state.get_state_report())
+    
 
 def run_simulation(debug_mode=False):
     global DEBUG_MODE

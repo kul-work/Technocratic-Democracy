@@ -60,6 +60,9 @@ class MediaLandscape:
     def add_outlet(self, outlet: MediaOutlet) -> None:
         self.outlets.append(outlet)
 
+    def get_most_influential_outlets(self, n: int) -> List[MediaOutlet]:
+        return sorted(self.outlets, key=lambda x: x.audience_reach * (x.credibility / 100), reverse=True)[:n]
+
     def simulate_news_cycle(self) -> List[Dict]:
         news_cycle = []
         for outlet in self.outlets:
@@ -76,21 +79,37 @@ class MediaLandscape:
         avg_factuality = sum(news["factuality"] for news in news_cycle) / len(news_cycle)
         trust_change = (avg_factuality - 0.5) * 10  # -5 to +5
         self.public_trust = max(0, min(100, self.public_trust + trust_change))
-
-    def get_most_influential_outlets(self, n: int) -> List[MediaOutlet]:
-        return sorted(self.outlets, key=lambda x: x.audience_reach * (x.credibility / 100), reverse=True)[:n]
-
-    def generate_media_report(self) -> str:
-        report = "Media Landscape Report:\n"
-        report += f"Public Trust in Media: {self.public_trust:.2f}%\n\n"
-        report += "Top 5 Most Influential Outlets:\n"
-        for outlet in self.get_most_influential_outlets(5):
-            report += f"  {outlet.name} ({outlet.media_type.value}):\n"
-            report += f"    Credibility: {outlet.credibility:.2f}%\n"
-            report += f"    Audience Reach: {outlet.audience_reach:.2f}\n"
-            report += f"    Bias: {outlet.bias:.2f} ({self.bias_to_string(outlet.bias)})\n"
-            report += f"    Sensationalism: {outlet.sensationalism:.2f}\n"
-        return report
+    
+    def increase_coverage(self) -> None:
+        """
+        Increases media coverage during social unrest:
+        - Intensifies news cycle
+        - Increases audience reach
+        - Adjusts credibility based on coverage quality
+        """
+        for outlet in self.outlets:
+            # Increase audience reach during crisis coverage
+            outlet.audience_reach *= 1.2
+            
+            # More sensational coverage during unrest
+            original_sensationalism = outlet.sensationalism
+            outlet.sensationalism = min(1.0, outlet.sensationalism * 1.5)
+            
+            # Publish additional crisis-related news
+            crisis_news = outlet.publish_news(
+                category=random.choice([
+                    NewsCategory.POLITICS,
+                    NewsCategory.SOCIAL_ISSUES
+                ]),
+                factuality=0.8  # Maintain relatively high factuality during crisis
+            )
+            
+            # Adjust credibility based on crisis coverage quality
+            credibility_change = (0.8 - outlet.sensationalism) * 10
+            outlet.credibility = max(0, min(100, outlet.credibility + credibility_change))
+            
+            # Reset sensationalism after crisis coverage
+            outlet.sensationalism = original_sensationalism
 
     @staticmethod
     def bias_to_string(bias: float) -> str:
@@ -104,3 +123,24 @@ class MediaLandscape:
             return "Right"
         else:
             return "Far Right"
+
+    def get_trust_score(self) -> float:
+        """
+        Returns the current public trust in media
+        Scale of 0-1 (converted from 0-100 internal scale)
+        """
+        return self.public_trust / 100
+
+    def generate_media_report(self) -> str:
+        report = "Media Landscape Report:\n"
+        report += f"Public Trust in Media: {self.public_trust:.2f}%\n\n"
+        report += "Top 5 Most Influential Outlets:\n"
+        for outlet in self.get_most_influential_outlets(5):
+            report += f"  {outlet.name} ({outlet.media_type.value}):\n"
+            report += f"    Credibility: {outlet.credibility:.2f}%\n"
+            report += f"    Audience Reach: {outlet.audience_reach:.2f}\n"
+            report += f"    Bias: {outlet.bias:.2f} ({self.bias_to_string(outlet.bias)})\n"
+            report += f"    Sensationalism: {outlet.sensationalism:.2f}\n"
+        return report
+
+

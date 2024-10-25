@@ -57,13 +57,12 @@ class SocietyState:
         Calculate economic stability based on key economic indicators
         Returns value between -1.0 and 1.0
         """
-
         # Weights for different factors
         weights = {
             'gdp_growth': 0.4,
             'inflation': -0.3,  # Higher inflation reduces stability
             'unemployment': -0.3  # Higher unemployment reduces stability
-        }
+        }        
         stability = 0.0
         
         # GDP growth typically ranges from -10% to +10%
@@ -94,9 +93,9 @@ class SocietyState:
             'government_approval': 0.4,
             'parliament_effectiveness': 0.3,
             'political_stability': 0.3
-        }
+        }        
         stability = 0.0
-
+        
         # Government approval (typically 0-100%)
         if 'government_approval' in political_data:
             approval_impact = (political_data['government_approval'] - 50) / 50  # Center at 50%
@@ -123,9 +122,9 @@ class SocietyState:
             'social_cohesion': 0.4,
             'media_trust': 0.3,
             'citizen_satisfaction': 0.3
-        }
+        }        
         cohesion = 0.0
-
+        
         # Direct social cohesion measure (assumed 0-1 scale)
         if 'social_cohesion' in social_data:
             cohesion_impact = (social_data['social_cohesion'] - 0.5) * 2
@@ -158,3 +157,4 @@ class SocietyState:
             'state_history': [(prev.value, curr.value) for prev, curr in self.state_history[-5:]]  # Last 5 transitions
         }
 
+#TODO - should be integrated with society class?

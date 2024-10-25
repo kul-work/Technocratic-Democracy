@@ -82,6 +82,27 @@ class NationalBank:
         self.economic_indicators[EconomicIndicator.UNEMPLOYMENT_RATE] = max(1, min(20, self.economic_indicators[EconomicIndicator.UNEMPLOYMENT_RATE]))
         self.economic_indicators[EconomicIndicator.GDP_GROWTH] = max(-5, min(10, self.economic_indicators[EconomicIndicator.GDP_GROWTH]))
 
+    def emergency_measures(self) -> None:
+        """
+        Implements emergency measures during economic crisis:
+        - Drastically adjusts interest rates
+        - Increases reserve requirements
+        - Conducts emergency market operations
+        """
+        # Set contractionary monetary policy
+        self.set_monetary_policy(MonetaryPolicy.CONTRACTIONARY)
+        
+        # Significantly increase interest rates
+        self.interest_rate += 2.0
+        self.economic_indicators[EconomicIndicator.INTEREST_RATE] = self.interest_rate
+        
+        # Increase reserve requirements
+        self.reserve_requirement = min(20.0, self.reserve_requirement * 1.5)
+        
+        # Conduct emergency market operations (selling securities to reduce money supply)
+        emergency_amount = -self.foreign_exchange_reserves * 0.1
+        self.conduct_open_market_operations(emergency_amount)
+
     def generate_economic_report(self) -> str:
         report = f"Economic Report for {self.name}:\n"
         report += "\n"
@@ -108,3 +129,6 @@ class NationalBank:
                 formatted_indicators[indicator.value] = f"{value:.2f}%"
         
         return formatted_indicators
+
+    def get_inflation_rate(self) -> float:
+        return self.economic_indicators[EconomicIndicator.INFLATION_RATE]

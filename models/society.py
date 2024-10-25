@@ -54,3 +54,30 @@ class SocietySystem:
         # Update existing citizens
         for citizen in self.citizens:
             citizen.update(None, None, None)  # Placeholder for now
+
+    def get_satisfaction_score(self) -> float:
+        """
+        Calculate overall citizen satisfaction based on:
+        - Average happiness
+        - Average trust in institutions
+        - Average socioeconomic status
+        Returns value between 0 and 1
+        """
+        if not self.citizens:
+            return 0.0
+        
+        # Calculate average happiness
+        avg_happiness = sum(citizen.happiness for citizen in self.citizens) / len(self.citizens)
+        
+        # Calculate average trust
+        avg_trust = sum(citizen.trust_in_institutions for citizen in self.citizens) / len(self.citizens)
+        
+        # Calculate average socioeconomic status
+        avg_socioeconomic = sum(citizen.socioeconomic_rating for citizen in self.citizens) / len(self.citizens)
+        
+        # Normalize to 0-1 range
+        satisfaction = (avg_happiness / 100 * 0.4 + 
+                           avg_trust / 100 * 0.3 + 
+                           avg_socioeconomic / 100 * 0.3)
+        
+        return satisfaction

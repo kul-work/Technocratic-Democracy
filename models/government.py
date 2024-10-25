@@ -183,3 +183,25 @@ class Government:
         # For extreme negative conditions, consider emergency measures
         if influence_factor < -0.8:
             self.declare_emergency()
+
+    def implement_austerity(self) -> None:
+        """
+        Implements austerity measures during economic crisis:
+        - Reduces ministry budgets
+        - Increases efficiency requirements
+        - Adjusts economic policies
+        """
+        # Cut ministry budgets by 20%
+        for ministry in self.ministries.values():
+            ministry.budget *= 0.8
+        
+        # Focus on economic ministry during crisis
+        economy_ministry = self.ministries[MinistryType.ECONOMY]
+        economy_ministry.budget *= 1.1  # Give 10% back to economy ministry
+        
+        # Increase efficiency requirements
+        for ministry in self.ministries.values():
+            ministry.efficiency = max(0.8, ministry.efficiency)  # Set minimum efficiency to 80%
+        
+        # Update approval rating to reflect austerity measures
+        self.approval_rating = max(10.0, self.approval_rating - 15.0)  # Austerity typically reduces approval

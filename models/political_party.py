@@ -20,6 +20,19 @@ class PolicyArea(Enum):
     FOREIGN_POLICY = "Foreign Policy"
     SOCIAL_WELFARE = "Social Welfare"
 
+class IdeologyScore:
+    scores = {
+        Ideology.LEFT: -1.0,
+        Ideology.CENTER_LEFT: -0.5,
+        Ideology.CENTER: 0.0,
+        Ideology.CENTER_RIGHT: 0.5,
+        Ideology.RIGHT: 1.0
+    }
+
+    @classmethod
+    def get_score(cls, ideology: Ideology) -> float:
+        return cls.scores.get(ideology, 0.0)
+
 class PoliticalParty:
     def __init__(self, name: str, ideology: Ideology):
         self.name = name
@@ -84,3 +97,28 @@ class PoliticalSystem:
                 title = f"{party.ideology.value} {policy_area.value} Reform Act"
                 content = f"Proposed by {party.name} to reform {policy_area.value} according to {party.ideology.value} principles."
                 parliament.propose_legislation(title, party.name, content)
+
+    def get_stability_score(self) -> float:
+        """
+        Calculate political stability based on:
+        - Party system fragmentation
+        - Total party popularity
+        - Ideological distribution
+        Returns value between 0 and 1
+        """
+        if not self.parties:
+            return 0.0
+            
+        # Calculate party system fragmentation (less fragmentation = more stability)
+        total_popularity = self.total_popularity()
+        fragmentation = sum((party.popularity / total_popularity) ** 2 for party in self.parties)
+        
+        # Calculate ideological distribution (more centered = more stable)
+        weighted_ideology = sum(IdeologyScore.get_score(party.ideology) * (party.popularity / total_popularity) 
+                              for party in self.parties)
+        ideology_stability = 1 - abs(weighted_ideology)  # Closer to center = more stable
+        
+        # Combine scores (weighted average)
+        stability = (fragmentation * 0.6 + ideology_stability * 0.4)
+        
+        return stability

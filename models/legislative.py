@@ -244,3 +244,31 @@ class Parliament:
             print(f"Votes for: {votes_for}, Needed: {votes_needed}")
 
         return ratified
+
+    def get_effectiveness_score(self) -> float:
+        """
+        Calculate parliament's effectiveness based on:
+        - Ratio of passed vs. failed legislation
+        - Member activity scores
+        - Quorum maintenance
+        Returns value between 0 and 1
+        """
+        # Calculate legislation success rate
+        total_legislation = len(self.passed_legislation) + len(self.failed_legislation)
+        legislation_score = len(self.passed_legislation) / total_legislation if total_legislation > 0 else 0.5
+        
+        # Calculate average member activity
+        activity_score = sum(member.get_activity_score() for member in self.members) / len(self.members) if self.members else 0
+        normalized_activity = min(1.0, activity_score / 100)  # Normalize to 0-1 range
+        
+        # Calculate quorum maintenance
+        active_members = sum(1 for member in self.members if member.status == ParliamentaryStatus.ACTIVE)
+        quorum_score = active_members / (self.total_seats * self.quorum_percentage)
+        quorum_score = min(1.0, quorum_score)
+        
+        # Weighted average of all factors
+        effectiveness = (legislation_score * 0.4 + 
+                        normalized_activity * 0.3 + 
+                        quorum_score * 0.3)
+        
+        return effectiveness

@@ -1,127 +1,111 @@
 $ python.exe c:/share/TD/main.py
-Ion Ratiu has been elected as President.
-Parliamentarian #3c905957 has been elected as Prime Minister.
+2024-10-25 06:29:23,354 - DEBUG - Starting simulation...
+2024-10-25 06:29:23,380 - DEBUG - Registered party: Progressive Alliance
+2024-10-25 06:29:23,380 - DEBUG - Registered party: Conservative Union
+2024-10-25 06:29:23,381 - DEBUG - Registered party: Green Future
+Ion Iliescu has been elected as President.
+Parliamentarian #2df250e3 has been elected as Prime Minister.
 Government successfully formed and ratified!
-Government approval rating: 62.78%
-Government approval rating: 69.17%
-Legislation 'Bill 1' passed
-Government approval rating: 72.37%
-Legislation 'Bill 2' passed
-Government approval rating: 73.96%
-Government approval rating: 74.76%
+2024-10-25 06:29:23,383 - DEBUG -
+--- Month 1 ---
+2024-10-25 06:29:23,385 - DEBUG - Updated population. Current size: 10000
+2024-10-25 06:29:23,386 - DEBUG - Updated public trust: 0.35
+2024-10-25 06:29:23,387 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.05%', 'Unemployment Rate': '4.95%', 'GDP Growth': '2.51%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}
+Government approval rating: 62.88%
+2024-10-25 06:29:23,387 - DEBUG -
+--- Month 2 ---
+2024-10-25 06:29:23,389 - DEBUG - Updated population. Current size: 10000
+2024-10-25 06:29:23,390 - DEBUG - Updated public trust: 0.33736676153501655
+2024-10-25 06:29:23,390 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.70%', 'Unemployment Rate': '4.71%', 'GDP Growth': '2.44%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}
+Government approval rating: 69.33%
+2024-10-25 06:29:23,391 - DEBUG -
+--- Month 3 ---
+2024-10-25 06:29:23,392 - DEBUG - Updated population. Current size: 10000
+2024-10-25 06:29:23,394 - DEBUG - Updated public trust: 0.32558051919809405
+2024-10-25 06:29:23,394 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.02%', 'Unemployment Rate': '4.85%', 'GDP Growth': '2.26%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.9345'}
+Government approval rating: 72.55%
+2024-10-25 06:29:23,394 - DEBUG -
+--- Month 4 ---
+2024-10-25 06:29:23,396 - DEBUG - Updated population. Current size: 10000
+2024-10-25 06:29:23,398 - DEBUG - Updated public trust: 0.31304540766694067
+2024-10-25 06:29:23,398 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.36%', 'Unemployment Rate': '4.77%', 'GDP Growth': '2.09%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.9345'}
+Government approval rating: 74.16%
+Legislation 'Bill 3' passed
+2024-10-25 06:29:23,399 - DEBUG -
+--- Month 5 ---
+2024-10-25 06:29:23,403 - DEBUG - Updated population. Current size: 11000
+2024-10-25 06:29:23,404 - DEBUG - Updated public trust: 0.3007670621033107
+2024-10-25 06:29:23,404 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.38%', 'Unemployment Rate': '4.66%', 'GDP Growth': '2.18%', 'Interest Rate': '2.25%', 'Exchange Rate': '0.9345'}
+Government approval rating: 74.96%
 Legislation 'Bill 4' passed
-Government approval rating: 75.16%
+2024-10-25 06:29:23,405 - DEBUG -
+--- Month 6 ---
+2024-10-25 06:29:23,407 - DEBUG - Updated population. Current size: 11000
+2024-10-25 06:29:23,408 - DEBUG - Updated public trust: 0.2874408900689621
+2024-10-25 06:29:23,409 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.18%', 'Unemployment Rate': '4.60%', 'GDP Growth': '2.35%', 'Interest Rate': '2.25%', 'Exchange Rate': '0.9345'}
+Government approval rating: 75.37%
 Legislation 'Bill 5' passed
-Government approval rating: 75.36%
-Government approval rating: 75.46%
-Government approval rating: 75.51%
-Government approval rating: 75.54%
-Referendum 'Referendum 9' results: For: 4396, Against: 4390
-Government approval rating: 75.55%
+2024-10-25 06:29:23,410 - DEBUG -
+--- Month 7 ---
+2024-10-25 06:29:23,411 - DEBUG - Updated population. Current size: 11000
+2024-10-25 06:29:23,413 - DEBUG - Updated public trust: 0.2745963745827773
+2024-10-25 06:29:23,413 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.88%', 'Unemployment Rate': '4.46%', 'GDP Growth': '2.37%', 'Interest Rate': '2.25%', 'Exchange Rate': '0.9345'}
+Government approval rating: 75.57%
+2024-10-25 06:29:23,414 - DEBUG -
+--- Month 8 ---
+2024-10-25 06:29:23,416 - DEBUG - Updated population. Current size: 11000
+2024-10-25 06:29:23,417 - DEBUG - Updated public trust: 0.26487357122151156
+2024-10-25 06:29:23,418 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.33%', 'Unemployment Rate': '4.53%', 'GDP Growth': '2.21%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.9319'}
+Government approval rating: 75.67%
+2024-10-25 06:29:23,418 - DEBUG -
+--- Month 9 ---
+2024-10-25 06:29:23,423 - DEBUG - Updated population. Current size: 12100
+2024-10-25 06:29:23,425 - DEBUG - Updated public trust: 0.25003332387162003
+2024-10-25 06:29:23,425 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.00%', 'Unemployment Rate': '4.57%', 'GDP Growth': '2.04%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.9319'}
+Government approval rating: 75.72%
+2024-10-25 06:29:23,426 - DEBUG -
+--- Month 10 ---
+2024-10-25 06:29:23,431 - DEBUG - Updated population. Current size: 13310
+2024-10-25 06:29:23,433 - DEBUG - Updated public trust: 0.23940645233661717
+2024-10-25 06:29:23,433 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.49%', 'Unemployment Rate': '4.84%', 'GDP Growth': '1.97%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.8901'}
+Government approval rating: 75.74%
+2024-10-25 06:29:23,434 - DEBUG -
+--- Month 11 ---
+2024-10-25 06:29:23,436 - DEBUG - Updated population. Current size: 13310
+2024-10-25 06:29:23,438 - DEBUG - Updated public trust: 0.22826255600142512
+2024-10-25 06:29:23,438 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.06%', 'Unemployment Rate': '4.92%', 'GDP Growth': '1.82%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.8901'}
+Government approval rating: 75.76%
 Legislation 'Bill 10' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 12' passed
-Government approval rating: 75.56%
-Legislation 'Bill 13' passed
-Government approval rating: 75.56%
-Legislation 'Bill 14' passed      
-Government approval rating: 75.56%
-Legislation 'Bill 15' passed      
-Government approval rating: 75.56%
-Legislation 'Bill 16' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 20' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Healthcare Improvement Act' passed
-Government approval rating: 75.56%
-Legislation 'Bill 24' passed
-Government approval rating: 75.56%
-Legislation 'Bill 26' passed
-Government approval rating: 75.56%
-President proposed dismissal of parliamentarian 262
-Parliamentarian 262 has been dismissed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 29' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 32' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 34' passed
-Government approval rating: 75.56%
-Legislation 'Bill 35' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Healthcare Improvement Act' passed
-Referendum 'Referendum 37' results: For: 5312, Against: 5206
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 39' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Bill 42' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
-Legislation 'Environmental Improvement Act' passed
-Government approval rating: 75.56%
-Legislation 'Bill 44' passed
-Government approval rating: 75.56%
-Government approval rating: 75.56%
+2024-10-25 06:29:23,439 - DEBUG -
+--- Month 12 ---
+2024-10-25 06:29:23,441 - DEBUG - Updated population. Current size: 13310
+2024-10-25 06:29:23,443 - DEBUG - Updated public trust: 0.21464290277535714
+2024-10-25 06:29:23,443 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.95%', 'Unemployment Rate': '5.09%', 'GDP Growth': '2.01%', 'Interest Rate': '2.00%', 'Exchange Rate': '0.8901'}
+Government approval rating: 75.76%
 
---- Reports ---
-Economic indicators: {'GDP': '1177167853858.83', 'Inflation Rate': '0.01', 'Unemployment Rate': '0.03', 'Trade Balance': '156104494730.50', 'Sectors': {'industry': 0.37, 'services': 0.42, 'agriculture': 0.12, 'technology': 0.08, 'finance': 0.0}, 'Average Wage': '24153.80', 'Government Revenue': '540145148673.15', 'Government Spending': '547238469477.47', 'Budget Balance': '-7093320804.32', 'Income Tax Rate': '0.13', 'Corporate Tax Rate': '0.38', 'VAT Rate': '0.23', 'Social Security Rate': '0.13', 'Interest Rate': '0.03', 'Money Supply': '3103171081704.69'}
-Economic Report for Central Bank of Teknos:
-Monetary Policy: Expansionary
-Interest Rate: 2.25%
+--- Simulation Reports ---
+Economic indicators: {'GDP': '1060050139184.89', 'Inflation Rate': '0.02', 'Unemployment Rate': '0.06', 'Trade Balance': '414287511758.02', 'Sectors': {'industry': 0.21, 'services': 0.57, 'agriculture': 0.11, 'technology': 0.09, 'finance': 0.01}, 'Average Wage': '22625.31', 'Government Revenue': '584567279925.58', 'Government Spending': '594563872451.42', 'Budget Balance': '-9996592525.84', 'Income Tax Rate': '0.18', 'Corporate Tax Rate': '0.26', 'VAT Rate': '0.26', 'Social Security Rate': '0.17', 'Interest Rate': '0.00', 'Money Supply': '2204619050513.07'}
+
+--
+Economic Report for Central Bank of Technocratia:
+
+Monetary Policy: Neutral
+Interest Rate: 2.00%
 Reserve Requirement: 10.00%
-Foreign Exchange Reserves: $979,210,164.9997126
+Foreign Exchange Reserves: $1,123,425,891.3737738
 
 Economic Indicators:
-  Inflation Rate: 3.18%
-  Unemployment Rate: 5.51%
-  GDP Growth: 3.17%
-  Interest Rate: 2.25%
-  Exchange Rate: 1.0237
+  Inflation Rate: 1.95%
+  Unemployment Rate: 5.09%
+  GDP Growth: 2.01%
+  Interest Rate: 2.00%
+  Exchange Rate: 0.8901
 
-Media Landscape Report:
-Public Trust in Media: 49.06%
 
-Top 5 Most Influential Outlets:
-  TechTruth (Online News Portal):
-    Credibility: 100.00%
-    Audience Reach: 1181.56
-    Bias: -0.28 (Left)
-    Sensationalism: 0.09
-  SocialPulse (Social Media Platform):
-    Credibility: 100.00%
-    Audience Reach: 940.53
-    Bias: -0.92 (Far Left)
-    Sensationalism: 0.04
-  Daily Chronicle (Traditional Newspaper):
-    Credibility: 100.00%
-    Audience Reach: 917.55
-    Bias: -0.45 (Left)
-    Sensationalism: 0.61
-  Global News Network (TV Network):
-    Credibility: 100.00%
-    Audience Reach: 865.91
-    Bias: -0.81 (Far Left)
-    Sensationalism: 0.40
-  Independent Voice (Independent Journalist):
-    Credibility: 100.00%
-    Audience Reach: 733.46
-    Bias: -0.20 (Center)
-    Sensationalism: 0.56
+--
+Total political system popularity: 4.18
+Total civil society influence: 4.47
 
-Total political system popularity: 4.32
-Total civil society influence: 3.89
+--- Society State Report ---
+{'current_state': 'stable', 'indicators': {'economic_stability': 0.281, 'political_stability': 0.319, 'social_cohesion': -0.262, 
+'public_trust': 0.0}, 'state_history': []}

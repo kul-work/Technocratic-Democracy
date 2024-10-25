@@ -86,3 +86,52 @@ class CivilSociety:
                 activity = random.choice(list(ActivityType))
                 if org.organize_activity(activity):
                     print(f"{org.name} organized a {activity.value} in response to '{legislation.title}'")
+
+    def get_cohesion_score(self) -> float:
+        """
+        Calculate social cohesion based on:
+        - Organization diversity
+        - Member participation
+        - Cross-organization collaboration
+        Returns value between 0 and 1
+        """
+        if not self.organizations:
+            return 0.0
+        
+        # Calculate cause diversity
+        unique_causes = len(set(org.cause for org in self.organizations))
+        cause_diversity = min(1.0, unique_causes / len(CauseType))
+        
+        # Calculate member participation
+        avg_members = sum(len(org.members) for org in self.organizations) / len(self.organizations)
+        member_participation = min(1.0, avg_members / 1000)  # Normalize to 0-1
+        
+        # Calculate average influence
+        avg_influence = sum(org.influence for org in self.organizations) / len(self.organizations)
+        
+        # Combine scores
+        cohesion = (cause_diversity * 0.3 + 
+                    member_participation * 0.4 + 
+                    avg_influence * 0.3)
+        
+        return cohesion
+
+    def increase_activism(self) -> None:
+        """
+        Increases civic activism during social unrest:
+        - Intensifies organization activities
+        - Increases influence gain
+        - Organizes more frequent activities
+        """
+        for org in self.organizations:
+            # Increase organization activities
+            for _ in range(3):  # Organize multiple activities
+                activity = random.choice(list(ActivityType))
+                if org.organize_activity(activity):
+                    # Double the normal influence gain during increased activism
+                    org.influence += 0.5 * random.random()
+            
+            # Increase member recruitment efforts
+            if org.funds >= 1000:
+                org.funds -= 1000
+                org.influence += 0.2  # Additional influence from increased visibility
