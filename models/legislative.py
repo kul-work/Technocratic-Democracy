@@ -2,6 +2,7 @@ from enum import Enum
 from typing import List, Optional, TYPE_CHECKING
 import random
 from uuid import uuid4
+from faker import Faker
 
 #from .referendum import *
 #from .civil_society import *
@@ -10,6 +11,8 @@ import importlib
 referendum = importlib.import_module(".referendum", package=__package__)
 civil_society = importlib.import_module(".civil_society", package=__package__)
 
+# Initialize Faker for Romanian names
+fake = Faker('ro_RO')
 
 from config import *
 
@@ -44,6 +47,7 @@ class ActivityScore:
 class Parliamentarian:
     def __init__(self, chamber: Optional[Chamber]):
         self.id = str(uuid4())  # Generate a unique UUID
+        self.name = fake.name()  # Generate a Romanian name
         self.chamber = chamber
         self.years_served = 0
         self.consecutive_terms = 0  # TODO: Implement detailed term logic (2 vs 4 years, max 3 consecutive terms)
@@ -80,7 +84,7 @@ class Parliamentarian:
 
     # Simplified output of a parliamentarian
     def __str__(self) -> str:
-        return f"Parliamentarian #{self.id[:8]}"  # Show only first 8 characters of UUID for readability
+        return f"{self.name} (#{self.id[:8]})"  # Updated to include name
     
 class Legislation:
     def __init__(self, title: str, proposer: str, content: str):

@@ -35,9 +35,8 @@ class President:
     
     def choose_prime_minister(self, parliament: Parliament) -> Parliamentarian:
         while True:
-            pm = 'Nicolae Vacaroiu'
-            candidate = self.nominate_candidate(pm)
-            if parliament.has_quorum() and parliament.propose_legislation('New Prime Minister', "President", f'Appointment of {pm} as Prime Minister', ignore_quorum=True):
+            candidate = self.nominate_candidate('')
+            if parliament.has_quorum() and parliament.propose_legislation('New Prime Minister', "President", f'Appointment of {candidate.name} as Prime Minister', ignore_quorum=True):
                 legislation = parliament.proposed_legislation[-1]  # Get the last proposed legislation
                 if parliament.vote_on_legislation(legislation, ignore_quorum=True):
                     return candidate
