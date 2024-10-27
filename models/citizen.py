@@ -75,9 +75,12 @@ class Citizen:
     def update(self, economy, policies, social_environment) -> None:
     #def update(self, economy: 'Economy', policies: List['Policy'], social_environment: 'SocialEnvironment') -> None:
         # Logic for updating the citizen's state based on external factors
-        self._update_economic_status(economy)
-        self._update_social_factors(social_environment)
-        self._apply_policy_effects(policies)
+        if economy:
+            self._update_economic_status(economy)
+        if social_environment:
+            self._update_social_factors(social_environment)
+        if policies:
+            self._apply_policy_effects(policies)
         self._age()
 
     def _update_economic_status(self, economy) -> None:

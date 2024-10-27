@@ -131,6 +131,16 @@ class Parliament:
             member.years_served += 1
             member.update_status()
 
+    def get_random_member(self, chamber: Chamber) -> Optional[Parliamentarian]:
+    # Filter members by chamber and active status
+        eligible_members = [
+            member for member in self.members 
+            if member.chamber == chamber and member.status == ParliamentaryStatus.ACTIVE
+        ]
+    
+        # Return random member if any exist, otherwise None
+        return random.choice(eligible_members) if eligible_members else None
+
     def conduct_admission_interview(self, candidate: Parliamentarian) -> bool:
         # Simplified admission process
         return random.random() > 0.3  # 70% chance of admission

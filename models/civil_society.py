@@ -89,13 +89,13 @@ class CivilSociety:
     def total_influence(self) -> float:
         return sum(org.influence for org in self.organizations)
 
-    #TODO: add Parliamentarian DEPUTY as link
     def propose_legislation(self, parliament) -> None:
         for org in self.get_most_influential_orgs(3):  # Top 3 orgs can propose legislation
             if random.random() < org.influence / 10:  # Influence affects chance of proposal
                 title = f"{org.cause.value} Improvement Act"
                 content = f"Proposed by {org.name} to address {org.cause.value} issues."
-                parliament.propose_legislation(title, org.name, content)
+                deputy = parliament.get_random_member(Chamber.DEPUTIES)
+                parliament.propose_legislation(title, deputy.name, content)
 
     def react_to_legislation(self, legislation: 'Legislation') -> None:
         for org in self.organizations:

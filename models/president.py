@@ -35,16 +35,19 @@ class President:
     
     def choose_prime_minister(self, parliament: Parliament) -> Parliamentarian:
         while True:
-            candidate = self.nominate_candidate('')
+            candidate = self.nominate_candidate(Parliamentarian(random.choice([Chamber.DEPUTIES, Chamber.SENATE])))
             if parliament.has_quorum() and parliament.propose_legislation('New Prime Minister', "President", f'Appointment of {candidate.name} as Prime Minister', ignore_quorum=True):
                 legislation = parliament.proposed_legislation[-1]  # Get the last proposed legislation
                 if parliament.vote_on_legislation(legislation, ignore_quorum=True):
                     return candidate
                     
-    def nominate_candidate(self, name: str) -> Parliamentarian:
-        # Simplified simulation of nomination
-        # TODO: link param 'name' to Parliament
-        return Parliamentarian(random.choice([Chamber.DEPUTIES, Chamber.SENATE]))
+    def nominate_candidate(self, name: str) -> Optional[Parliamentarian]:
+        # Search for parliamentarian with that name
+        if name:
+            for member in self.referendum_system.parliament.members:
+                if member.name.lower() == name.lower():
+                    return member
+        return None
     
 ## Presidential Candidates and Elections
 class ExamType(Enum):
