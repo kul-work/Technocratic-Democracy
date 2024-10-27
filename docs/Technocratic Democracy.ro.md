@@ -108,7 +108,7 @@ Elemente cheie:
 ### Criterii pentru Candidatură
 
 * Oricine poate candida la președinție dacă trece un examen care verifică cunoștințe în politică externă, istorie, economie, legislație internă și un examen medical.
-* Un cetățean străin poate candida dacă are un certificat de limbă a statului la nivel B1.
+* Un cetățean străin poate candida dacă are un certificat de limbă a statului la nivel de B1.
 
 ### Drepturile Președintelui
 
