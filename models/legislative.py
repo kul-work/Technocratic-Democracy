@@ -83,9 +83,9 @@ class Parliamentarian:
         self.update_status()
 
     # Simplified output of a parliamentarian
-    def __str__(self) -> str:
-        return f"{self.name} (#{self.id[:8]})"  # Updated to include name
-    
+    def __str__(self):
+        return f"{self.name} (#{self.id})"
+
 class Legislation:
     def __init__(self, title: str, proposer: str, content: str):
         self.title = title
@@ -140,6 +140,16 @@ class Parliament:
     
         # Return random member if any exist, otherwise None
         return random.choice(eligible_members) if eligible_members else None
+    
+    def find_member_by_name(self, name: str) -> Optional[Parliamentarian]:
+        if not name:
+            return None
+            
+        for member in self.members:
+            if member.name.lower() == name.lower():
+                return member
+                
+        return None
 
     def conduct_admission_interview(self, candidate: Parliamentarian) -> bool:
         # Simplified admission process

@@ -2,8 +2,11 @@ from enum import Enum
 from typing import List, Dict
 import random
 
-from .legislative import *
+
 from .economy_sector import EconomySectorType
+
+import importlib
+legislative = importlib.import_module(".legislative", package=__package__)
 
 class CauseType(Enum):
     ENVIRONMENTAL = "Environmental"
@@ -94,10 +97,10 @@ class CivilSociety:
             if random.random() < org.influence / 10:  # Influence affects chance of proposal
                 title = f"{org.cause.value} Improvement Act"
                 content = f"Proposed by {org.name} to address {org.cause.value} issues."
-                deputy = parliament.get_random_member(Chamber.DEPUTIES)
+                deputy = parliament.get_random_member(legislative.Chamber.DEPUTIES)
                 parliament.propose_legislation(title, deputy.name, content)
 
-    def react_to_legislation(self, legislation: 'Legislation') -> None:
+    def react_to_legislation(self, legislation) -> None:
         for org in self.organizations:
             if legislation.title.lower().find(org.cause.value.lower()) != -1:
                 activity = random.choice(list(ActivityType))
