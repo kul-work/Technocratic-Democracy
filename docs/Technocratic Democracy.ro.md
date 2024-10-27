@@ -18,7 +18,7 @@ Elemente cheie:
 ### Structura Parlamentului
 
 * Parlamentul are două camere: una inferioară și una superioară.
-* Numărul de parlamentari depinde de populație, inclusiv diaspora.
+* Numărul de parlamentari depinde direct proporțional de populație, inclusiv diaspora.
 
 ### Intrarea în Parlament
 
