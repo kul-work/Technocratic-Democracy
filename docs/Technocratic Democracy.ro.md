@@ -43,7 +43,7 @@ Elemente cheie:
 
 ### Mandatul Parlamentar
 
-* Mandatul durează 2 sau 4 ani, cu un maximum de 3 mandate consecutive. Primele două mandate ale parlamentarului debutant trebuie să fie de 2 ani fiecare.
+* Mandatul parlamentar durează 2 sau 4 ani, cu un maximum de 3 mandate consecutive. Primele două mandate ale parlamentarului debutant trebuie să fie de 2 ani fiecare.
 * După 10 ani consecutivi, un parlamentar trebuie să ia o pauză de cel puțin 2 ani înainte de a putea reaplica. Acest lucru nu este valabil pentru comisia de admitere în parlament.
 
 ### Prelungirea Mandatului
