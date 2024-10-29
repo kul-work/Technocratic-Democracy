@@ -86,39 +86,38 @@ class Citizen:
     def _update_economic_status(self, economy) -> None:
     #def _update_economic_status(self, economy: 'EconomyModel') -> None:
         # Update income, savings, and debt based on economic conditions
-        #economy.simulate_month()
-        pass
+        economy.simulate_month()
+        
 
     def _update_social_factors(self, social_environment) -> None:
     #def _update_social_factors(self, social_environment: 'SocialEnvironment') -> None:
-        pass
-        # # Update happiness, social capital, and trust based on social conditions
-        # # Get society satisfaction score and state indicators
-        # society_satisfaction = social_environment.get_satisfaction_score()
-        # society_state = social_environment.state.get_state_report()
+        # Update happiness, social capital, and trust based on social conditions
+        # Get society satisfaction score and state indicators
+        society_satisfaction = social_environment.get_satisfaction_score()
+        society_state = social_environment.state.get_state_report()
         
-        # # Update citizen's social factors based on society state
-        # state_impact = {
-        #     'stable': 0.1,
-        #     'prosperity': 0.2,
-        #     'economic_crisis': -0.2,
-        #     'political_crisis': -0.15,
-        #     'social_unrest': -0.25,
-        #     'state_of_emergency': -0.3
-        # }
+        # Update citizen's social factors based on society state
+        state_impact = {
+            'stable': 0.1,
+            'prosperity': 0.2,
+            'economic_crisis': -0.2,
+            'political_crisis': -0.15,
+            'social_unrest': -0.25,
+            'state_of_emergency': -0.3
+        }
         
-        # # Update happiness based on society state and satisfaction
-        # state_modifier = state_impact.get(society_state['current_state'], 0)
-        # self.happiness = max(0, min(100, self.happiness + state_modifier * 10))
+        # Update happiness based on society state and satisfaction
+        state_modifier = state_impact.get(society_state['current_state'], 0)
+        self.happiness = max(0, min(100, self.happiness + state_modifier * 10))
         
-        # # Update trust based on society indicators
-        # indicators = society_state['indicators']
-        # self.trust_in_institutions = max(0, min(100, 
-        #     self.trust_in_institutions + indicators['public_trust'] * 10))
+        # Update trust based on society indicators
+        indicators = society_state['indicators']
+        self.trust_in_institutions = max(0, min(100, 
+            self.trust_in_institutions + indicators['public_trust'] * 10))
         
-        # # Update social capital based on social cohesion
-        # self.social_capital = max(0, min(100, 
-        #     self.social_capital + indicators['social_cohesion'] * 10))
+        # Update social capital based on social cohesion
+        self.social_capital = max(0, min(100, 
+            self.social_capital + indicators['social_cohesion'] * 10))
 
     def _apply_policy_effects(self, policies) -> None:
     #def _apply_policy_effects(self, policies: List['Policy']) -> None:
