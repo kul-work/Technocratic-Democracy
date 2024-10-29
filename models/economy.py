@@ -204,9 +204,12 @@ class EconomicModel:
         self.money_supply *= (1 + random.uniform(-0.05, 0.07))
 
     def apply_policy(self, policy):
-    #def apply_policy(self, policy: 'Policy'):
-        # Method to apply economic policies
-        pass
+        #def apply_policy(self, policy: 'Policy'):
+        if policy.area == 'FISCAL':
+            self.income_tax_rate = max(0, min(0.5, self.income_tax_rate + policy.effectiveness_score * 0.01))
+        elif policy.area == 'INVESTMENT':
+            self.gdp *= (1 + policy.effectiveness_score * 0.01)
+        # Add more policy areas as needed
 
     def get_economic_indicators(self) -> None:
         return {

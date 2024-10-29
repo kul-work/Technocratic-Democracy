@@ -121,9 +121,14 @@ class Citizen:
             self.social_capital + indicators['social_cohesion'] * 10))
 
     def _apply_policy_effects(self, policies) -> None:
-    #def _apply_policy_effects(self, policies: List['Policy']) -> None:
-        # Apply the effects of various policies on the citizen
-        pass
+        #def _apply_policy_effects(self, policies: List['Policy']) -> None:
+        for policy in policies:
+            if policy.area == 'ECONOMY':
+                self.income += policy.effectiveness_score * 100  # Example effect
+            elif policy.area == 'SOCIAL_WELFARE':
+                self.health = min(100, self.health + policy.effectiveness_score * 5)
+                self.education_level = min(100, self.education_level + policy.effectiveness_score * 5)
+            # Add more policy areas as needed
 
     def _age(self) -> None:
         # Increment age and apply age-related changes
