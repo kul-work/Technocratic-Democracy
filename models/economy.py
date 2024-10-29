@@ -1,6 +1,12 @@
 import random
 from enum import Enum
 from typing import Dict
+# from config import (
+#     INITIAL_GDP, INITIAL_INFLATION_RATE, INITIAL_UNEMPLOYMENT_RATE,
+#     INITIAL_LABOR_FORCE, INITIAL_TAX_RATES, MAX_DEFICIT_GDP_RATIO,
+#     TAX_RATE_MAX_CHANGE
+# )
+from config import *
 
 class SectorType(Enum):
     PUBLIC = "Public"
@@ -19,9 +25,9 @@ class EconomicSector:
 class EconomicModel:
     def __init__(self):
         # Initialize economic indicators
-        self.gdp = 1_000_000_000_000  # Initial GDP (trillion)
-        self.inflation_rate = 0.02  # 2% initial inflation
-        self.unemployment_rate = 0.05  # 5% initial unemployment
+        self.gdp = INITIAL_GDP
+        self.inflation_rate = INITIAL_INFLATION_RATE
+        self.unemployment_rate = INITIAL_UNEMPLOYMENT_RATE
         self.trade_balance = 0  # Neutral trade balance
 
         # Economic sectors (percentage of GDP)
@@ -45,15 +51,15 @@ class EconomicModel:
         self._initialize_sector_shares()
         
         # Labor market
-        self.labor_force = 50_000_000  # Total labor force
+        self.labor_force = INITIAL_LABOR_FORCE
         self.employed = self.labor_force * (1 - self.unemployment_rate)
         self.average_wage = self.gdp / self.employed
 
         # Fiscal system
-        self.income_tax_rate = 0.2  # 20% income tax
-        self.corporate_tax_rate = 0.25  # 25% corporate tax
-        self.vat_rate = 0.2  # 20% VAT
-        self.social_security_rate = 0.15  # 15% social security contributions
+        self.income_tax_rate = INITIAL_TAX_RATES['income']
+        self.corporate_tax_rate = INITIAL_TAX_RATES['corporate']
+        self.vat_rate = INITIAL_TAX_RATES['vat']
+        self.social_security_rate = INITIAL_TAX_RATES['social']
 
         self.government_revenue = 0
         self.government_spending = 0
@@ -181,17 +187,17 @@ class EconomicModel:
         self.government_revenue = income_tax + corporate_tax + vat + social_security
 
         # Calculate government spending (now based on revenue plus allowed deficit)
-        max_deficit = 0.03 * self.gdp  # 3% of GDP max deficit (example constraint)
+        max_deficit = MAX_DEFICIT_GDP_RATIO * self.gdp
         self.government_spending = self.government_revenue + random.uniform(0, max_deficit)
 
         # Calculate budget balance
         self.budget_balance = self.government_revenue - self.government_spending
 
         # Update tax rates with small random changes
-        self.income_tax_rate = max(0, min(0.5, self.income_tax_rate + random.uniform(-0.01, 0.01)))
-        self.corporate_tax_rate = max(0, min(0.5, self.corporate_tax_rate + random.uniform(-0.01, 0.01)))
-        self.vat_rate = max(0, min(0.3, self.vat_rate + random.uniform(-0.01, 0.01)))
-        self.social_security_rate = max(0, min(0.3, self.social_security_rate + random.uniform(-0.01, 0.01)))
+        self.income_tax_rate = max(0, min(0.5, self.income_tax_rate + random.uniform(-TAX_RATE_MAX_CHANGE, TAX_RATE_MAX_CHANGE)))
+        self.corporate_tax_rate = max(0, min(0.5, self.corporate_tax_rate + random.uniform(-TAX_RATE_MAX_CHANGE, TAX_RATE_MAX_CHANGE)))
+        self.vat_rate = max(0, min(0.3, self.vat_rate + random.uniform(-TAX_RATE_MAX_CHANGE, TAX_RATE_MAX_CHANGE)))
+        self.social_security_rate = max(0, min(0.3, self.social_security_rate + random.uniform(-TAX_RATE_MAX_CHANGE, TAX_RATE_MAX_CHANGE)))
 
     def update_financial_system(self) -> None:
         self.interest_rate = max(0, self.interest_rate + random.uniform(-0.005, 0.005))

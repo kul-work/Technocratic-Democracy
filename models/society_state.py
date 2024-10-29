@@ -1,6 +1,7 @@
 from enum import Enum
 from dataclasses import dataclass
 from typing import Dict, Any
+from config import *
 
 class SocietyStateType(Enum):
     STABLE = "stable"
@@ -39,15 +40,14 @@ class SocietyState:
     def _evaluate_state_transition(self) -> None:
         previous_state = self.current_state
 
-        # Example transition rules
-        if self.indicators.economic_stability < -0.6:
+        if self.indicators.economic_stability < ECONOMIC_CRISIS_THRESHOLD:
             self.current_state = SocietyStateType.ECONOMIC_CRISIS
-        elif self.indicators.political_stability < -0.5:
+        elif self.indicators.political_stability < POLITICAL_CRISIS_THRESHOLD:
             self.current_state = SocietyStateType.POLITICAL_CRISIS
-        elif self.indicators.social_cohesion < -0.4:
+        elif self.indicators.social_cohesion < SOCIAL_UNREST_THRESHOLD:
             self.current_state = SocietyStateType.SOCIAL_UNREST
-        elif all(getattr(self.indicators, ind) > 0.7 for ind in self.indicators.__annotations__):
-            self.current_state = SocietyStateType.PROSPERITY        
+        elif all(getattr(self.indicators, ind) > PROSPERITY_THRESHOLD for ind in self.indicators.__annotations__):
+            self.current_state = SocietyStateType.PROSPERITY
 
         if self.current_state != previous_state:
             self.state_history.append((previous_state, self.current_state))

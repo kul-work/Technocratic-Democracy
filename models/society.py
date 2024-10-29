@@ -1,5 +1,6 @@
 import random
 from typing import List
+from config import *
 
 from .citizen import Citizen
 
@@ -33,8 +34,8 @@ class SocietySystem:
         """
         # Calculate batch sizes based on current population
         current_pop = len(self.citizens)
-        growth_batch = int(current_pop * 0.1)  # 10% of current population
-        decline_batch = int(current_pop * 0.05)  # 5% of current population
+        growth_batch = int(current_pop * POPULATION_GROWTH_FACTOR)
+        decline_batch = int(current_pop * POPULATION_DECLINE_FACTOR)
         
         # Minimum batch size of 1 if population exists
         growth_batch = max(1, growth_batch) if current_pop > 0 else 1
@@ -42,11 +43,12 @@ class SocietySystem:
 
         # Add random population changes in batches        
         growth_chance = random.random()
-        if growth_chance > 0.8:  # 20% chance for population growth
+        if growth_chance > (1 - POPULATION_GROWTH_CHANCE):
             for _ in range(growth_batch):
-                new_citizen = self.create_random_citizen()
-                self.citizens.append(new_citizen)
-        elif growth_chance < 0.1:  # 10% chance for population decline
+                if len(self.citizens) < MAX_POPULATION:
+                    new_citizen = self.create_random_citizen()
+                    self.citizens.append(new_citizen)        
+        elif growth_chance < POPULATION_DECLINE_CHANCE:
             #TODO: Check if this is correct within a unittest
             for _ in range(min(decline_batch, current_pop)):  # Ensure we don't remove more than existing
                 if self.citizens:

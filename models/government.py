@@ -2,6 +2,7 @@ from enum import Enum
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, TYPE_CHECKING
 import random
+from config import *
 
 #from .citizen import *
 #from .legislative import *
@@ -262,9 +263,9 @@ class Government:
         - Increases efficiency requirements
         - Adjusts economic policies
         """
-        # Cut ministry budgets by 20%
+        # Cut ministry budgets
         for ministry in self.ministries.values():
-            ministry.budget *= 0.8
+            ministry.budget *= (1 - AUSTERITY_BUDGET_CUT)
         
         # Focus on economic ministry during crisis
         economy_ministry = self.ministries[MinistryType.ECONOMY]
@@ -272,10 +273,11 @@ class Government:
         
         # Increase efficiency requirements
         for ministry in self.ministries.values():
-            ministry.efficiency = max(0.8, ministry.efficiency)  # Set minimum efficiency to 80%
+            ministry.efficiency = max(MIN_MINISTRY_EFFICIENCY, ministry.efficiency)  # Set minimum efficiency to 80%
+
         
         # Update approval rating to reflect austerity measures
-        self.approval_rating = max(10.0, self.approval_rating - 15.0)  # Austerity typically reduces approval
+        self.approval_rating = max(10.0, self.approval_rating - AUSTERITY_APPROVAL_PENALTY)  # Austerity typically reduces approval
 
     def update_budget(self, revenue: float, spending: float) -> None:
         """

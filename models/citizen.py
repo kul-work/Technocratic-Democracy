@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Dict, List, Optional, TYPE_CHECKING
 import random
+from config import *
 
 MIN_LEGAL_VOTING_AGE = 16
 
@@ -128,6 +129,4 @@ class Citizen:
         # Increment age and apply age-related changes
         self.age += 1
         # TODO: Add logic for life events, retirement, etc.
-
-# TODO: implement the 'Policy' class
 

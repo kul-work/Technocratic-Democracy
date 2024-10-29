@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import List, Dict
 import random
+from config import *
 
 from .economy_sector import EconomySectorType
 

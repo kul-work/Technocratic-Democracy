@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import List, Dict
 import random
+from config import *
 
 from .citizen import Citizen
 from .legislative import *
@@ -39,7 +40,7 @@ class PoliticalParty:
         self.ideology = ideology
         self.members: List[int] = []  # List of citizen IDs
         self.popularity: float = 0.0
-        self.funds: float = 10_000.0  # Starting funds
+        self.funds: float = INITIAL_PARTY_FUNDS
         self.policies: Dict[PolicyArea, float] = {area: random.uniform(-1, 1) for area in PolicyArea}
 
     def recruit_member(self, citizen_id: int) -> None:
@@ -55,7 +56,7 @@ class PoliticalParty:
     def campaign(self, budget: float) -> None:
         if self.funds >= budget:
             self.funds -= budget
-            self.popularity += 0.1 * (budget / 1000) * random.random()
+            self.popularity += CAMPAIGN_POPULARITY_FACTOR * (budget / CAMPAIGN_COST_FACTOR) * random.random()
 
     def propose_policy(self, area: PolicyArea, strength: float) -> None:
         self.policies[area] = max(-1, min(1, strength))  # Ensure policy strength is between -1 and 1
