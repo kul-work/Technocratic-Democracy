@@ -153,6 +153,8 @@ class Simulation:
             
             if parliament.ratify_government(government):
                 print("Government successfully formed and ratified!")
+                # Initialize government budget based on economic model's fiscal data
+                government.update_budget(economy.government_revenue, economy.government_spending)
             else:
                 print("Government ratification failed.")
                 government = None
@@ -197,6 +199,10 @@ class Simulation:
             economy.simulate_month()
             national_bank.update_economic_indicators()
             self.debug_print(f"Updated economic indicators: {national_bank.print_economic_indicators()}")
+
+            # Update government budget based on economic model
+            if government is not None:
+                government.update_budget(economy.government_revenue, economy.government_spending)
 
             # Random bank policy decisions
             if random.random() < 0.3:

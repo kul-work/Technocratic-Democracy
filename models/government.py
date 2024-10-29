@@ -123,6 +123,9 @@ class Government:
         self.dissolution_date = self.formation_date + timedelta(days=3*365)
         self.emergency_end_date = None
         self.total_budget = 0.0
+        self.current_revenue = 0.0
+        self.current_spending = 0.0
+        self.budget_balance = 0.0
         self.approval_rating = 50.0  # Start with a neutral approval rating
 
     def appoint_government_manager(self, parliamentarian) -> bool:
@@ -175,8 +178,41 @@ class Government:
         return False
     
     def allocate_budget(self) -> None:
-        for ministry in self.ministries.values():
-            ministry.allocate_budget(self.total_budget / len(self.ministries))
+        """
+        Allocates budget to ministries based on their type and current economic situation
+        """
+        # Base allocation percentages for different ministry types
+        allocation_weights = {
+            MinistryType.ECONOMY: 0.15,
+            MinistryType.HEALTHCARE: 0.15,
+            MinistryType.EDUCATION: 0.12,
+            MinistryType.DEFENSE: 0.10,
+            MinistryType.INFRASTRUCTURE: 0.10,
+            MinistryType.ADMINISTRATION: 0.08,
+            MinistryType.LABOR: 0.08,
+            MinistryType.AGRICULTURE: 0.06,
+            MinistryType.CULTURE: 0.04,
+            MinistryType.FOREIGN_AFFAIRS: 0.04,
+            MinistryType.FINANCE: 0.04,
+            MinistryType.INDUSTRY: 0.04,
+        }
+
+        # Adjust weights based on government status
+        if self.status == GovernmentStatus.EMERGENCY:
+            # During emergency, increase budget for key ministries
+            allocation_weights[MinistryType.ECONOMY] *= 1.3
+            allocation_weights[MinistryType.HEALTHCARE] *= 1.2
+            allocation_weights[MinistryType.DEFENSE] *= 1.2
+            
+            # Reduce others proportionally
+            total_weight = sum(allocation_weights.values())
+            scale_factor = 1 / total_weight
+            allocation_weights = {k: v * scale_factor for k, v in allocation_weights.items()}
+
+        # Allocate budget to each ministry
+        for ministry_type, weight in allocation_weights.items():
+            ministry = self.ministries[ministry_type]
+            ministry.allocate_budget(self.total_budget * weight)
 
     def update_approval_rating(self) -> None:
         # First update each ministry's efficiency
@@ -240,4 +276,38 @@ class Government:
         
         # Update approval rating to reflect austerity measures
         self.approval_rating = max(10.0, self.approval_rating - 15.0)  # Austerity typically reduces approval
+
+    def update_budget(self, revenue: float, spending: float) -> None:
+        """
+        Updates government budget based on economic model calculations
+        
+        Args:
+            revenue: Total government revenue from economic model
+            spending: Total government spending from economic model
+        """
+        self.current_revenue = revenue
+        self.current_spending = spending
+        self.budget_balance = revenue - spending
+        self.total_budget = spending  # Set available budget for ministries
+        
+        # Reallocate budget to ministries based on new total
+        self.allocate_budget()
+        
+        # Adjust approval rating based on budget balance
+        if self.budget_balance < 0:
+            # Negative balance decreases approval
+            deficit_impact = (self.budget_balance / self.current_revenue) * 10
+            self.approval_rating = max(0, self.approval_rating + deficit_impact)
+        else:
+            # Protect against division by zero
+            if self.current_revenue > 0:
+                surplus_impact = min(5, (self.budget_balance / self.current_revenue) * 5)
+            else:
+                # When revenue is zero, we can either:
+                # Option 1: Set a default impact
+                surplus_impact = 0  # or another appropriate default value
+                # Option 2: Use the full budget balance as impact
+                # surplus_impact = min(5, self.budget_balance * 5)
+            
+            self.approval_rating = min(100, self.approval_rating + surplus_impact)
 
