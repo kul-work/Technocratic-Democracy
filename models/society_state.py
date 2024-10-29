@@ -16,7 +16,7 @@ class SocietyIndicators:
     economic_stability: float = 0.0    # -1.0 to 1.0
     political_stability: float = 0.0   # -1.0 to 1.0
     social_cohesion: float = 0.0       # -1.0 to 1.0
-    public_trust: float = 0.0          # -1.0 to 1.0  
+    societal_trust: float = 0.0        # -1.0 to 1.0
 
 class SocietyState:
     def __init__(self):
@@ -152,7 +152,7 @@ class SocietyState:
                 'economic_stability': round(self.indicators.economic_stability, 3),
                 'political_stability': round(self.indicators.political_stability, 3),
                 'social_cohesion': round(self.indicators.social_cohesion, 3),
-                'public_trust': round(self.indicators.public_trust, 3)
+                'public_trust': round(self.indicators.societal_trust, 3)
             },
             'state_history': [(prev.value, curr.value) for prev, curr in self.state_history[-5:]]  # Last 5 transitions
         }

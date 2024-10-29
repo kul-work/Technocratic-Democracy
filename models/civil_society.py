@@ -73,7 +73,7 @@ class CivicOrganization:
 
     def propose_candidate(self, chamber):
         # Simplified candidate proposal
-        return Parliamentarian(chamber)
+        return legislative.Parliamentarian(chamber)
 
     def receive_donation(self, amount: float) -> None:
         self.funds += amount

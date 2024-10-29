@@ -42,8 +42,8 @@ class Simulation:
             # ... handle other categories
 
     def update_public_trust(self, society_data):
-        # Example calculation for updating public trust
-        self.public_trust = (society_data['citizen_satisfaction'] + society_data['media_trust']) / 2
+        # Example calculation for updating overall societal trust
+        self.societal_trust = (society_data['citizen_satisfaction'] + society_data['media_trust']) / 2
 
     # Main simulation logic
     def run(self):
@@ -193,7 +193,7 @@ class Simulation:
 
             # Update public trust
             self.update_public_trust(social_data)
-            self.debug_print(f"Updated public trust: {self.public_trust}")
+            self.debug_print(f"Updated public trust: {self.societal_trust}")
 
             # Economic updates
             economy.simulate_month()

@@ -114,7 +114,7 @@ class Citizen:
         # Update trust based on society indicators
         indicators = society_state['indicators']
         self.trust_in_institutions = max(0, min(100, 
-            self.trust_in_institutions + indicators['public_trust'] * 10))
+            self.trust_in_institutions + indicators['societal_trust'] * 10))
         
         # Update social capital based on social cohesion
         self.social_capital = max(0, min(100, 

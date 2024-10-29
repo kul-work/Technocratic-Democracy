@@ -77,7 +77,7 @@ class MediaOutlet:
 class MediaLandscape:
     def __init__(self):
         self.outlets: List[MediaOutlet] = []
-        self.public_trust = 50.0  # Scale of 0-100
+        self.media_trust_score = 50.0 # Scale of 0-100
 
     def add_outlet(self, outlet: MediaOutlet) -> None:
         self.outlets.append(outlet)
@@ -100,7 +100,7 @@ class MediaLandscape:
     def update_public_trust(self, news_cycle: List[Dict]) -> None:
         avg_factuality = sum(news["factuality"] for news in news_cycle) / len(news_cycle)
         trust_change = (avg_factuality - 0.5) * 10  # -5 to +5
-        self.public_trust = max(0, min(100, self.public_trust + trust_change))
+        self.media_trust_score = max(0, min(100, self.media_trust_score + trust_change))
     
     def increase_coverage(self) -> None:
         """
@@ -151,11 +151,11 @@ class MediaLandscape:
         Returns the current public trust in media
         Scale of 0-1 (converted from 0-100 internal scale)
         """
-        return self.public_trust / 100
+        return self.media_trust_score / 100
 
     def generate_media_report(self) -> str:
         report = "Media Landscape Report:\n"
-        report += f"Public Trust in Media: {self.public_trust:.2f}%\n\n"
+        report += f"Public Trust in Media: {self.media_trust_score:.2f}%\n\n"
         report += "Top 5 Most Influential Outlets:\n"
         for outlet in self.get_most_influential_outlets(5):
             report += f"  {outlet.name} ({outlet.media_type.value}):\n"
