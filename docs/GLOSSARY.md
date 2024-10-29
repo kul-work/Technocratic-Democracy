@@ -1,4 +1,4 @@
-# Project Glossary
+# Technocratic Democracy Glossary
 
 ## Political System Terms
 
