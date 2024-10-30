@@ -23,7 +23,7 @@
 
 ### Scop 
 
-* Folosirea regulilor din `Technocratic Democracy` precum specificații pentru crearea unui simulator societal (asemănător jocului The Sims), care integrează modele simplificate de cetățeni, sisteme macroeconomice și instituții publice cu caracter public sau privat, precum și interacțiile dintre acestea. În cadrul acestui simulator s-ar putea rula diverse scenarii legislative și analiza impactul lor asupra societății, inclusiv efectele evenimentelor cu impact social major.
+* Folosirea regulilor din `Technocratic Democracy` precum specificații pentru crearea unui simulator societal (asemănător jocului The Sims), care integrează modele simplificate de cetățeni, sisteme macroeconomice și instituții cu caracter public sau privat, precum și interacțiile dintre acestea. În cadrul acestui simulator s-ar putea rula diverse scenarii legislative și analiza impactul lor asupra societății, inclusiv efectele evenimentelor cu impact social major.
 
 ### Alte considerații
 
