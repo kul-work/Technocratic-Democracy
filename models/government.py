@@ -6,6 +6,7 @@ from config import *
 
 #from .citizen import *
 #from .legislative import *
+from .economy_sector import EconomySector, EconomySectorType
 
 import importlib
 citizen = importlib.import_module(".citizen", package=__package__)
@@ -23,19 +24,16 @@ class MinistryType(Enum):
     HEALTHCARE = "Healthcare"
     EDUCATION = "Education"
     DEFENSE = "Defense"
+    JUSTICE = "Justice"
     ECONOMY = "Economy"
     INDUSTRY = "Industry"
     AGRICULTURE = "Agriculture"
     FINANCE = "Finance"
     LABOR = "Labor"
     INFRASTRUCTURE = "Infrastructure"
+    ENVIRONMENT = "Environment"
     FOREIGN_AFFAIRS = "Foreign Affairs"
     CULTURE = "Culture"
-
-class SectorType(Enum):
-    PUBLIC = "Public"
-    PRIVATE = "Private"
-    MIXED = "Mixed"
 
 class GovernmentStatus(Enum):
     ACTIVE = "Active"
@@ -62,13 +60,14 @@ class Ministry:
         self.advisors: List[Advisor] = []
         self.minister: Optional[Advisor] = None
 
-    def _determine_sector_type(self) -> SectorType:
+    def _determine_sector_type(self) -> EconomySectorType:
         """Determine sector type based on ministry type"""
         public_ministries = [
             MinistryType.ADMINISTRATION,
             MinistryType.HEALTHCARE,
             MinistryType.EDUCATION,
-            MinistryType.DEFENSE
+            MinistryType.DEFENSE,
+            MinistryType.JUSTICE
         ]
         private_ministries = [
             MinistryType.ECONOMY,
@@ -77,10 +76,10 @@ class Ministry:
             MinistryType.CULTURE
         ]
         if self.ministry_type in public_ministries:
-            return SectorType.PUBLIC
+            return EconomySectorType.PUBLIC
         elif self.ministry_type in private_ministries:
-            return SectorType.PRIVATE
-        return SectorType.MIXED
+            return EconomySectorType.PRIVATE
+        return EconomySectorType.MIXED
 
     def add_advisor(self, advisor: Advisor) -> bool:
         if len(self.advisors) <= MAX_ADVISORS:
@@ -189,6 +188,7 @@ class Government:
             MinistryType.EDUCATION: 0.12,
             MinistryType.DEFENSE: 0.10,
             MinistryType.INFRASTRUCTURE: 0.10,
+            MinistryType.ENVIRONMENT: 0.10,
             MinistryType.ADMINISTRATION: 0.08,
             MinistryType.LABOR: 0.08,
             MinistryType.AGRICULTURE: 0.06,

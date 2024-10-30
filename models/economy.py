@@ -1,26 +1,9 @@
 import random
 from enum import Enum
 from typing import Dict
-# from config import (
-#     INITIAL_GDP, INITIAL_INFLATION_RATE, INITIAL_UNEMPLOYMENT_RATE,
-#     INITIAL_LABOR_FORCE, INITIAL_TAX_RATES, MAX_DEFICIT_GDP_RATIO,
-#     TAX_RATE_MAX_CHANGE
-# )
 from config import *
 
-class SectorType(Enum):
-    PUBLIC = "Public"
-    PRIVATE = "Private"
-
-class EconomicSector:
-    def __init__(self, name: str, sector_type: SectorType):
-        self.name = name
-        self.sector_type = sector_type
-        self.gdp_share = 0.0
-        self.employment_share = 0.0
-        self.efficiency = random.uniform(0.6, 0.9)
-        self.innovation_rate = random.uniform(0.1, 0.3)
-        self.budget = 0.0
+from .economy_sector import EconomySector, EconomySectorType
 
 class EconomicModel:
     def __init__(self):
@@ -31,20 +14,26 @@ class EconomicModel:
         self.trade_balance = 0  # Neutral trade balance
 
         # Economic sectors (percentage of GDP)
-        # TODO: sync it with government.py / MinistryType - #later
         self.sectors = {
             # Public sectors
-            'public_administration': EconomicSector('Public Administration', SectorType.PUBLIC),
-            'healthcare': EconomicSector('Healthcare', SectorType.PUBLIC),
-            'education': EconomicSector('Education', SectorType.PUBLIC),
-            'defense': EconomicSector('Defense', SectorType.PUBLIC),
+            'public_administration': EconomySector('Public Administration', EconomySectorType.PUBLIC),
+            'healthcare': EconomySector('Healthcare', EconomySectorType.PUBLIC),
+            'education': EconomySector('Education', EconomySectorType.PUBLIC),
+            'defense': EconomySector('Defense', EconomySectorType.PUBLIC),
+            'justice': EconomySector('Justice', EconomySectorType.PUBLIC),
             
             # Private sectors
-            'manufacturing': EconomicSector('Manufacturing', SectorType.PRIVATE),
-            'services': EconomicSector('Services', SectorType.PRIVATE),
-            'technology': EconomicSector('Technology', SectorType.PRIVATE),
-            'finance': EconomicSector('Finance', SectorType.PRIVATE),
-            'agriculture': EconomicSector('Agriculture', SectorType.PRIVATE)
+            'manufacturing': EconomySector('Manufacturing', EconomySectorType.PRIVATE),
+            'services': EconomySector('Services', EconomySectorType.PRIVATE),
+            'technology': EconomySector('Technology', EconomySectorType.PRIVATE),
+            'finance': EconomySector('Finance', EconomySectorType.PRIVATE),
+            
+            # Mixed sectors
+            'agriculture': EconomySector('Agriculture', EconomySectorType.MIXED),
+            'industry': EconomySector('Industry', EconomySectorType.MIXED),
+            'infrastructure': EconomySector('Infrastructure', EconomySectorType.MIXED),
+            'environment': EconomySector('Environment', EconomySectorType.MIXED),
+            'culture': EconomySector('Culture', EconomySectorType.MIXED),
         }
         
         # Initialize sector shares
@@ -74,8 +63,8 @@ class EconomicModel:
         public_share = random.uniform(0.3, 0.5)
         private_share = 1.0 - public_share
         
-        public_sectors = [s for s in self.sectors.values() if s.sector_type == SectorType.PUBLIC]
-        private_sectors = [s for s in self.sectors.values() if s.sector_type == SectorType.PRIVATE]
+        public_sectors = [s for s in self.sectors.values() if s.sector_type == EconomySectorType.PUBLIC]
+        private_sectors = [s for s in self.sectors.values() if s.sector_type == EconomySectorType.PRIVATE]
         
         # Distribute shares within each sector type
         for sector in public_sectors:
@@ -132,35 +121,35 @@ class EconomicModel:
     def _simulate_sector_interactions(self):
         """Simulate interactions between public and private sectors"""
         public_efficiency = sum(s.efficiency for s in self.sectors.values() 
-                              if s.sector_type == SectorType.PUBLIC)
+                              if s.sector_type == EconomySectorType.PUBLIC)
         private_innovation = sum(s.innovation_rate for s in self.sectors.values() 
-                               if s.sector_type == SectorType.PRIVATE)
+                               if s.sector_type == EconomySectorType.PRIVATE)
         
         # Public sector efficiency affects private sector growth
         for sector in self.sectors.values():
-            if sector.sector_type == SectorType.PRIVATE:
+            if sector.sector_type == EconomySectorType.PRIVATE:
                 sector.gdp_share *= (1 + 0.01 * public_efficiency * random.uniform(0.8, 1.2))
                 
         # Private sector innovation affects public sector efficiency
         for sector in self.sectors.values():
-            if sector.sector_type == SectorType.PUBLIC:
+            if sector.sector_type == EconomySectorType.PUBLIC:
                 sector.efficiency *= (1 + 0.005 * private_innovation * random.uniform(0.8, 1.2))
 
     def _update_economic_indicators(self):
         """Update economic indicators based on sector performance"""
         # Calculate total GDP growth based on sector performance
         public_gdp_growth = sum(s.gdp_share * s.efficiency for s in self.sectors.values() 
-                               if s.sector_type == SectorType.PUBLIC)
+                               if s.sector_type == EconomySectorType.PUBLIC)
         private_gdp_growth = sum(s.gdp_share * (1 + s.innovation_rate) for s in self.sectors.values() 
-                                if s.sector_type == SectorType.PRIVATE)
+                                if s.sector_type == EconomySectorType.PRIVATE)
         
         self.gdp *= (1 + (public_gdp_growth + private_gdp_growth) * 0.1)
         
         # Update unemployment based on sector employment changes
         public_employment = sum(s.employment_share for s in self.sectors.values() 
-                              if s.sector_type == SectorType.PUBLIC)
+                              if s.sector_type == EconomySectorType.PUBLIC)
         private_employment = sum(s.employment_share for s in self.sectors.values() 
-                               if s.sector_type == SectorType.PRIVATE)
+                               if s.sector_type == EconomySectorType.PRIVATE)
         
         self.unemployment_rate = 1.0 - (public_employment + private_employment)
 
