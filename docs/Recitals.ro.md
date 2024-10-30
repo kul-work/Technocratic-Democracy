@@ -4,7 +4,7 @@
 
 ### Observații
 
-* Democrația vestic-europeană adaptată la spațiul euro-atlantic a intrat într-un ciclu autofag, având în vedere că a fost utilă societății la sfârșitul secolului XX.
+* Democrația vestic-europeană adaptată la spațiul euro-atlantic a intrat într-un ciclu autofag, având în vedere că ea a fost utilă societății la sfârșitul secolului XX.
 * Procesul electoral depinde mult de media, care poate fi influențată de politicieni.
 * Reprezentarea populației este slabă, aleșii sunt adesea deconectați de alegători. Democrația reprezentativă este încă vulnerabilă la corupție.
 * Puterea este concentrată în 2-3 partide mari, care fac o rotire minoră în decizii. Aceste partide reprezintă adesea interesele unor jucători economici, acționând deseori împotriva interesului general pentru profit.
