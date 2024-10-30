@@ -17,7 +17,7 @@
 ### Propuneri
 
 * Utilizarea tehnologiei precum inteligența artificială, blockchain, smartphone-urile și mass-computing pentru stabilirea și urmărirea obiectivelor.
-* Introducerea criteriilor de competență la nivel legislativ și decizional, adoptând un model corporativ; în mod ideal majoritatea executivului ar fi bine să fie tehnocratizată.
+* Introducerea criteriilor de competență la nivel legislativ și decizional, adoptând un model corporativ; în mod ideal majoritatea executivului ar fi tehnocratizată.
 * Implicarea activă a populației în procesul decizional, menținând totodată o reprezentativitate adecvată în aparatul de stat.
 * Reducerea influenței politice în execuție și refactorizarea sa în societate.
 
