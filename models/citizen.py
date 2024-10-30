@@ -35,7 +35,7 @@ class Citizen:
         self.age = age
         self.sex = sex
         self.region = region
-        # TODO: Add 'county' attribute and link it with 'region'
+        # TODO: Add 'county' attribute and link it with 'region' | later
         self.citizenship_status = CitizenshipStatus.CITIZEN
         self.is_immigrant = False
         self.years_in_country = 0  # To immigrants only
