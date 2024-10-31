@@ -1,111 +1,109 @@
-$ python.exe c:/share/TD/main.py
-
-2024-10-29 05:28:58,205 - DEBUG - Starting simulation...
-2024-10-29 05:28:58,229 - DEBUG - Registered party: Progressive Alliance
-2024-10-29 05:28:58,230 - DEBUG - Registered party: Conservative Union  
-2024-10-29 05:28:58,230 - DEBUG - Registered party: Green Future        
-Ion Ratiu has been elected as President.
-Crenguța Marin (#102) has been elected as Prime Minister.
-Government successfully formed and ratified!
-2024-10-29 05:28:58,238 - DEBUG -
+2024-10-31 10:29:31,541 - DEBUG - Starting simulation...
+2024-10-31 10:29:31,562 - DEBUG - Registered party: Progressive Alliance
+2024-10-31 10:29:31,562 - DEBUG - Registered party: Conservative Union
+2024-10-31 10:29:31,563 - DEBUG - Registered party: Green Future
+2024-10-31 10:29:31,563 - INFO - Ion Ratiu has been elected as President.
+2024-10-31 10:29:31,573 - INFO - Octaviu Aanei (#192) has been elected as Prime Minister.
+2024-10-31 10:29:31,573 - INFO - Government successfully formed and ratified!
+2024-10-31 10:29:31,574 - DEBUG - 
 --- Month 1 ---
-2024-10-29 05:28:58,239 - DEBUG - Updated population. Current size: 10000
-2024-10-29 05:28:58,240 - DEBUG - Updated public trust: 0.35
-2024-10-29 05:28:58,241 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.32%', 'Unemployment Rate': '4.94%', 'GDP Growth': '2.63%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}      
-Government approval rating: 57.97%
-2024-10-29 05:28:58,241 - DEBUG -
+2024-10-31 10:29:31,575 - DEBUG - Updated population. Current size: 10000
+2024-10-31 10:29:31,576 - DEBUG - Updated public trust: 0.35
+2024-10-31 10:29:31,576 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.56%', 'Unemployment Rate': '5.10%', 'GDP Growth': '2.44%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,577 - INFO - Government approval rating: 56.74%
+2024-10-31 10:29:31,577 - DEBUG - 
 --- Month 2 ---
-2024-10-29 05:28:58,245 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,246 - DEBUG - Updated public trust: 0.3527968167518972
-2024-10-29 05:28:58,247 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.62%', 'Unemployment Rate': '4.99%', 'GDP Growth': '2.64%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}      
-Government approval rating: 62.04%
-2024-10-29 05:28:58,248 - DEBUG -
+2024-10-31 10:29:31,578 - DEBUG - Updated population. Current size: 10000
+2024-10-31 10:29:31,579 - DEBUG - Updated public trust: 0.34231443526724015
+2024-10-31 10:29:31,579 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.52%', 'Unemployment Rate': '4.94%', 'GDP Growth': '2.30%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,580 - INFO - Government approval rating: 60.34%
+2024-10-31 10:29:31,580 - DEBUG - 
 --- Month 3 ---
-2024-10-29 05:28:58,249 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,251 - DEBUG - Updated public trust: 0.35176435204199197
-2024-10-29 05:28:58,251 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.80%', 'Unemployment Rate': '4.82%', 'GDP Growth': '2.77%', 'Interest Rate': '1.50%', 'Exchange Rate': '1.0000'}      
-Government approval rating: 63.89%
-2024-10-29 05:28:58,252 - DEBUG -
+2024-10-31 10:29:31,581 - DEBUG - Updated population. Current size: 10000
+2024-10-31 10:29:31,582 - DEBUG - Updated public trust: 0.33654442530154316
+2024-10-31 10:29:31,583 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.28%', 'Unemployment Rate': '4.68%', 'GDP Growth': '2.42%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,583 - INFO - Government approval rating: 62.14%
+2024-10-31 10:29:31,584 - DEBUG - 
 --- Month 4 ---
-2024-10-29 05:28:58,254 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,256 - DEBUG - Updated public trust: 0.35471259860384663
-2024-10-29 05:28:58,256 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.67%', 'Unemployment Rate': '5.03%', 'GDP Growth': '2.76%', 'Interest Rate': '1.50%', 'Exchange Rate': '1.0000'}      
-Government approval rating: 65.01%
-Legislation 'Bill 3' passed
-2024-10-29 05:28:58,257 - DEBUG -
+2024-10-31 10:29:31,585 - DEBUG - Updated population. Current size: 9500
+2024-10-31 10:29:31,586 - DEBUG - Updated public trust: 0.33004728199605693
+2024-10-31 10:29:31,587 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.66%', 'Unemployment Rate': '4.44%', 'GDP Growth': '2.41%', 'Interest Rate': '2.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,587 - INFO - Government approval rating: 63.05%
+2024-10-31 10:29:31,588 - DEBUG - 
 --- Month 5 ---
-2024-10-29 05:28:58,259 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,261 - DEBUG - Updated public trust: 0.34837172469562283
-2024-10-29 05:28:58,261 - DEBUG - Updated economic indicators: {'Inflation Rate': '3.01%', 'Unemployment Rate': '5.13%', 'GDP Growth': '2.74%', 'Interest Rate': '1.50%', 'Exchange Rate': '1.0000'}      
-Government approval rating: 65.63%
-Legislation 'Bill 4' passed
-2024-10-29 05:28:58,262 - DEBUG -
+2024-10-31 10:29:31,589 - DEBUG - Updated population. Current size: 9500
+2024-10-31 10:29:31,590 - DEBUG - Updated public trust: 0.32307555730550597
+2024-10-31 10:29:31,591 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.82%', 'Unemployment Rate': '4.56%', 'GDP Growth': '2.33%', 'Interest Rate': '1.75%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,591 - INFO - Government approval rating: 63.44%
+2024-10-31 10:29:31,591 - DEBUG - 
 --- Month 6 ---
-2024-10-29 05:28:58,263 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,264 - DEBUG - Updated public trust: 0.3496300196528219
-2024-10-29 05:28:58,265 - DEBUG - Updated economic indicators: {'Inflation Rate': '3.20%', 'Unemployment Rate': '5.35%', 'GDP Growth': '2.55%', 'Interest Rate': '1.25%', 'Exchange Rate': '1.0214'}      
-Government approval rating: 65.86%
-2024-10-29 05:28:58,265 - DEBUG -
+2024-10-31 10:29:31,593 - DEBUG - Updated population. Current size: 9500
+2024-10-31 10:29:31,594 - DEBUG - Updated public trust: 0.3154138622043048
+2024-10-31 10:29:31,594 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.93%', 'Unemployment Rate': '4.76%', 'GDP Growth': '2.18%', 'Interest Rate': '1.75%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,595 - INFO - Government approval rating: 63.46%
+2024-10-31 10:29:31,595 - DEBUG - 
 --- Month 7 ---
-2024-10-29 05:28:58,267 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,269 - DEBUG - Updated public trust: 0.3488879825150643
-2024-10-29 05:28:58,269 - DEBUG - Updated economic indicators: {'Inflation Rate': '3.28%', 'Unemployment Rate': '5.22%', 'GDP Growth': '2.60%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.0214'}      
-Government approval rating: 65.89%
-Referendum 'Referendum 6' results: For: 4957, Against: 4934
-2024-10-29 05:28:58,277 - DEBUG -
+2024-10-31 10:29:31,598 - DEBUG - Updated population. Current size: 10450
+2024-10-31 10:29:31,600 - DEBUG - Updated public trust: 0.30849992160813455
+2024-10-31 10:29:31,600 - DEBUG - Updated economic indicators: {'Inflation Rate': '1.69%', 'Unemployment Rate': '4.89%', 'GDP Growth': '2.03%', 'Interest Rate': '1.75%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,601 - INFO - Government approval rating: 63.68%
+2024-10-31 10:29:31,601 - INFO - Legislation 'Healthcare Improvement Act' passed
+2024-10-31 10:29:31,601 - DEBUG - 
 --- Month 8 ---
-2024-10-29 05:28:58,278 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,280 - DEBUG - Updated public trust: 0.3489793617066246
-2024-10-29 05:28:58,280 - DEBUG - Updated economic indicators: {'Inflation Rate': '3.72%', 'Unemployment Rate': '5.16%', 'GDP Growth': '2.56%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.0214'}      
-Government approval rating: 66.08%
-Legislation 'Bill 7' passed
-2024-10-29 05:28:58,281 - DEBUG -
+2024-10-31 10:29:31,602 - DEBUG - Updated population. Current size: 10450
+2024-10-31 10:29:31,604 - DEBUG - Updated public trust: 0.30102293404147995
+2024-10-31 10:29:31,604 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.05%', 'Unemployment Rate': '5.06%', 'GDP Growth': '2.12%', 'Interest Rate': '1.50%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,605 - INFO - Government approval rating: 63.75%
+2024-10-31 10:29:31,605 - DEBUG - 
 --- Month 9 ---
-2024-10-29 05:28:58,282 - DEBUG - Updated population. Current size: 11000
-2024-10-29 05:28:58,284 - DEBUG - Updated public trust: 0.3461550292623691
-2024-10-29 05:28:58,284 - DEBUG - Updated economic indicators: {'Inflation Rate': '4.03%', 'Unemployment Rate': '5.26%', 'GDP Growth': '2.72%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.1031'}      
-Government approval rating: 66.13%
-2024-10-29 05:28:58,285 - DEBUG -
+2024-10-31 10:29:31,607 - DEBUG - Updated population. Current size: 10450
+2024-10-31 10:29:31,608 - DEBUG - Updated public trust: 0.29265796600878635
+2024-10-31 10:29:31,609 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.54%', 'Unemployment Rate': '4.87%', 'GDP Growth': '2.01%', 'Interest Rate': '1.25%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,609 - INFO - Government approval rating: 63.77%
+2024-10-31 10:29:31,609 - DEBUG - 
 --- Month 10 ---
-2024-10-29 05:28:58,289 - DEBUG - Updated population. Current size: 12100
-2024-10-29 05:28:58,291 - DEBUG - Updated public trust: 0.3428512243040864
-2024-10-29 05:28:58,291 - DEBUG - Updated economic indicators: {'Inflation Rate': '3.99%', 'Unemployment Rate': '5.33%', 'GDP Growth': '2.75%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.1031'}      
-Government approval rating: 66.13%
-2024-10-29 05:28:58,292 - DEBUG -
+2024-10-31 10:29:31,613 - DEBUG - Updated population. Current size: 11495
+2024-10-31 10:29:31,614 - DEBUG - Updated public trust: 0.28843041269437664
+2024-10-31 10:29:31,615 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.86%', 'Unemployment Rate': '4.68%', 'GDP Growth': '1.87%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,615 - INFO - Government approval rating: 63.79%
+2024-10-31 10:29:31,615 - INFO - Legislation 'Bill 9' passed
+2024-10-31 10:29:31,616 - DEBUG - 
 --- Month 11 ---
-2024-10-29 05:28:58,296 - DEBUG - Updated population. Current size: 13310
-2024-10-29 05:28:58,298 - DEBUG - Updated public trust: 0.344720132063869
-2024-10-29 05:28:58,298 - DEBUG - Updated economic indicators: {'Inflation Rate': '3.90%', 'Unemployment Rate': '5.57%', 'GDP Growth': '2.75%', 'Interest Rate': '0.75%', 'Exchange Rate': '1.1031'}      
-Government approval rating: 66.14%
-2024-10-29 05:28:58,299 - DEBUG -
+2024-10-31 10:29:31,620 - DEBUG - Updated population. Current size: 12644
+2024-10-31 10:29:31,622 - DEBUG - Updated public trust: 0.2821796983738222
+2024-10-31 10:29:31,622 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.69%', 'Unemployment Rate': '4.55%', 'GDP Growth': '2.06%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,623 - INFO - Government approval rating: 63.83%
+2024-10-31 10:29:31,623 - INFO - Legislation 'Bill 10' passed
+2024-10-31 10:29:31,623 - DEBUG - 
 --- Month 12 ---
-2024-10-29 05:28:58,301 - DEBUG - Updated population. Current size: 13310
-2024-10-29 05:28:58,304 - DEBUG - Updated public trust: 0.34547583003452303
-2024-10-29 05:28:58,304 - DEBUG - Updated economic indicators: {'Inflation Rate': '4.17%', 'Unemployment Rate': '5.34%', 'GDP Growth': '2.67%', 'Interest Rate': '0.50%', 'Exchange Rate': '1.1031'}      
-Government approval rating: 65.98%
-
+2024-10-31 10:29:31,624 - DEBUG - Updated population. Current size: 12644
+2024-10-31 10:29:31,626 - DEBUG - Updated public trust: 0.2742024867785535
+2024-10-31 10:29:31,626 - DEBUG - Updated economic indicators: {'Inflation Rate': '2.28%', 'Unemployment Rate': '4.60%', 'GDP Growth': '1.94%', 'Interest Rate': '1.00%', 'Exchange Rate': '1.0000'}
+2024-10-31 10:29:31,626 - INFO - Government approval rating: 63.60%
+2024-10-31 10:29:31,626 - INFO - Legislation 'Bill 11' passed
+2024-10-31 10:29:31,627 - INFO - 
 --- Simulation Reports ---
-Economic indicators: {'GDP': '3693789808310.74', 'Inflation Rate': '0.04', 'Unemployment Rate': '-0.21', 'Trade Balance': '-147568069540.95', 'Sectors': {'Public Administration': 0.14, 'Healthcare': 0.05, 'Education': 0.09, 'Defense': 0.08, 'Manufacturing': 0.11, 'Services': 0.19, 'Technology': 0.13, 'Finance': 0.15, 'Agriculture': 0.07}, 'Average Wage': '60843.01', 'Government Revenue': '1677795339727.98', 'Government Spending': '1764452418123.70', 'Budget Balance': '-86657078395.71', 'Income Tax Rate': '0.18', 'Corporate Tax Rate': '0.22', 'VAT Rate': '0.17', 'Social Security Rate': '0.13', 'Interest Rate': '0.03', 'Money Supply': '2391692105861.55'}
-
+2024-10-31 10:29:31,627 - INFO - Economic indicators: {'GDP': '3528236961576.59', 'Inflation Rate': '0.01', 'Unemployment Rate': '0.18', 'Trade Balance': '217040345420.36', 'Sectors': {'Public Administration': 0.04, 'Healthcare': 0.05, 'Education': 0.08, 'Defense': 0.04, 'Justice': 0.06, 'Manufacturing': 0.16, 'Services': 0.13, 'Technology': 0.17, 'Finance': 0.14, 'Agriculture': 0.02, 'Industry': 0.01, 'Infrastructure': 0.02, 'Environment': 0.02, 'Culture': 0.06}, 'Average Wage': '85703.28', 'Government Revenue': '1753570488816.17', 'Government Spending': '1854506575412.94', 'Budget Balance': '-100936086596.77', 'Income Tax Rate': '0.24', 'Corporate Tax Rate': '0.27', 'VAT Rate': '0.19', 'Social Security Rate': '0.12', 'Interest Rate': '0.00', 'Money Supply': '1742832002694.58'}
+2024-10-31 10:29:31,627 - INFO - 
 --
-Economic Report for Central Bank of Technocratia:
+2024-10-31 10:29:31,628 - INFO - Economic Report for Central Bank of Technocratia:
 
-Monetary Policy: Expansionary
-Interest Rate: 0.50%
+Monetary Policy: Contractionary
+Interest Rate: 1.25%
 Reserve Requirement: 10.00%
-Foreign Exchange Reserves: $907,207,232.0248076
+Foreign Exchange Reserves: $1,000,340,849.4916079
 
 Economic Indicators:
-  Inflation Rate: 4.17%
-  Unemployment Rate: 5.34%
-  GDP Growth: 2.67%
-  Interest Rate: 0.50%
-  Exchange Rate: 1.1031
+  Inflation Rate: 2.28%
+  Unemployment Rate: 4.60%
+  GDP Growth: 1.94%
+  Interest Rate: 1.25%
+  Exchange Rate: 1.0000
 
-
+2024-10-31 10:29:31,630 - INFO - 
 --
-Total political system popularity: 4.94
-Total civil society influence: 3.33
-
+2024-10-31 10:29:31,630 - INFO - Total political system popularity: 4.52
+2024-10-31 10:29:31,631 - INFO - Total civil society influence: 4.09
+2024-10-31 10:29:31,631 - INFO - 
 --- Society State Report ---
-{'current_state': 'stable', 'indicators': {'economic_stability': 0.042, 'political_stability': 0.217, 'social_cohesion': -0.195, 'public_trust': 0.0}, 'state_history': []}
+2024-10-31 10:29:31,631 - INFO - {'current_state': 'stable', 'indicators': {'economic_stability': 0.652, 'political_stability': 0.195, 'social_cohesion': -0.22, 'public_trust': 0.0}, 'state_history': []}

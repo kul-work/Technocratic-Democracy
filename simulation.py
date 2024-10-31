@@ -20,10 +20,16 @@ class Simulation:
         global DEBUG_MODE
         DEBUG_MODE = debug_mode
 
-        # Set up logging
-        logging.basicConfig(level=logging.DEBUG if DEBUG_MODE else logging.INFO,
-                            format='%(asctime)s - %(levelname)s - %(message)s')
-        self.logger = logging.getLogger(__name__)                
+        # Set up logging to both console and file
+        logging.basicConfig(
+            level=logging.DEBUG if DEBUG_MODE else logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.StreamHandler(),  # Console handler
+                logging.FileHandler('output/output.txt', mode='w')  # 'w' mode overwrites
+            ]
+        )
+        self.logger = logging.getLogger(__name__)
 
     def debug_print(self, message):
         if DEBUG_MODE:
@@ -127,7 +133,7 @@ class Simulation:
             presidential_election.register_candidate(candidate)
 
         president = presidential_election.conduct_election()
-        print(f"{president.name} has been elected as President.")
+        self.logger.info(f"{president.name} has been elected as President.")
 
         # Fill the parliament with active members
         for i in range(300):
@@ -148,18 +154,17 @@ class Simulation:
         # Try to form government
         if parliament.has_quorum():
             prime_minister = president.choose_prime_minister(parliament)
-            print(f"{prime_minister} has been elected as Prime Minister.")
+            self.logger.info(f"{prime_minister} has been elected as Prime Minister.")
             government = Government(prime_minister)
             
             if parliament.ratify_government(government):
-                print("Government successfully formed and ratified!")
-                # Initialize government budget based on economic model's fiscal data
+                self.logger.info("Government successfully formed and ratified!")
                 government.update_budget(economy.government_revenue, economy.government_spending)
             else:
-                print("Government ratification failed.")
+                self.logger.info("Government ratification failed.")
                 government = None
         else:
-            print("Parliament lacks quorum. Cannot proceed with government formation.")
+            self.logger.info("Parliament lacks quorum. Cannot proceed with government formation.")
 
         # Main loop simulation
         for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
@@ -217,11 +222,10 @@ class Simulation:
             # Government operations
             if government is not None:
                 government.update_approval_rating()
-                print(f"Government approval rating: {government.approval_rating:.2f}%")
+                self.logger.info(f"Government approval rating: {government.approval_rating:.2f}%")
 
                 if government.check_dissolution():
-                    print("Government dissolved. New elections needed.")
-                    # TODO: Implement new election logic here
+                    self.logger.info("Government dissolved. New elections needed.")
                     break
 
             # Parliamentary activities
@@ -231,20 +235,20 @@ class Simulation:
             if parliament.proposed_legislation:
                 legislation = parliament.proposed_legislation[0]
                 if parliament.vote_on_legislation(legislation):
-                    print(f"Legislation '{legislation.title}' passed")
-                    if random.choice([True, False,  False, False]):
+                    self.logger.info(f"Legislation '{legislation.title}' passed")
+                    if random.choice([True, False, False, False]):
                         civil_society.react_to_legislation(legislation)
                 else:
-                    print(f"Legislation '{legislation.title}' failed")
+                    self.logger.info(f"Legislation '{legislation.title}' failed")
 
             # Presidential actions
             if random.random() < 0.1:
                 member_to_dismiss = random.choice(parliament.members) if parliament.members else None
                 if member_to_dismiss is not None and president.propose_dismissal(member_to_dismiss):
-                    print(f"President proposed dismissal of parliamentarian {member_to_dismiss.id}")
+                    self.logger.info(f"President proposed dismissal of parliamentarian {member_to_dismiss.id}")
                     if not president.veto_dismissal(member_to_dismiss):
                         parliament.remove_member(member_to_dismiss)
-                        print(f"Parliamentarian {member_to_dismiss.id} has been dismissed")
+                        self.logger.info(f"Parliamentarian {member_to_dismiss.id} has been dismissed")
 
             # Referendum (occasional)
             if random.random() < 0.05:
@@ -254,7 +258,7 @@ class Simulation:
                 for citizen in voting_population:
                     parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
                 parliament.referendum_system.complete_referendum(referendum)
-                print(f"Referendum '{referendum.title}' results: For: {referendum.votes_for}, Against: {referendum.votes_against}")
+                self.logger.info(f"Referendum '{referendum.title}' results: For: {referendum.votes_for}, Against: {referendum.votes_against}")
 
             # Media influence
             news_cycle = media_landscape.simulate_news_cycle()
@@ -277,25 +281,20 @@ class Simulation:
                 media_landscape.increase_coverage()
 
         # Simulation reports
-        print("\n--- Simulation Reports ---")
-        print(f"Economic indicators: {economy.get_economic_indicators()}")
-        print("\n--")
-        print(national_bank.generate_economic_report())
-        print("\n--")
+        self.logger.info("\n--- Simulation Reports ---")
+        self.logger.info(f"Economic indicators: {economy.get_economic_indicators()}")
+        self.logger.info("\n--")
+        self.logger.info(national_bank.generate_economic_report())
+        self.logger.info("\n--")
         if not DEBUG_MODE:
-            print(media_landscape.generate_media_report())
-            print("\n--")
-        print(f"Total political system popularity: {political_system.total_popularity():.2f}")
-        # for party in political_system.get_most_popular_parties(3):
-        #     print(f"{party.name}: Popularity = {party.popularity:.2f}, Members = {len(party.members)}")
-        #     print(f"  Key policies: {', '.join(f'{area.value}: {strength:.2f}' for area, strength in party.policies.items() if abs(strength) > 0.5)}")
-        print(f"Total civil society influence: {civil_society.total_influence():.2f}")
-        # for org in civil_society.get_most_influential_orgs(3):
-        #     print(f"{org.name}: Influence = {org.influence:.2f}, Members = {len(org.members)}")
+            self.logger.info(media_landscape.generate_media_report())
+            self.logger.info("\n--")
+        self.logger.info(f"Total political system popularity: {political_system.total_popularity():.2f}")
+        self.logger.info(f"Total civil society influence: {civil_society.total_influence():.2f}")
 
         # Add to the simulation reports section
-        print("\n--- Society State Report ---")
-        print(society_state.get_state_report())
+        self.logger.info("\n--- Society State Report ---")
+        self.logger.info(society_state.get_state_report())
     
 
 def run_simulation(debug_mode=False):
