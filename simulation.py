@@ -67,6 +67,14 @@ class Simulation:
         economy = EconomicModel()
 
         media_landscape = MediaLandscape()
+
+        # Track demographic factors
+        demographics = {
+            'age_groups': {'young': 0.3, 'middle': 0.5, 'elderly': 0.2},
+            'urban_rural_ratio': 0.7,  # 70% urban
+            'education_levels': {'low': 0.2, 'medium': 0.5, 'high': 0.3},
+            'income_brackets': {'low': 0.4, 'middle': 0.4, 'high': 0.2}
+        }
         
         # Set up political parties and civic organizations
         parties = [
@@ -280,6 +288,20 @@ class Simulation:
                 civil_society.increase_activism()
                 media_landscape.increase_coverage()
 
+            # Calculate social tensions
+            social_tension = society.calculate_social_tensions(economy)
+            self.debug_print(f"Calculated social tensions: {social_tension:.2f}")
+
+            if month % 3 == 0:  # Every 3 months
+                tension_level = society.calculate_social_tensions(economy)
+                self.logger.info(f"Social Tension Level: {tension_level:.2f}")
+                
+                if tension_level > 0.7:
+                    self.logger.warning("High social tensions detected!")
+                    civil_society.organize_protests()
+                    media_landscape.increase_coverage()
+                    government.implement_social_measures()
+
         # Simulation reports
         self.logger.info("\n--- Simulation Reports ---")
         self.logger.info(f"Economic indicators: {economy.get_economic_indicators()}")
@@ -296,7 +318,6 @@ class Simulation:
         self.logger.info("\n--- Society State Report ---")
         self.logger.info(society_state.get_state_report())
     
-
 def run_simulation(debug_mode=False):
     global DEBUG_MODE
     DEBUG_MODE = debug_mode

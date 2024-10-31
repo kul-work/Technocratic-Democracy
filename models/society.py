@@ -8,6 +8,13 @@ class SocietySystem:
     def __init__(self, initial_population: int):
         self.citizens: List[Citizen] = []
         self.create_initial_population(initial_population)
+        self.social_tension_factors = {
+            'income_inequality': 0.0,
+            'ethnic_tensions': 0.0,
+            'generational_divide': 0.0,
+            'urban_rural_divide': 0.0,
+            'religious_tensions': 0.0
+        }
 
     def create_initial_population(self, population_size: int) -> None:
         for _ in range(population_size):
@@ -83,3 +90,60 @@ class SocietySystem:
                            avg_socioeconomic / 100 * 0.3)
         
         return satisfaction
+
+    def calculate_social_tensions(self, economy):
+        """Calculate overall social tension level based on various factors"""
+        tension_score = (
+            economy.get_gini_coefficient() * 0.3 +  # Income inequality
+            self.get_ethnic_diversity_tension() * 0.2 +
+            self.get_age_group_conflicts() * 0.15 +
+            self.get_urban_rural_disparity() * 0.2 +
+            self.get_religious_conflicts() * 0.15
+        )
+        return min(1.0, max(0.0, tension_score))
+
+    def get_ethnic_diversity_tension(self) -> float:
+        """Calculate ethnic tension based on citizen diversity and interaction"""
+        # Simplified calculation based on ethnic groups distribution
+        ethnic_groups = {}
+        for citizen in self.citizens:
+            ethnic_groups[citizen.ethnicity] = ethnic_groups.get(citizen.ethnicity, 0) + 1
+        
+        # More diverse population might lead to higher tension
+        diversity_factor = len(ethnic_groups) / 10  # Normalized by assumed max of 10 ethnic groups
+        return self.social_tension_factors['ethnic_tensions'] * diversity_factor
+
+    def get_age_group_conflicts(self) -> float:
+        """Calculate generational tension based on age distribution"""
+        age_groups = {'young': 0, 'middle': 0, 'elderly': 0}
+        for citizen in self.citizens:
+            if citizen.age < 30:
+                age_groups['young'] += 1
+            elif citizen.age < 60:
+                age_groups['middle'] += 1
+            else:
+                age_groups['elderly'] += 1
+        
+        # Calculate imbalance between age groups
+        total = len(self.citizens)
+        age_disparity = max(abs(age_groups['young']/total - age_groups['elderly']/total), 0.1)
+        return self.social_tension_factors['generational_divide'] * age_disparity
+
+    def get_urban_rural_disparity(self) -> float:
+        """Calculate urban-rural divide tension"""
+        urban_count = sum(1 for citizen in self.citizens if citizen.region.startswith('Urban'))
+        rural_count = len(self.citizens) - urban_count
+        
+        # Calculate disparity ratio
+        disparity = abs((urban_count - rural_count) / len(self.citizens))
+        return self.social_tension_factors['urban_rural_divide'] * disparity
+
+    def get_religious_conflicts(self) -> float:
+        """Calculate religious tension based on religious diversity"""
+        religious_groups = {}
+        for citizen in self.citizens:
+            religious_groups[citizen.religion] = religious_groups.get(citizen.religion, 0) + 1
+            
+        # More religious groups might indicate higher potential for conflict
+        diversity_factor = len(religious_groups) / 5  # Normalized by assumed max of 5 major religions
+        return self.social_tension_factors['religious_tensions'] * diversity_factor
