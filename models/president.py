@@ -57,57 +57,7 @@ class President:
             return parliamentarian
         else:
             return None
-    
-## Presidential Candidates and Elections
-class ExamType(Enum):
-    FOREIGN_POLICY = "Foreign Policy"
-    HISTORY = "History"
-    ECONOMY = "Economy"
-    INTERNAL_LEGISLATION = "Internal Legislation"
-    MEDICAL = "Medical"
-    LANGUAGE = "Language"
-
-class ExamResult:
-    def __init__(self, exam_type, score):
-        self.exam_type = exam_type
-        self.score = score
-
-class PresidentialCandidate:
-    def __init__(self, name: str, is_foreign: bool):
-        self.name = name
-        self.is_foreign = is_foreign
-        self.exam_results = []
-
-    def take_exam(self, exam_type: ExamType) -> None:
-        score = 0.7 + (0.3 * random.random())  # Simplified exam scoring
-        self.exam_results.append(ExamResult(exam_type, score))
-
-    def has_passed_exams(self) -> bool:
-        required_exams = [ExamType.FOREIGN_POLICY, ExamType.HISTORY, ExamType.ECONOMY, 
-                          ExamType.INTERNAL_LEGISLATION, ExamType.MEDICAL]
-        if self.is_foreign:
-            required_exams.append(ExamType.LANGUAGE)
-
-        for exam in required_exams:
-            if not any(result.exam_type == exam and result.score >= 0.7 for result in self.exam_results):
-                return False
-        return True    
-    
-class PresidentialElection:
-    def __init__(self):
-        self.candidates = []
-
-    def register_candidate(self, candidate: 'Citizen') -> Citizen:
-        if candidate.has_passed_exams():
-            self.candidates.append(candidate)
-
-    def conduct_election(self) -> President:
-        if not self.candidates:
-            return None
-        winner = random.choice(self.candidates)
-        return President(winner.name)
-## END Presidential Candidates and Elections
-
+        
     def send_law_to_referendum(self, law: 'Law', referendum_system: ReferendumSystem) -> bool:
         """
         Sends an already promulgated law to a national referendum for a vote of confidence.
@@ -165,4 +115,55 @@ class PresidentialElection:
             law.promulgation_date = None
             # The law should be returned to Parliament for revision or repeal
             self.vetoed_laws.append(law)
+    
+## Presidential Candidates and Elections
+class ExamType(Enum):
+    FOREIGN_POLICY = "Foreign Policy"
+    HISTORY = "History"
+    ECONOMY = "Economy"
+    INTERNAL_LEGISLATION = "Internal Legislation"
+    MEDICAL = "Medical"
+    LANGUAGE = "Language"
+
+class ExamResult:
+    def __init__(self, exam_type, score):
+        self.exam_type = exam_type
+        self.score = score
+
+class PresidentialCandidate:
+    def __init__(self, name: str, is_foreign: bool):
+        self.name = name
+        self.is_foreign = is_foreign
+        self.exam_results = []
+
+    def take_exam(self, exam_type: ExamType) -> None:
+        score = 0.7 + (0.3 * random.random())  # Simplified exam scoring
+        self.exam_results.append(ExamResult(exam_type, score))
+
+    def has_passed_exams(self) -> bool:
+        required_exams = [ExamType.FOREIGN_POLICY, ExamType.HISTORY, ExamType.ECONOMY, 
+                          ExamType.INTERNAL_LEGISLATION, ExamType.MEDICAL]
+        if self.is_foreign:
+            required_exams.append(ExamType.LANGUAGE)
+
+        for exam in required_exams:
+            if not any(result.exam_type == exam and result.score >= 0.7 for result in self.exam_results):
+                return False
+        return True
+    
+class PresidentialElection:
+    def __init__(self):
+        self.candidates = []
+
+    def register_candidate(self, candidate: 'Citizen') -> Citizen:
+        if candidate.has_passed_exams():
+            self.candidates.append(candidate)
+
+    def conduct_election(self) -> President:
+        if not self.candidates:
+            return None
+        winner = random.choice(self.candidates)
+        return President(winner.name)
+## END Presidential Candidates and Elections
+
 

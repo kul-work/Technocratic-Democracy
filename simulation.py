@@ -175,12 +175,12 @@ class Simulation:
             self.logger.info("Parliament lacks quorum. Cannot proceed with government formation.")
 
         # Simulate presidential review of laws
-        if random.random() < 0.1:  # 10% chance each month
+        if random.random() < 0.9:  # 10% chance each month
             # Create a sample law
             test_law = Law(
-                title="Test Law",
-                description="A test law for presidential review",
-                full_text="Full text of the test law..."
+                title="Healthcare Reform Act",
+                description="A comprehensive reform of the national healthcare system to improve accessibility and quality of care.",
+                full_text="This law aims to overhaul the national healthcare system by increasing funding, improving infrastructure, and ensuring universal healthcare coverage for all citizens. The key provisions include: 1) Increased budget allocation for healthcare services, 2) Construction of new hospitals and clinics in underserved areas, 3) Implementation of a universal healthcare insurance program, 4) Recruitment and training of additional healthcare professionals, 5) Introduction of preventive care programs to reduce the incidence of chronic diseases."
             )
             test_law.is_promulgated = True
             test_law.promulgation_date = datetime.now()
@@ -189,13 +189,15 @@ class Simulation:
             if president.send_law_to_referendum(test_law, parliament.referendum_system):
                 self.logger.info(f"President {president.name} sent law '{test_law.title}' to referendum")
                 
+                # Assign the referendum before voting
+                referendum = parliament.referendum_system.referendums[-1]
+                
                 # Simulate voting
                 voting_population = society.get_voting_population()
                 for citizen in voting_population:
                     parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
                     
                 # Complete the referendum
-                referendum = parliament.referendum_system.referendums[-1]
                 parliament.referendum_system.complete_referendum(referendum)
                 
                 # Handle the results
