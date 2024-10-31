@@ -16,6 +16,14 @@ fake = Faker('ro_RO')
 
 from config import *
 
+class Law:
+    def __init__(self, title: str, description: str, full_text: str):
+        self.title = title
+        self.description = description
+        self.full_text = full_text
+        self.is_promulgated = False
+        self.promulgation_date = None
+
 class Chamber(Enum):
     SENATE = "Senate"
     DEPUTIES = "Chamber of Deputies"
@@ -284,3 +292,4 @@ class Parliament:
                         quorum_score * 0.3)
         
         return effectiveness
+

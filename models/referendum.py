@@ -18,6 +18,7 @@ class ReferendumType(Enum):
     NATIONAL = "National"
     REGIONAL = "Regional"
     LOCAL = "Local"
+    PRESIDENTIAL_REVIEW = "Presidential Review" #TODO: is this needed?
 
 class ReferendumStatus(Enum):
     PROPOSED = "Proposed"
@@ -122,3 +123,56 @@ class ReferendumSystem:
             "completed": sum(1 for ref in self.referendums if ref.status == ReferendumStatus.COMPLETED),
             "failed": sum(1 for ref in self.referendums if ref.status == ReferendumStatus.FAILED)
         }
+
+    def create_presidential_review_referendum(self, law: 'Law', president: 'President') -> Referendum:
+        """
+        Creates a special referendum for a presidential review of an already promulgated law.
+        
+        Args:
+            law: The promulgated law to be reviewed
+            president: The president initiating the review
+            
+        Returns:
+            Referendum: The created referendum object
+        """
+        title = f"Presidential Review: {law.title}"
+        description = (
+            f"Presidential review referendum initiated by {president.name} "
+            f"for the law: {law.title}.\n\n"
+            f"Original Law Description: {law.description}"
+        )
+        
+        referendum = self.propose_referendum(
+            title=title,
+            description=description,
+            referendum_type=ReferendumType.PRESIDENTIAL_REVIEW
+        )
+        
+        # Set special parameters for presidential review referendums
+        referendum.documentation = law.full_text
+        referendum.summary = (
+            f"This referendum was initiated by the President to review "
+            f"the previously promulgated law '{law.title}'. "
+            f"If the referendum fails, the law will be returned to Parliament "
+            f"for revision or repeal."
+        )
+        
+        # Presidential review referendums start immediately
+        self.start_referendum(referendum)
+        return referendum
+
+    def handle_presidential_review_result(self, referendum: Referendum) -> bool:
+        """
+        Handles the result of a presidential review referendum.
+        
+        Args:
+            referendum: The completed presidential review referendum
+            
+        Returns:
+            bool: True if the law is confirmed, False if it should be returned to Parliament
+        """
+        if referendum.status != ReferendumStatus.COMPLETED:
+            return False
+            
+        # Law is confirmed if majority votes in favor
+        return referendum.votes_for > referendum.votes_against

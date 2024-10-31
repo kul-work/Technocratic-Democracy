@@ -13,6 +13,8 @@ class President:
         self.term_start_date = datetime.now()
         self.term_end_date = self.term_start_date + timedelta(days=5*365)  # 5 years term
         self.referendum_system = ReferendumSystem(Parliament) #TODO: will fail, current parlament ??
+        self.vetoed_laws = []
+        self.sent_to_referendum = []
 
     def is_term_expired(self) -> bool:
         return datetime.now() > self.term_end_date
@@ -105,4 +107,62 @@ class PresidentialElection:
         winner = random.choice(self.candidates)
         return President(winner.name)
 ## END Presidential Candidates and Elections
+
+    def send_law_to_referendum(self, law: 'Law', referendum_system: ReferendumSystem) -> bool:
+        """
+        Sends an already promulgated law to a national referendum for a vote of confidence.
+        
+        Args:
+            law: The promulgated law to review
+            referendum_system: The referendum system to use
+            
+        Returns:
+            bool: True if the referendum was created successfully
+        """
+        # Check if law is actually promulgated
+        if not law.is_promulgated:
+            return False
+            
+        # Check if law was already sent to referendum
+        if law in self.sent_to_referendum:
+            return False
+            
+        # Create the presidential review referendum
+        referendum = referendum_system.create_presidential_review_referendum(law, self)
+        
+        if referendum:
+            self.sent_to_referendum.append(law)
+            return True
+            
+        return False
+
+    def handle_referendum_result(self, law: 'Law', referendum_system: ReferendumSystem) -> None:
+        """
+        Handles the result of a presidential review referendum.
+        
+        Args:
+            law: The law that was reviewed
+            referendum_system: The referendum system used
+        """
+        # Find the corresponding referendum
+        referendum = next(
+            (ref for ref in referendum_system.referendums 
+             if ref.type == ReferendumType.PRESIDENTIAL_REVIEW 
+             and law.title in ref.title),
+            None
+        )
+        
+        if not referendum:
+            return
+            
+        # Check the result
+        if referendum_system.handle_presidential_review_result(referendum):
+            # Law is confirmed by the people - nothing more to do
+            pass
+        else:
+            # Law failed the referendum - return it to Parliament
+            law.is_promulgated = False
+            law.promulgation_date = None
+            # The law should be returned to Parliament for revision or repeal
+            self.vetoed_laws.append(law)
 

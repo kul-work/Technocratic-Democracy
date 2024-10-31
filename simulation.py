@@ -174,6 +174,38 @@ class Simulation:
         else:
             self.logger.info("Parliament lacks quorum. Cannot proceed with government formation.")
 
+        # Simulate presidential review of laws
+        if random.random() < 0.1:  # 10% chance each month
+            # Create a sample law
+            test_law = Law(
+                title="Test Law",
+                description="A test law for presidential review",
+                full_text="Full text of the test law..."
+            )
+            test_law.is_promulgated = True
+            test_law.promulgation_date = datetime.now()
+            
+            # President sends law to referendum
+            if president.send_law_to_referendum(test_law, parliament.referendum_system):
+                self.logger.info(f"President {president.name} sent law '{test_law.title}' to referendum")
+                
+                # Simulate voting
+                voting_population = society.get_voting_population()
+                for citizen in voting_population:
+                    parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
+                    
+                # Complete the referendum
+                referendum = parliament.referendum_system.referendums[-1]
+                parliament.referendum_system.complete_referendum(referendum)
+                
+                # Handle the results
+                president.handle_referendum_result(test_law, parliament.referendum_system)
+                
+                self.logger.info(
+                    f"Presidential review referendum for '{test_law.title}' completed. "
+                    f"Results: For: {referendum.votes_for}, Against: {referendum.votes_against}"
+                )
+
         # Main loop simulation
         for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
             self.debug_print(f"\n--- Month {month + 1} ---")
