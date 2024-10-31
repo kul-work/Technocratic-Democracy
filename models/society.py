@@ -49,20 +49,26 @@ class SocietySystem:
         decline_batch = max(1, decline_batch) if current_pop > 0 else 0
 
         # Add random population changes in batches        
-        growth_chance = random.random()
+        growth_chance = random.random()        
         if growth_chance > (1 - POPULATION_GROWTH_CHANCE):
+            # Ensure we don't remove more than existing
             for _ in range(growth_batch):
                 if len(self.citizens) < MAX_POPULATION:
                     new_citizen = self.create_random_citizen()
                     self.citizens.append(new_citizen)        
         elif growth_chance < POPULATION_DECLINE_CHANCE:
-            for _ in range(min(decline_batch, current_pop)):  # Ensure we don't remove more than existing
+            for _ in range(min(decline_batch, current_pop)):
                 if self.citizens:
                     self.citizens.pop()
 
+        # Create basic state dictionaries for updates
+        economy_state = {'growth': random.uniform(-0.02, 0.04)}
+        social_state = {'cohesion': random.uniform(0.3, 0.7)}
+        political_state = {'stability': random.uniform(0.4, 0.8)}
+
         # Update existing citizens
         for citizen in self.citizens:
-            citizen.update(None, None, None)  # Placeholder for now
+            citizen.update(economy_state, social_state, political_state)
 
     def get_satisfaction_score(self) -> float:
         """

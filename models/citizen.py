@@ -28,7 +28,6 @@ class Religion(Enum):
     CHRISTIAN = "Christian"
     MUSLIM = "Muslim"
     JEWISH = "Jewish"
-    BUDDHIST = "Buddhist"
     HINDU = "Hindu"
     ATHEIST = "Atheist"
     OTHER = "Other"
@@ -48,10 +47,49 @@ class RegionType(Enum):
 
 class Citizen:
     def __init__(self, age: int, sex: str, region: str):
+        # Electronic identity
+        self.id = random.randint(10_000_000, 99_999_999)  # Simplified ID, should be a CNP
+        self.electronic_signature = f"sig_{self.id}"  # Simplified signature
+
         # Basic demographics
         self.age = age
         self.sex = sex
         self.region = region
+        # TODO: Add 'county' attribute and link it with 'region' | later
+        self.citizenship_status = CitizenshipStatus.CITIZEN
+        self.is_immigrant = False
+        self.years_in_country = 0  # To immigrants only
+        
+        # Economic attributes
+        self.income = random.uniform(1000, 5000)
+        self.wealth = random.uniform(5000, 50000)
+        self.savings = 0
+        self.debt = 0
+        # Evaluation of socioeconomic status (0-100)
+        # Can include factors such as income, education, occupation
+        self.socioeconomic_rating = 0
+        
+        # Social factors
+        self.education_level = 0
+        self.health = 100
+        self.happiness = 50
+        self.social_capital = 0
+        self.trust_in_institutions = 0
+        
+        # Work factors
+        self.employment_status = "Unemployed"
+        self.job_satisfaction = 0
+        self.work_life_balance = 0
+        
+        # Political factors
+        self.political_leaning = float = random.uniform(-1, 1)  # From -1 (left wing) to 1 (right wing)
+        self.civic_engagement = 0
+        self.environmental_concern = 0
+        
+        # Behavior and lifestyle
+        self.consumption = 0
+        self.media_usage = {} # e.g., {"social_media": 70, "tv": 30, "newspapers": 20}
+        self.leisure_activities = []
         
         # Identity attributes
         self.ethnicity = random.choice(list(Ethnicity))
@@ -62,43 +100,98 @@ class Citizen:
         self.happiness = random.uniform(40, 80)
         self.trust_in_institutions = random.uniform(30, 70)
         self.socioeconomic_rating = random.uniform(20, 80)
-        
-        # Economic attributes
-        self.income = random.uniform(1000, 5000)
-        self.wealth = random.uniform(5000, 50000)
-        
+                
         # Social interaction factors
         self.social_mobility = random.uniform(0, 1)
         self.community_involvement = random.uniform(0, 1)
         self.political_engagement = random.uniform(0, 1)
 
     def has_voting_rights(self) -> bool:
-        """Determine if citizen can vote based on age and other factors"""
-        return self.age >= 18  # Basic age check, could add more conditions
+        return self.citizenship_status == CitizenshipStatus.CITIZEN and self.age >= MIN_LEGAL_VOTING_AGE
+    
+    def update(self, economy, policies, social_environment) -> None:
+    #def update(self, economy: 'Economy', policies: List['Policy'], social_environment: 'SocialEnvironment') -> None:
+        # Logic for updating the citizen's state based on external factors
+        if economy:
+            self._update_economic_status(economy)
+        if social_environment:
+            self._update_social_factors(social_environment)
+        if policies:
+            self._apply_policy_effects(policies)
+        self._age()
 
-    def update(self, economy_state, social_state, political_state):
-        """Update citizen attributes based on various state factors"""
-        # Update happiness based on economic situation
-        if economy_state:
-            self.happiness += random.uniform(-5, 5)
-            self.socioeconomic_rating += random.uniform(-2, 2)
-        
-        # Update trust based on political situation
-        if political_state:
-            self.trust_in_institutions += random.uniform(-3, 3)
-        
-        # Update social factors
-        if social_state:
-            self.community_involvement += random.uniform(-0.1, 0.1)
-            self.political_engagement += random.uniform(-0.1, 0.1)
-        
         # Ensure values stay within bounds
+        # TODO: extend to all attributes
         self.happiness = max(0, min(100, self.happiness))
         self.trust_in_institutions = max(0, min(100, self.trust_in_institutions))
         self.socioeconomic_rating = max(0, min(100, self.socioeconomic_rating))
         self.community_involvement = max(0, min(1, self.community_involvement))
         self.political_engagement = max(0, min(1, self.political_engagement))
 
-        # Age the citizen
-        self.age += 1/12  # Assuming monthly updates
+    def _update_economic_status(self, economy) -> None:
+    #def _update_economic_status(self, economy: 'EconomyModel') -> None:
+        # Update income, savings, and debt based on economic conditions
+        # Check if economy is an instance of EconomicModel or a dict
+        if hasattr(economy, 'simulate_month'):
+            economy.simulate_month()
+            # Use direct economy model data
+            economic_impact = economy.get_gdp_growth()
+        else:
+            # Handle dictionary case
+            # Use the economic indicators from the state dictionary
+            economic_impact = (economy.get('gdp_growth', 0) 
+                             if isinstance(economy, dict) else 0)
 
+        # Update happiness and socioeconomic rating based on economic conditions
+        self.happiness += random.uniform(-5, 5) + (economic_impact * 10)
+        self.socioeconomic_rating += random.uniform(-2, 2) + (economic_impact * 5)
+        
+    def _update_social_factors(self, social_environment) -> None:
+        # Handle both dictionary and object cases
+        if isinstance(social_environment, dict):
+            # Extract values from dictionary
+            society_satisfaction = social_environment.get('citizen_satisfaction', 0)
+            social_cohesion = social_environment.get('social_cohesion', 0)
+            media_trust = social_environment.get('media_trust', 0)
+        else:
+            # Use object methods
+            society_satisfaction = social_environment.get_satisfaction_score()
+            social_cohesion = getattr(social_environment, 'social_cohesion', 0)
+            media_trust = getattr(social_environment, 'media_trust', 0)
+
+        # Update citizen's social attributes
+        social_impact = (society_satisfaction + social_cohesion + media_trust) / 3
+        self.happiness += random.uniform(-3, 3) + (social_impact * 5)
+        #self.social_satisfaction += random.uniform(-2, 2) + (social_impact * 3)
+
+    def _apply_policy_effects(self, policies) -> None:
+        if not policies:
+            return
+
+        for policy in policies:
+            # Handle both string and Policy object cases
+            if isinstance(policy, str):
+                policy_area = policy
+                policy_strength = 0.5  # Default strength if not provided
+            else:
+                policy_area = policy.area.value if hasattr(policy.area, 'value') else policy.area
+                policy_strength = policy.strength
+
+            # Apply effects based on policy area
+            if policy_area == 'ECONOMY':
+                self.happiness += random.uniform(-2, 2) + (policy_strength * 3)
+                self.economic_satisfaction += random.uniform(-1, 1) + (policy_strength * 2)
+            elif policy_area == 'SOCIAL_WELFARE':
+                self.happiness += random.uniform(-1, 3) + (policy_strength * 4)
+                self.social_satisfaction += random.uniform(0, 2) + (policy_strength * 3)
+            elif policy_area == 'HEALTHCARE':
+                self.happiness += random.uniform(0, 2) + (policy_strength * 2)
+                self.health += random.uniform(-1, 1) + (policy_strength * 2)
+            # Add more policy areas as needed
+
+        self.trust_in_institutions += random.uniform(-3, 3)
+
+    def _age(self) -> None:
+        # Increment age and apply age-related changes
+        self.age += 1/12  # Assuming monthly updates
+        # TODO: Add logic for life events, retirement, etc.

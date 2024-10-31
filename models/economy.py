@@ -242,3 +242,28 @@ class EconomicModel:
                 'innovation_rate': f"{sector.innovation_rate:.2f}"
             } for name, sector in self.sectors.items()
         }
+
+    def get_gini_coefficient(self) -> float:
+        """
+        Calculate Gini coefficient based on economic indicators.
+        Returns a value between 0 (perfect equality) and 1 (perfect inequality)
+        """
+        # Simplified Gini calculation based on:
+        # - Unemployment rate (higher unemployment = higher inequality)
+        # - Tax rates (higher progressive taxes = lower inequality)
+        # - GDP per capita variation across sectors
+        
+        # Base inequality from unemployment
+        base_inequality = self.unemployment_rate * 0.3
+        
+        # Tax system progressivity (higher taxes generally mean more redistribution)
+        tax_effect = (1 - (self.income_tax_rate + self.corporate_tax_rate) / 2) * 0.3
+        
+        # Sector inequality (variation in GDP shares)
+        sector_shares = [sector.gdp_share for sector in self.sectors.values()]
+        sector_inequality = max(0, (max(sector_shares) - min(sector_shares))) * 0.4
+        
+        gini = base_inequality + tax_effect + sector_inequality
+        
+        # Ensure result is between 0 and 1
+        return max(0.0, min(1.0, gini))
