@@ -19,9 +19,26 @@ class President:
     def is_term_expired(self) -> bool:
         return datetime.now() > self.term_end_date
 
-    def propose_dismissal(self, parliamentarian: Parliamentarian) -> bool:
-        # Simplified logic for proposing dismissal
-        return random.random() > 0.7
+    def propose_dismissal(self, parliamentarian, dismissal_reason: str) -> bool:
+        """
+        Proposes the dismissal of a parliamentarian
+        
+        Args:
+            parliamentarian: The parliamentarian to dismiss
+            dismissal_reason: The reason for dismissal
+            
+        Returns:
+            bool: True if dismissal was successful, False otherwise
+        """
+        if not parliamentarian or not dismissal_reason:
+            return False
+            
+        dismissal_chance = random.random()
+        
+        if dismissal_chance > 0.5:  # 50% chance of successful dismissal
+            return True
+        
+        return False
 
     def veto_dismissal(self, parliamentarian: Parliamentarian) -> bool:
         # Simplified logic for vetoing dismissal

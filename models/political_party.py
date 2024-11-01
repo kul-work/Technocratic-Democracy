@@ -1,19 +1,22 @@
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, TYPE_CHECKING
 from datetime import datetime, timedelta
 import random
 from config import *
 
-from .citizen import Citizen
-from .legislative import *
+if TYPE_CHECKING:
+    from .citizen import Citizen
+    from .legislative import *
 from .government import *
 
 class Ideology(Enum):
+    FAR_LEFT = "Far-Left"
     LEFT = "Left"
     CENTER_LEFT = "Center-Left"
     CENTER = "Center"
     CENTER_RIGHT = "Center-Right"
     RIGHT = "Right"
+    FAR_RIGHT = "Far-Right"
 
 class PolicyArea(Enum):
     ECONOMY = "Economy"
@@ -25,11 +28,13 @@ class PolicyArea(Enum):
 
 class IdeologyScore:
     scores = {
-        Ideology.LEFT: -1.0,
-        Ideology.CENTER_LEFT: -0.5,
+        Ideology.FAR_LEFT: -1.0,
+        Ideology.LEFT: -0.6,
+        Ideology.CENTER_LEFT: -0.3,
         Ideology.CENTER: 0.0,
-        Ideology.CENTER_RIGHT: 0.5,
-        Ideology.RIGHT: 1.0
+        Ideology.CENTER_RIGHT: 0.3,
+        Ideology.RIGHT: 0.6,
+        Ideology.FAR_RIGHT: 1.0
     }
 
     @classmethod
@@ -68,6 +73,41 @@ class PoliticalParty:
 
     def calculate_alignment(self, citizen: 'Citizen') -> float:
         return sum(abs(self.policies[area] - getattr(citizen, area.value.lower(), 0)) for area in PolicyArea)
+
+    def campaign_for_referendum(self, referendum) -> None:
+        """
+        Conducts a campaign regarding a referendum
+        
+        Args:
+            referendum: The referendum object to campaign for/against
+        """
+        # Determine party stance (-1.0 to 1.0, where positive means support)
+        party_stance = random.uniform(-1.0, 1.0)
+        
+        # Campaign intensity (0.0 to 1.0)
+        campaign_intensity = random.uniform(0.3, 1.0)
+        
+        # Calculate campaign effectiveness based on party resources and popularity
+        campaign_effectiveness = (
+            self.resources * 0.4 +  # Party resources impact
+            self.popularity * 0.4 +  # Party popularity impact
+            campaign_intensity * 0.2  # Campaign intensity impact
+        ) if hasattr(self, 'resources') and hasattr(self, 'popularity') else 0.5
+        
+        # Log campaign activity
+        if hasattr(self, 'logger'):
+            self.logger.info(
+                f"Party {self.name} campaigning for referendum '{referendum.title}' "
+                f"with stance {party_stance:.2f} and effectiveness {campaign_effectiveness:.2f}"
+            )
+        
+        # Store campaign data in referendum object if it has the attribute
+        if hasattr(referendum, 'campaign_data'):
+            referendum.campaign_data[self.name] = {
+                'stance': party_stance,
+                'effectiveness': campaign_effectiveness,
+                'intensity': campaign_intensity
+            }
 
 class PoliticalSystem:
     def __init__(self):

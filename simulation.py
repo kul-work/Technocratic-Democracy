@@ -303,11 +303,15 @@ class Simulation:
                 member_to_dismiss = random.choice(parliament.members) if parliament.members else None
                 if member_to_dismiss is not None:
                     dismissal_reason = president.evaluate_dismissal_cause(member_to_dismiss)
-                    if dismissal_reason and president.propose_dismissal(member_to_dismiss, dismissal_reason):
-                        self.logger.info(f"President proposed dismissal of parliamentarian {member_to_dismiss.id} for: {dismissal_reason}")
-                        if parliament.vote_on_dismissal(member_to_dismiss):  # Add parliamentary oversight
-                            parliament.remove_member(member_to_dismiss)
-                            self.logger.info(f"Parliamentarian {member_to_dismiss.id} dismissed after parliamentary approval")
+                    if dismissal_reason:
+                        self.logger.info(f"President attempting to dismiss parliamentarian for: {dismissal_reason}")
+                        if president.propose_dismissal(member_to_dismiss, dismissal_reason):
+                            self.logger.info(f"President proposed dismissal of parliamentarian {member_to_dismiss.id}")
+                            if parliament.vote_on_dismissal(member_to_dismiss):
+                                parliament.remove_member(member_to_dismiss)
+                                self.logger.info(f"Parliamentarian {member_to_dismiss.id} dismissed after parliamentary approval")
+                        else:
+                            self.logger.info("Dismissal proposal failed")
 
             # Media influence implementation
             news_cycle = media_landscape.simulate_news_cycle()

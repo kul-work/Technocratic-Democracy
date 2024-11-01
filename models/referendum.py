@@ -44,6 +44,40 @@ class Referendum:
         self.documentation: str = ""
         self.summary: str = ""
         self.blockchain_hash: str = ""
+        
+        # Add impact areas with default False
+        self.affects_economic: bool = False
+        self.affects_social: bool = False
+        self.affects_political: bool = False
+        self.affects_environmental: bool = False
+        self.affects_foreign: bool = False
+        
+        # Determine impacts based on title and description
+        self._analyze_impacts()
+    
+    def _analyze_impacts(self) -> None:
+        """Analyze title and description to determine what areas this referendum affects"""
+        text = (self.title + " " + self.description).lower()
+        
+        # Economic impacts
+        economic_keywords = {'economy', 'economic', 'tax', 'budget', 'financial', 'fiscal', 'trade'}
+        self.affects_economic = any(keyword in text for keyword in economic_keywords)
+        
+        # Social impacts
+        social_keywords = {'social', 'welfare', 'education', 'health', 'housing', 'community'}
+        self.affects_social = any(keyword in text for keyword in social_keywords)
+        
+        # Political impacts
+        political_keywords = {'political', 'government', 'election', 'voting', 'parliament'}
+        self.affects_political = any(keyword in text for keyword in political_keywords)
+        
+        # Environmental impacts
+        environmental_keywords = {'environment', 'climate', 'pollution', 'energy', 'green'}
+        self.affects_environmental = any(keyword in text for keyword in environmental_keywords)
+        
+        # Foreign policy impacts
+        foreign_keywords = {'foreign', 'international', 'diplomatic', 'treaty', 'eu', 'nato'}
+        self.affects_foreign = any(keyword in text for keyword in foreign_keywords)
 
 class ExpertOrganization:
     def __init__(self, name: str, expertise_area: str):

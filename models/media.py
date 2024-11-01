@@ -34,6 +34,7 @@ class MediaOutlet:
             EconomySectorType.PUBLIC: random.uniform(0.3, 0.7),   # Coverage balance between sectors
             EconomySectorType.PRIVATE: random.uniform(0.3, 0.7)
         }
+        self.reach = random.uniform(0.1, 0.8)  # Add this line: Percentage of population reached
         
     def publish_news(self, category: NewsCategory, factuality: float) -> Dict:
         perceived_factuality = factuality * (1 - self.sensationalism)
@@ -98,8 +99,9 @@ class MediaOutlet:
             referendum: The referendum being covered
             coverage: The coverage details/stance
         """
-        # You can add more complex logic here if needed
-        coverage_bias = coverage * self.bias  # Adjust coverage based on outlet bias
+        coverage_stance = coverage.get('stance', 0.0)
+        coverage_bias = coverage_stance * self.bias
+        
         return {
             'outlet_name': self.name,
             'referendum_id': referendum.id,
@@ -204,10 +206,13 @@ class MediaLandscape:
     #def cover_referendum(self, referendum: 'Referendum') -> None:
         """Generate media coverage for referendum"""
         coverage = {
-            'support_ratio': random.uniform(0.3, 0.7),  # Ratio of positive coverage
-            'intensity': random.uniform(0.5, 1.0),      # How much coverage
-            'bias': random.uniform(-0.2, 0.2)          # Media bias
+            #'support_ratio': random.uniform(0.3, 0.7),  # Ratio of positive coverage
+            #'intensity': random.uniform(0.5, 1.0),      # How much coverage
+            #'bias': random.uniform(-0.2, 0.2),          # Media bias
+            'stance': random.uniform(-1, 1),  # Basic stance from -1 to 1
+            'intensity': random.uniform(0, 1)  # How much coverage to give
         }
+        
         self.referendum_coverage[referendum.id] = coverage
         
         # Generate news articles about referendum

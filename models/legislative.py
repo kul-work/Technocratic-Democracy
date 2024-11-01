@@ -335,3 +335,56 @@ class Parliament:
         
         return active_laws
 
+    def vote_on_dismissal(self, member: Parliamentarian) -> bool:
+        """
+        Vote on dismissing a parliamentarian
+        Returns True if dismissal is approved, False otherwise
+        """
+        if not self.has_quorum():
+            if DEBUG_MODE:
+                print("Cannot vote on dismissal: No quorum")
+            return False
+
+        # Need two-thirds majority for dismissal
+        votes_needed = self.total_seats * (2/3)
+        votes_for = 0
+        votes_against = 0
+
+        # Count votes from active members
+        for voting_member in self.members:
+            if voting_member.status == ParliamentaryStatus.ACTIVE and voting_member != member:
+                # Factors affecting vote:
+                # - Member's corruption index
+                # - Member's competence
+                # - Random element
+                
+                vote_probability = 0.5  # Base probability
+                
+                # More likely to vote for dismissal if member is corrupt
+                if member.is_corrupt():
+                    vote_probability += 0.2
+                    
+                # Less likely if member is competent
+                if member.competence > 0.7:
+                    vote_probability -= 0.1
+                    
+                # Same party members less likely to vote for dismissal
+                if hasattr(voting_member, 'political_party') and \
+                   hasattr(member, 'political_party') and \
+                   voting_member.political_party == member.political_party:
+                    vote_probability -= 0.2
+
+                if random.random() < vote_probability:
+                    votes_for += 1
+                else:
+                    votes_against += 1
+
+        dismissal_approved = votes_for >= votes_needed
+        
+        if DEBUG_MODE:
+            print(f"Dismissal vote for member {member.name}: "
+                  f"For: {votes_for}, Against: {votes_against}, "
+                  f"{'Approved' if dismissal_approved else 'Rejected'}")
+
+        return dismissal_approved
+

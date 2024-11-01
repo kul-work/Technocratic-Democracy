@@ -13,6 +13,8 @@ media = importlib.import_module(".media", package=__package__)
 #     from .economy import Economy
 #     from .media import NewsCategory
 
+from .political_party import Ideology, IdeologyScore
+
 class CitizenshipStatus(Enum):
     CITIZEN = "Citizen"
     PERMANENT_RESIDENT = "Permanent Resident"
@@ -85,6 +87,7 @@ class Citizen:
         
         # Political factors
         self.political_leaning = float = random.uniform(-1, 1)  # From -1 (left wing) to 1 (right wing)
+        self.political_ideology = random.uniform(-1, 1)  # Add this line: -1 (progressive) to 1 (conservative)
         self.civic_engagement = 0
         self.environmental_concern = 0
         
@@ -219,14 +222,15 @@ class Citizen:
         Decide vote on referendum based on multiple factors
         Returns: bool indicating support (True) or opposition (False)
         """
+        # Use IdeologyScore class for ideology mapping
+        for party, position in party_positions.items():
+            party_ideology_position = IdeologyScore.get_score(party.ideology)
+            if abs(self.political_ideology - party_ideology_position) < 0.3:
+                # More likely to follow party's position if ideologically aligned
+                return position
+
         # Base likelihood influenced by citizen's characteristics
         support_likelihood = 0.5  # Start neutral
-        
-        # Factor in political alignment with supporting/opposing parties
-        for party, position in party_positions.items():
-            if abs(self.political_ideology - party.ideology_position) < 0.3:
-                # More weight to parties aligned with citizen's views
-                support_likelihood += position * 0.2
         
         # Consider media influence
         media_influence = media_coverage.get('support_ratio', 0.5) - 0.5  # Convert to -0.5 to 0.5
