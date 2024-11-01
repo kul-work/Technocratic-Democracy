@@ -1,5 +1,5 @@
 import random
-from typing import List
+from typing import List, Optional
 from config import *
 
 from .citizen import Citizen
@@ -101,7 +101,7 @@ class SocietySystem:
     def calculate_social_tensions(self, 
                             economy, 
                             media_influence: float = 0.0,
-                            policy_effects: List[Law] = None,
+                            policy_effects: Optional[List[Law]] = None,
                             government_approval: float = 50.0) -> float:
         """
         Calculate overall social tension level based on various factors
