@@ -116,6 +116,17 @@ class President:
             # The law should be returned to Parliament for revision or repeal
             self.vetoed_laws.append(law)
     
+    def evaluate_dismissal_cause(self, parliamentarian):
+        # Add a safer check that doesn't rely on the ethics_violations attribute
+        if getattr(parliamentarian, 'ethics_violations', 0) > 3:
+            return "Multiple ethics violations"
+        
+        # Add other dismissal conditions here
+        if random.random() < 0.1:  # 10% chance of finding other violations
+            return "Violation of parliamentary duties"
+            
+        return None
+
 ## Presidential Candidates and Elections
 class ExamType(Enum):
     FOREIGN_POLICY = "Foreign Policy"

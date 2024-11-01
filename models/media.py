@@ -1,8 +1,9 @@
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, TYPE_CHECKING
 import random
 
-from .citizen import Citizen
+if TYPE_CHECKING:
+    from .citizen import Citizen
 from .government import Government 
 from .economy_sector import EconomySectorType
 
@@ -74,10 +75,44 @@ class MediaOutlet:
             change *= 2  # Digital media can grow/shrink faster
         self.audience_reach = max(100, self.audience_reach + change)
 
+    def affect_citizens(self, citizens: List['Citizen']):
+        # Method implementation
+        pass
+
+    def get_tension_contribution(self) -> float:
+        """
+        Calculate how much this media outlet contributes to social tension
+        Returns a value between -1 (reducing tension) and 1 (increasing tension)
+        """
+        # Media outlets with extreme bias tend to increase tension more
+        bias_factor = abs(self.bias)
+        # Less credible outlets might cause more tension
+        credibility_impact = (1 - self.credibility) * 0.5
+        
+        return bias_factor + credibility_impact
+
+    def publish_referendum_coverage(self, referendum, coverage):
+        """
+        Publishes coverage about a referendum
+        Args:
+            referendum: The referendum being covered
+            coverage: The coverage details/stance
+        """
+        # You can add more complex logic here if needed
+        coverage_bias = coverage * self.bias  # Adjust coverage based on outlet bias
+        return {
+            'outlet_name': self.name,
+            'referendum_id': referendum.id,
+            'coverage_stance': coverage_bias,
+            'reach': self.reach,
+            'credibility': self.credibility
+        }
+
 class MediaLandscape:
     def __init__(self):
         self.outlets: List[MediaOutlet] = []
         self.media_trust_score = 50.0 # Scale of 0-100
+        self.referendum_coverage: Dict[int, Dict] = {}
 
     def add_outlet(self, outlet: MediaOutlet) -> None:
         self.outlets.append(outlet)
@@ -164,3 +199,34 @@ class MediaLandscape:
             report += f"    Bias: {outlet.bias:.2f} ({self.bias_to_string(outlet.bias)})\n"
             report += f"    Sensationalism: {outlet.sensationalism:.2f}\n"
         return report
+
+    def cover_referendum(self, referendum) -> None:
+    #def cover_referendum(self, referendum: 'Referendum') -> None:
+        """Generate media coverage for referendum"""
+        coverage = {
+            'support_ratio': random.uniform(0.3, 0.7),  # Ratio of positive coverage
+            'intensity': random.uniform(0.5, 1.0),      # How much coverage
+            'bias': random.uniform(-0.2, 0.2)          # Media bias
+        }
+        self.referendum_coverage[referendum.id] = coverage
+        
+        # Generate news articles about referendum
+        for outlet in self.outlets:
+            outlet.publish_referendum_coverage(referendum, coverage)
+
+    def get_referendum_coverage(self, referendum) -> Dict:
+    #def get_referendum_coverage(self, referendum: 'Referendum') -> Dict:
+        """Get aggregated media coverage for referendum"""
+        return self.referendum_coverage.get(referendum.id, {
+            'support_ratio': 0.5,
+            'intensity': 0.5,
+            'bias': 0.0
+        })
+
+    def get_tension_impact(self) -> float:
+        """Calculate media's impact on social tensions"""
+        tension_impact = 0.0
+        for outlet in self.outlets:
+            # Consider factors like sensationalism, polarization
+            tension_impact += outlet.get_tension_contribution()
+        return min(1.0, tension_impact / len(self.outlets))

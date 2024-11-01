@@ -1,10 +1,12 @@
 from enum import Enum
 from typing import List, Dict
+from datetime import datetime, timedelta
 import random
 from config import *
 
 from .citizen import Citizen
 from .legislative import *
+from .government import *
 
 class Ideology(Enum):
     LEFT = "Left"
@@ -123,3 +125,63 @@ class PoliticalSystem:
         stability = (fragmentation * 0.6 + ideology_stability * 0.4)
         
         return stability
+    
+    def initiate_emergency_election(self) -> None:
+        """Initiate emergency election procedures"""
+        self.emergency_election_scheduled = True
+        self.election_date = datetime.now() + timedelta(days=30)  # Schedule within 30 days
+        
+        # Notify all parties
+        for party in self.parties:
+            party.prepare_emergency_campaign()
+        
+        # Reset election-related variables
+        self.votes_cast = 0
+        self.election_results = {}
+
+    def can_form_government(self) -> bool:
+        """Check if conditions are met to form a new government"""
+        if not self.emergency_election_scheduled:
+            return False
+            
+        # Check if election date has passed
+        if datetime.now() < self.election_date:
+            return False
+            
+        # Check if there's a clear winner or viable coalition
+        winning_party = max(self.election_results.items(), 
+                          key=lambda x: x[1])[0] if self.election_results else None
+        
+        return winning_party is not None and self.election_results[winning_party] > 0.5
+
+    def form_new_government(self) -> 'Government':
+        """Form new government after emergency election"""
+        if not self.can_form_government():
+            raise ValueError("Cannot form government: conditions not met")
+            
+        winning_party = max(self.election_results.items(), key=lambda x: x[1])[0]
+        prime_minister = winning_party.nominate_prime_minister()
+        
+        # Reset emergency election state
+        self.emergency_election_scheduled = False
+        self.election_date = None
+        
+        # Create and return new government
+        return Government(prime_minister)
+
+    def get_party_positions(self, referendum) -> Dict['PoliticalParty', float]:
+    #def get_party_positions(self, referendum: 'Referendum') -> Dict['PoliticalParty', float]:
+        """Get party positions on referendum (-1.0 to 1.0 scale)"""
+        positions = {}
+        for party in self.parties:
+            # Calculate position based on party ideology and referendum type
+            base_position = random.uniform(-0.3, 0.3)  # Some randomness
+            ideology_factor = self._calculate_ideology_alignment(party, referendum)
+            positions[party] = max(-1.0, min(1.0, base_position + ideology_factor))
+        return positions
+
+    def _calculate_ideology_alignment(self, party, referendum) -> float:
+    #def _calculate_ideology_alignment(self, party: 'PoliticalParty', referendum: 'Referendum') -> float:
+        """Calculate how well referendum aligns with party ideology"""
+        # Implementation depends on your ideology and referendum type systems
+        return random.uniform(-0.7, 0.7)  # Simplified version 

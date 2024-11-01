@@ -31,12 +31,14 @@ class Simulation:
         )
         self.logger = logging.getLogger(__name__)
 
+        self.interim_government = None  # Track interim government during transitions
+
     def debug_print(self, message):
         if DEBUG_MODE:
             self.logger.debug(message)
     
-    def process_news_cycle(news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
-    # Example of how news could affect other parts of the simulation
+    def process_news_cycle(self, news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
+        # Example of how news could affect other parts of the simulation
         for news in news_cycle:
             if news['category'] == NewsCategory.POLITICS:
                 # Affect citizen's trust in government
@@ -261,14 +263,27 @@ class Simulation:
             if random.random() < 0.05:
                 national_bank.print_money(random.uniform(100_000_000, 1_000_000_000))
 
-            # Government operations
+            # Government operations with proper transition handling
             if government is not None:
                 government.update_approval_rating()
                 self.logger.info(f"Government approval rating: {government.approval_rating:.2f}%")
 
                 if government.check_dissolution():
-                    self.logger.info("Government dissolved. New elections needed.")
-                    break
+                    self.logger.info("Government dissolved. Initiating transition period.")
+                    self.interim_government = government
+                    government = None
+                    # Trigger emergency measures during transition
+                    national_bank.emergency_measures()
+                    political_system.initiate_emergency_election()
+                    continue  # Skip to next month instead of breaking
+
+            # Handle interim government if regular government is dissolved
+            if government is None and self.interim_government is not None:
+                self.interim_government.run_emergency_operations()
+                if political_system.can_form_government():
+                    government = political_system.form_new_government()
+                    self.interim_government = None
+                    self.logger.info("New government formed after transition period.")
 
             # Parliamentary activities
             if random.random() < 0.4:
@@ -283,51 +298,64 @@ class Simulation:
                 else:
                     self.logger.info(f"Legislation '{legislation.title}' failed")
 
-            # Presidential actions
+            # Presidential actions with proper checks
             if random.random() < 0.1:
                 member_to_dismiss = random.choice(parliament.members) if parliament.members else None
-                if member_to_dismiss is not None and president.propose_dismissal(member_to_dismiss):
-                    self.logger.info(f"President proposed dismissal of parliamentarian {member_to_dismiss.id}")
-                    if not president.veto_dismissal(member_to_dismiss):
-                        parliament.remove_member(member_to_dismiss)
-                        self.logger.info(f"Parliamentarian {member_to_dismiss.id} has been dismissed")
+                if member_to_dismiss is not None:
+                    dismissal_reason = president.evaluate_dismissal_cause(member_to_dismiss)
+                    if dismissal_reason and president.propose_dismissal(member_to_dismiss, dismissal_reason):
+                        self.logger.info(f"President proposed dismissal of parliamentarian {member_to_dismiss.id} for: {dismissal_reason}")
+                        if parliament.vote_on_dismissal(member_to_dismiss):  # Add parliamentary oversight
+                            parliament.remove_member(member_to_dismiss)
+                            self.logger.info(f"Parliamentarian {member_to_dismiss.id} dismissed after parliamentary approval")
 
-            # Referendum (occasional)
+            # Media influence implementation
+            news_cycle = media_landscape.simulate_news_cycle()
+            self.process_news_cycle(news_cycle, society.citizens, government if government else self.interim_government)
+            
+            # Update citizen opinions based on media coverage
+            for citizen in society.citizens:
+                citizen.process_media_influence(news_cycle)
+
+            # Enhanced referendum implementation
             if random.random() < 0.05:
-                referendum = parliament.propose_referendum(f"Referendum {month}", f"Description of referendum {month}", ReferendumType.NATIONAL)
+                referendum = parliament.propose_referendum(
+                    f"Referendum {month}",
+                    f"Description of referendum {month}",
+                    ReferendumType.NATIONAL
+                )
+                
+                # Proper campaign period
+                media_landscape.cover_referendum(referendum)
+                for party in political_system.parties:
+                    party.campaign_for_referendum(referendum)
+                
+                # Citizens vote based on their attributes and campaign influence
                 parliament.referendum_system.start_referendum(referendum)
                 voting_population = society.get_voting_population()
                 for citizen in voting_population:
-                    parliament.referendum_system.vote(citizen, referendum, random.choice([True, False]))
+                    vote_choice = citizen.decide_referendum_vote(
+                        referendum,
+                        media_landscape.get_referendum_coverage(referendum),
+                        political_system.get_party_positions(referendum)
+                    )
+                    parliament.referendum_system.vote(citizen, referendum, vote_choice)
+                
                 parliament.referendum_system.complete_referendum(referendum)
                 self.logger.info(f"Referendum '{referendum.title}' results: For: {referendum.votes_for}, Against: {referendum.votes_against}")
 
-            # Media influence
-            news_cycle = media_landscape.simulate_news_cycle()
-            # TODO: Apply process_news_cycle() to affect citizens and government
-
-            # Civil society activities
-            if random.random() < 0.2:
-                civil_society.propose_legislation(parliament)
-
-            # Political party activities
-            for party in political_system.parties:
-                party.campaign(1000)  # Smaller ongoing campaigns
-
-            # React to state changes
-            if society_state.current_state == SocietyStateType.ECONOMIC_CRISIS:
-                national_bank.emergency_measures()
-                government.implement_austerity()
-            elif society_state.current_state == SocietyStateType.SOCIAL_UNREST:
-                civil_society.increase_activism()
-                media_landscape.increase_coverage()
-
-            # Calculate social tensions
-            social_tension = society.calculate_social_tensions(economy)
+            # Enhanced social tension calculation
+            social_tension = society.calculate_social_tensions(
+                economy=economy,
+                media_influence=media_landscape.get_tension_impact(),
+                policy_effects=parliament.get_active_legislation(),
+                government_approval=government.approval_rating if government else 0
+            ) or 0.0  # Provide default value of 0.0 if None is returned
+            
             self.debug_print(f"Calculated social tensions: {social_tension:.2f}")
 
             if month % 3 == 0:  # Every 3 months
-                tension_level = society.calculate_social_tensions(economy)
+                tension_level = society.calculate_social_tensions(economy) or 0.0  # Added default value
                 self.logger.info(f"Social Tension Level: {tension_level:.2f}")
                 
                 if tension_level > 0.7:

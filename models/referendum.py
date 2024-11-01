@@ -2,6 +2,7 @@ from enum import Enum
 from datetime import datetime
 from typing import List, Dict, Optional, TYPE_CHECKING
 import random
+import uuid
 
 #from .citizen import *
 #from .legislative import Parliament
@@ -28,6 +29,7 @@ class ReferendumStatus(Enum):
 
 class Referendum:
     def __init__(self, title: str, description: str, referendum_type: ReferendumType):
+        self.id = str(uuid.uuid4())
         self.title: str = title
         self.description: str = description
         self.type: ReferendumType = referendum_type

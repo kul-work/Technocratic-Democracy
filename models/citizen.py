@@ -7,9 +7,11 @@ MIN_LEGAL_VOTING_AGE = 16
 
 import importlib
 economy = importlib.import_module(".economy", package=__package__)
+media = importlib.import_module(".media", package=__package__)
 
 # if TYPE_CHECKING:
 #     from .economy import Economy
+#     from .media import NewsCategory
 
 class CitizenshipStatus(Enum):
     CITIZEN = "Citizen"
@@ -195,3 +197,48 @@ class Citizen:
         # Increment age and apply age-related changes
         self.age += 1/12  # Assuming monthly updates
         # TODO: Add logic for life events, retirement, etc.
+
+    def process_media_influence(self, news_cycle: List[Dict]) -> None:
+        """Process media influence on citizen opinions and trust"""
+        for news in news_cycle:
+            # Base influence depends on citizen's education and media literacy
+            influence_factor = min(1.0, (self.education_level / 100) * 0.7 + 0.3)
+            
+            # Apply media influence based on news category
+            if news['category'] == media.NewsCategory.POLITICS:
+                self.trust_in_institutions += news['impact'] * influence_factor * 0.1
+                self.political_engagement += news['impact'] * influence_factor * 0.05
+            elif news['category'] == media.NewsCategory.ECONOMY:
+                self.economic_satisfaction += news['impact'] * influence_factor * 0.1
+            elif news['category'] == media.NewsCategory.SOCIAL_ISSUES:
+                self.happiness += news['impact'] * influence_factor * 0.1
+                self.social_satisfaction += news['impact'] * influence_factor * 0.05
+
+    def decide_referendum_vote(self, referendum, media_coverage: Dict, party_positions: Dict) -> bool:
+        """
+        Decide vote on referendum based on multiple factors
+        Returns: bool indicating support (True) or opposition (False)
+        """
+        # Base likelihood influenced by citizen's characteristics
+        support_likelihood = 0.5  # Start neutral
+        
+        # Factor in political alignment with supporting/opposing parties
+        for party, position in party_positions.items():
+            if abs(self.political_ideology - party.ideology_position) < 0.3:
+                # More weight to parties aligned with citizen's views
+                support_likelihood += position * 0.2
+        
+        # Consider media influence
+        media_influence = media_coverage.get('support_ratio', 0.5) - 0.5  # Convert to -0.5 to 0.5
+        support_likelihood += media_influence * (1 - self.education_level/100) * 0.3
+        
+        # Personal factors
+        if referendum.affects_economic:
+            support_likelihood += (self.economic_satisfaction - 50) / 100 * 0.2
+        if referendum.affects_social:
+            support_likelihood += (self.social_satisfaction - 50) / 100 * 0.2
+        
+        # Add some randomness
+        support_likelihood += random.uniform(-0.1, 0.1)
+        
+        return random.random() < max(0, min(1, support_likelihood))

@@ -67,6 +67,14 @@ class Parliamentarian:
         self.government_role = GovernmentRole.NONE
         self.political_party: None
 
+        # Add corruption and other behavioral attributes
+        self.corruption_index = random.uniform(0.0, 0.3)  # Start with relatively low corruption
+        self.competence = random.uniform(0.4, 1.0)
+        self.attendance_rate = random.uniform(0.7, 1.0)
+        self.legislative_activity = random.uniform(0.0, 1.0)
+
+        self.ethics_violations = 0
+        
     def update_status(self) -> None:
         if self.government_role != GovernmentRole.NONE:
             self.status = ParliamentaryStatus.GOVERNMENT_MEMBER
@@ -93,6 +101,22 @@ class Parliamentarian:
     # Simplified output of a parliamentarian
     def __str__(self):
         return f"{self.name} (#{self.id})"
+
+    def update_corruption(self) -> None:
+        """
+        Update corruption index based on various factors
+        Corruption can increase or decrease based on environment and actions
+        """
+        # Random small fluctuation in corruption
+        self.corruption_index += random.uniform(-0.05, 0.08)
+        # Ensure corruption stays within bounds
+        self.corruption_index = max(0.0, min(1.0, self.corruption_index))
+        
+    def is_corrupt(self) -> bool:
+        """
+        Determine if parliamentarian is considered corrupt based on threshold
+        """
+        return self.corruption_index > 0.7
 
 class Legislation:
     def __init__(self, title: str, proposer: str, content: str):
@@ -292,4 +316,22 @@ class Parliament:
                         quorum_score * 0.3)
         
         return effectiveness
+
+    def get_active_legislation(self) -> List[Law]:
+        """
+        Returns a list of currently active laws and their effects
+        """
+        active_laws = []
+        if hasattr(self, 'passed_legislation'):
+            for legislation in self.passed_legislation:
+                # Create a Law object from the passed legislation
+                law = Law(
+                    title=legislation.title,
+                    description=legislation.content,  # Using content as description
+                    full_text=legislation.content     # Using content as full text for now
+                )
+                law.is_promulgated = True  # Since it's passed, we consider it promulgated
+                active_laws.append(law)
+        
+        return active_laws
 

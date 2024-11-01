@@ -3,6 +3,7 @@ from typing import List
 from config import *
 
 from .citizen import Citizen
+from .legislative import Law
 
 class SocietySystem:
     def __init__(self, initial_population: int):
@@ -97,16 +98,47 @@ class SocietySystem:
         
         return satisfaction
 
-    def calculate_social_tensions(self, economy):
-        """Calculate overall social tension level based on various factors"""
-        tension_score = (
-            economy.get_gini_coefficient() * 0.3 +  # Income inequality
-            self.get_ethnic_diversity_tension() * 0.2 +
+    def calculate_social_tensions(self, 
+                            economy, 
+                            media_influence: float = 0.0,
+                            policy_effects: List[Law] = None,
+                            government_approval: float = 50.0) -> float:
+        """
+        Calculate overall social tension level based on various factors
+        
+        Args:
+            economy: Economy object for economic indicators
+            media_influence: Impact of media on social tensions (default 0.0)
+            policy_effects: List of active laws affecting social tension (default None)
+            government_approval: Current government approval rating (default 50.0)
+            
+        Returns:
+            float: Tension score between 0.0 and 1.0
+        """
+        if policy_effects is None:
+            policy_effects = []
+
+        # Base tension calculation
+        base_tension = (
+            economy.get_gini_coefficient() * 0.25 +  # Income inequality
+            self.get_ethnic_diversity_tension() * 0.15 +
             self.get_age_group_conflicts() * 0.15 +
-            self.get_urban_rural_disparity() * 0.2 +
-            self.get_religious_conflicts() * 0.15
+            self.get_urban_rural_disparity() * 0.15 +
+            self.get_religious_conflicts() * 0.15 +
+            media_influence * 0.15  # Media's contribution to social tension
         )
-        return min(1.0, max(0.0, tension_score))
+        
+        # Calculate policy impact on tension
+        policy_impact = 0.0
+        for law in policy_effects:
+            if hasattr(law, 'social_impact'):
+                policy_impact += law.social_impact
+            else:
+                # Default small reduction in tension for any active law
+                policy_impact -= 0.01
+                
+        # Government approval impact (inverse relationship - higher approval means lower tension)
+        government_tension = (100 - government_approval)
 
     def get_ethnic_diversity_tension(self) -> float:
         """Calculate ethnic tension based on citizen diversity and interaction"""
