@@ -33,10 +33,6 @@ class Simulation:
 
         self.interim_government = None  # Track interim government during transitions
 
-    def debug_print(self, message):
-        if DEBUG_MODE:
-            self.logger.debug(message)
-    
     def process_news_cycle(self, news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
         # Example of how news could affect other parts of the simulation
         for news in news_cycle:
@@ -50,12 +46,14 @@ class Simulation:
             # ... handle other categories
 
     def update_public_trust(self, society_data):
-        # Example calculation for updating overall societal trust
-        self.societal_trust = (society_data['citizen_satisfaction'] + society_data['media_trust']) / 2
+        """Calculate and return the public trust score"""
+        trust = (society_data['citizen_satisfaction'] + society_data['media_trust']) / 2
+        # Ensure trust stays within 0-1 range
+        return max(0.0, min(1.0, trust))
 
     # Main simulation logic
     def run(self):
-        self.debug_print("Starting simulation...")
+        self.logger.debug("Starting simulation...")
     
         # Initialize core components
         society = SocietySystem(initial_population=10_000)  # Start with 10K citizens
@@ -86,7 +84,7 @@ class Simulation:
         ]
         for party in parties:
             political_system.register_party(party)
-            self.debug_print(f"Registered party: {party.name}")
+            self.logger.debug(f"Registered party: {party.name}")
             
             # Recruit some members
             for _ in range(100):  
@@ -212,11 +210,11 @@ class Simulation:
 
         # Main loop simulation
         for month in range(12 if DEBUG_MODE else SIMULATION_MONTHS):
-            self.debug_print(f"\n--- Month {month + 1} ---")
+            self.logger.debug(f"\n--- Month {month + 1} ---")
 
             # Update population
             society.update_population()
-            self.debug_print(f"Updated population. Current size: {len(society.citizens)}")
+            self.logger.debug(f"Updated population. Current size: {len(society.citizens)}")
 
             # Collect data from various society systems
             economic_data = {
@@ -237,17 +235,23 @@ class Simulation:
                 'citizen_satisfaction': society.get_satisfaction_score()
             }            
 
-            # Update society state
-            society_state.update_indicators(economic_data, political_data, social_data)
+            # Calculate public trust
+            public_trust = self.update_public_trust(social_data)
+
+            # Update society state with all indicators including public trust
+            society_state.update_indicators(
+                economic_data, 
+                political_data,
+                {**social_data, 'public_trust': public_trust}  # Include public trust in social data
+            )
 
             # Update public trust
-            self.update_public_trust(social_data)
-            self.debug_print(f"Updated public trust: {self.societal_trust}")
+            self.logger.debug(f"Updated public trust: {public_trust}")
 
             # Economic updates
             economy.simulate_month()
             national_bank.update_economic_indicators()
-            self.debug_print(f"Updated economic indicators: {national_bank.print_economic_indicators()}")
+            self.logger.debug(f"Updated economic indicators: {national_bank.print_economic_indicators()}")
 
             # Update government budget based on economic model
             if government is not None:
@@ -356,7 +360,7 @@ class Simulation:
                 government_approval=government.approval_rating if government else 0
             ) or 0.0  # Provide default value of 0.0 if None is returned
             
-            self.debug_print(f"Calculated social tensions: {social_tension:.2f}")
+            self.logger.debug(f"Calculated social tensions: {social_tension:.2f}")
 
             if month % 3 == 0:  # Every 3 months
                 tension_level = society.calculate_social_tensions(economy) or 0.0  # Added default value
