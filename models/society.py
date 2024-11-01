@@ -80,7 +80,7 @@ class SocietySystem:
         Returns value between 0 and 1
         """
         if not self.citizens:
-            return 0.0
+            return random.uniform(0.4, 0.6)  # Return reasonable default if no citizens
         
         # Calculate average happiness
         avg_happiness = sum(citizen.happiness for citizen in self.citizens) / len(self.citizens)
@@ -91,12 +91,13 @@ class SocietySystem:
         # Calculate average socioeconomic status
         avg_socioeconomic = sum(citizen.socioeconomic_rating for citizen in self.citizens) / len(self.citizens)
         
-        # Normalize to 0-1 range
-        satisfaction = (avg_happiness / 100 * 0.4 + 
-                           avg_trust / 100 * 0.3 + 
-                           avg_socioeconomic / 100 * 0.3)
+        # Add some random variation to make it more dynamic
+        base_satisfaction = (avg_happiness / 100 * 0.4 + 
+                            avg_trust / 100 * 0.3 + 
+                            avg_socioeconomic / 100 * 0.3)
         
-        return satisfaction
+        variation = random.uniform(-0.05, 0.05)  # +/- 5% variation
+        return max(0.0, min(1.0, base_satisfaction + variation))
 
     def calculate_social_tensions(self, 
                             economy, 

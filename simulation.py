@@ -47,7 +47,23 @@ class Simulation:
 
     def update_public_trust(self, society_data):
         """Calculate and return the public trust score"""
-        trust = (society_data['citizen_satisfaction'] + society_data['media_trust']) / 2
+        # Add weights to make calculation more nuanced
+        weights = {
+            'citizen_satisfaction': 0.4,
+            'media_trust': 0.3,
+            'social_cohesion': 0.3  # Added social_cohesion as a factor
+        }
+        
+        trust = (
+            society_data['citizen_satisfaction'] * weights['citizen_satisfaction'] +
+            society_data['media_trust'] * weights['media_trust'] +
+            society_data['social_cohesion'] * weights['social_cohesion']
+        )
+        
+        # Add some random monthly variation
+        variation = random.uniform(-0.03, 0.03)  # +/- 3% monthly variation
+        trust += variation
+        
         # Ensure trust stays within 0-1 range
         return max(0.0, min(1.0, trust))
 

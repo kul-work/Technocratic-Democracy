@@ -113,7 +113,7 @@ class MediaOutlet:
 class MediaLandscape:
     def __init__(self):
         self.outlets: List[MediaOutlet] = []
-        self.media_trust_score = 50.0 # Scale of 0-100
+        self.media_trust_score = random.uniform(40, 60)  # Start with 40-60% trust
         self.referendum_coverage: Dict[int, Dict] = {}
 
     def add_outlet(self, outlet: MediaOutlet) -> None:
@@ -188,7 +188,10 @@ class MediaLandscape:
         Returns the current public trust in media
         Scale of 0-1 (converted from 0-100 internal scale)
         """
-        return self.media_trust_score / 100
+        # Add some random variation to make it more dynamic
+        base_trust = self.media_trust_score / 100
+        variation = random.uniform(-0.05, 0.05)  # +/- 5% variation
+        return max(0.0, min(1.0, base_trust + variation))
 
     def generate_media_report(self) -> str:
         report = "Media Landscape Report:\n"
