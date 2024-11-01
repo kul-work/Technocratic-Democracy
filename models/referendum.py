@@ -126,7 +126,8 @@ class ReferendumSystem:
             "failed": sum(1 for ref in self.referendums if ref.status == ReferendumStatus.FAILED)
         }
 
-    def create_presidential_review_referendum(self, law: 'Law', president: 'President') -> Referendum:
+    def create_presidential_review_referendum(self, law, president) -> Referendum:
+    #def create_presidential_review_referendum(self, law: 'Law', president: 'President') -> Referendum:
         """
         Creates a special referendum for a presidential review of an already promulgated law.
         
