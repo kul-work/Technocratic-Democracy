@@ -110,16 +110,18 @@ class ReferendumSystem:
             return True
         return False
 
-    def vote(self, citizen, referendum: Referendum, vote: bool) -> bool:
-        if referendum.status == ReferendumStatus.ACTIVE and citizen.age >= self.min_voting_age:
-            if vote:
-                referendum.votes_for += 1
-            else:
-                referendum.votes_against += 1
-            referendum.total_votes += 1
-            self.award_participation_points(citizen.id)
-            return True
-        return False
+    def vote(self, citizen, referendum, vote_choice):
+        """Record a vote in the referendum"""
+        if referendum.status != ReferendumStatus.ACTIVE:
+            return False
+            
+        # Remove manual vote counting since the referendum object handles it
+        if vote_choice:
+            referendum.votes_for += 1
+        else:
+            referendum.votes_against += 1
+            
+        return True
 
     def delegate_vote(self, citizen, expert: ExpertOrganization, referendum: Referendum) -> bool:
         if referendum.type in [ReferendumType.REGIONAL, ReferendumType.LOCAL]:

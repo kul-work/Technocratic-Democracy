@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import List, Dict, TYPE_CHECKING
 import random
+from datetime import datetime
 
 if TYPE_CHECKING:
     from .citizen import Citizen
@@ -36,34 +37,47 @@ class MediaOutlet:
         }
         self.reach = random.uniform(0.1, 0.8)  # Add this line: Percentage of population reached
         
-    def publish_news(self, category: NewsCategory, factuality: float) -> Dict:
-        perceived_factuality = factuality * (1 - self.sensationalism)
-        impact = self.audience_reach * (self.credibility / 100)
 
-        result = {
-            'outlet_name': self.name,
-            'media_type': self.media_type.value,
-            'category': category.value,
-            'factuality': perceived_factuality,
-            'credibility': self.credibility,
-            "impact": impact,
-            'bias': self.bias,
-            'sensationalism': self.sensationalism
+    # def publish_news(self, category: NewsCategory, factuality: float) -> Dict:
+    #     perceived_factuality = factuality * (1 - self.sensationalism)
+    #     impact = self.audience_reach * (self.credibility / 100)
+
+    #     result = {
+    #         'outlet_name': self.name,
+    #         'media_type': self.media_type.value,
+    #         'category': category.value,
+    #         'factuality': perceived_factuality,
+    #         'credibility': self.credibility,
+    #         "impact": impact,
+    #         'bias': self.bias,
+    #         'sensationalism': self.sensationalism
+    #     }
+        
+    #     # Add sector-specific reporting
+    #     focused_sector = random.choices(
+    #         [EconomySectorType.PUBLIC, EconomySectorType.PRIVATE],
+    #         weights=[self.sector_coverage[EconomySectorType.PUBLIC], 
+    #                 self.sector_coverage[EconomySectorType.PRIVATE]]
+    #     )[0]
+        
+    #     result.update({
+    #         'sector_focus': focused_sector.value,
+    #         'sector_coverage': self.sector_coverage[focused_sector]
+    #     })
+        
+    #     return result
+
+    #TODO: Check why the simplified version below is better
+    def publish_news(self, category: NewsCategory, factuality: float, sentiment=0.0) -> Dict:
+        """Publish a news item with the given properties"""
+        news = {
+            'outlet': self,
+            'category': category,
+            'factuality': factuality,
+            'sentiment': sentiment,
+            'timestamp': datetime.now()
         }
-        
-        # Add sector-specific reporting
-        focused_sector = random.choices(
-            [EconomySectorType.PUBLIC, EconomySectorType.PRIVATE],
-            weights=[self.sector_coverage[EconomySectorType.PUBLIC], 
-                    self.sector_coverage[EconomySectorType.PRIVATE]]
-        )[0]
-        
-        result.update({
-            'sector_focus': focused_sector.value,
-            'sector_coverage': self.sector_coverage[focused_sector]
-        })
-        
-        return result
+        return news
 
     def update_credibility(self, factuality: float) -> None:
         credibility_change = (factuality - 0.5) * 10  # -5 to +5
@@ -123,11 +137,17 @@ class MediaLandscape:
         return sorted(self.outlets, key=lambda x: x.audience_reach * (x.credibility / 100), reverse=True)[:n]
 
     def simulate_news_cycle(self) -> List[Dict]:
+        """Generate a news cycle from all published news"""
         news_cycle = []
         for outlet in self.outlets:
             category = random.choice(list(NewsCategory))
-            factuality = random.uniform(0.5, 1.0)  # Simplified: news are more often true than false
-            news = outlet.publish_news(category, factuality)
+            factuality = random.uniform(0.5, 1.0)
+            sentiment = random.uniform(-0.8, 0.8)  # Add sentiment
+            news = outlet.publish_news(
+                category=category,
+                factuality=factuality,
+                sentiment=sentiment
+            )
             news_cycle.append(news)
             outlet.update_credibility(factuality)
             outlet.update_audience_reach()

@@ -20,30 +20,38 @@ class Simulation:
         global DEBUG_MODE
         DEBUG_MODE = debug_mode
 
+        # Create a file handler that we'll store as an instance variable
+        self.file_handler = logging.FileHandler('output/output.txt', mode='w')
+        
         # Set up logging to both console and file
         logging.basicConfig(
             level=logging.DEBUG if DEBUG_MODE else logging.INFO,
             format='%(asctime)s - %(levelname)s - %(message)s',
             handlers=[
                 logging.StreamHandler(),  # Console handler
-                logging.FileHandler('output/output.txt', mode='w')  # 'w' mode overwrites
+                self.file_handler  # File handler (stored as instance variable)
             ]
         )
         self.logger = logging.getLogger(__name__)
 
         self.interim_government = None  # Track interim government during transitions
 
-    def process_news_cycle(self, news_cycle: List[Dict], citizens: List['Citizen'], government: 'Government'):
-        # Example of how news could affect other parts of the simulation
-        for news in news_cycle:
-            if news['category'] == NewsCategory.POLITICS:
-                # Affect citizen's trust in government
-                for citizen in citizens:
-                    citizen.trust_in_government += news['impact'] * 0.01 * (1 if news['bias'] > 0 else -1)
-            elif news['category'] == NewsCategory.ECONOMY:
-                # Affect government's economic policy
-                government.adjust_economic_policy(news['impact'] * 0.1)
-            # ... handle other categories
+    def process_news_cycle(self, news_cycle, citizens, government, impact_factor=0.3):
+        """
+        Process a news cycle and update citizens' opinions based on the news content
+        
+        Args:
+            news_cycle (List[Dict]): List of news items with their properties
+            citizens (List[Citizen]): List of citizens to update
+            government (Government): Current government
+            impact_factor (float): How strongly news affects opinions (0-1)
+        """
+        for citizen in citizens:
+            # Have each citizen process all news in the cycle
+            citizen.process_media_influence(news_cycle)
+
+        if DEBUG_MODE:
+            logging.info(f"Processed news cycle affecting {len(citizens)} citizens")
 
     def update_public_trust(self, society_data):
         """Calculate and return the public trust score"""
@@ -403,13 +411,26 @@ class Simulation:
         # Add to the simulation reports section
         self.logger.info("\n--- Society State Report ---")
         self.logger.info(society_state.get_state_report())
-    
+
+    def cleanup(self):
+        """Clean up resources when simulation is done"""
+        if hasattr(self, 'file_handler'):
+            self.file_handler.close()
+            logging.getLogger().removeHandler(self.file_handler)
+
 def run_simulation(debug_mode=False):
     global DEBUG_MODE
     DEBUG_MODE = debug_mode
+    
     simulation = Simulation(debug_mode)
-    simulation.run()
+    try:
+        simulation.run()
+    finally:
+        simulation.cleanup()
 
 if __name__ == "__main__":
     simulation = Simulation(debug_mode=True)
-    simulation.run()
+    try:
+        simulation.run()
+    finally:
+        simulation.cleanup()

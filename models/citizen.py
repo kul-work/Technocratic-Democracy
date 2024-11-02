@@ -111,6 +111,13 @@ class Citizen:
         self.community_involvement = random.uniform(0, 1)
         self.political_engagement = random.uniform(0, 1)
 
+        self.trust_in_government = random.uniform(30, 70)  # Initial trust between 30-70%
+        self.satisfaction_level = random.uniform(40, 60)   # Initial satisfaction between 40-60%
+        self.education_level = random.uniform(0, 100)      # Education level 0-100%
+        
+        # Ensure we have an ID for tracking
+        self.id = id(self)  # Use object id as unique identifier
+
     def has_voting_rights(self) -> bool:
         return self.citizenship_status == CitizenshipStatus.CITIZEN and self.age >= MIN_LEGAL_VOTING_AGE
     
@@ -207,15 +214,22 @@ class Citizen:
             # Base influence depends on citizen's education and media literacy
             influence_factor = min(1.0, (self.education_level / 100) * 0.7 + 0.3)
             
-            # Apply media influence based on news category
-            if news['category'] == media.NewsCategory.POLITICS:
-                self.trust_in_institutions += news['impact'] * influence_factor * 0.1
-                self.political_engagement += news['impact'] * influence_factor * 0.05
-            elif news['category'] == media.NewsCategory.ECONOMY:
-                self.economic_satisfaction += news['impact'] * influence_factor * 0.1
-            elif news['category'] == media.NewsCategory.SOCIAL_ISSUES:
-                self.happiness += news['impact'] * influence_factor * 0.1
-                self.social_satisfaction += news['impact'] * influence_factor * 0.05
+            # Add some randomness to make changes more likely
+            random_factor = random.uniform(0.8, 1.2)
+            
+            # Get sentiment with a default of 0 if not present
+            sentiment = news.get('sentiment', 0)
+            
+            # Calculate impact based on news properties and random factor
+            impact = sentiment * influence_factor * random_factor * 20  # Increased multiplier
+            
+            # Apply changes to both trust and satisfaction
+            self.trust_in_government += impact
+            self.satisfaction_level += impact * 0.8  # Slightly less impact on satisfaction
+            
+            # Ensure values stay within bounds
+            self.trust_in_government = max(0, min(100, self.trust_in_government))
+            self.satisfaction_level = max(0, min(100, self.satisfaction_level))
 
     def decide_referendum_vote(self, referendum, media_coverage: Dict, party_positions: Dict) -> bool:
         """
