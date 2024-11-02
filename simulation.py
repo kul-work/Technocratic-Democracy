@@ -1,4 +1,4 @@
-import logging
+import sys, logging
 from config import *
 
 from models.citizen import *
@@ -15,13 +15,34 @@ from models.media import *
 
 from models.society_state import SocietyState, SocietyStateType
 
+def is_running_under_test():
+    """Check if code is running under unittest"""
+    return 'unittest' in sys.modules
+
 class Simulation:
     def __init__(self, debug_mode=False):
         global DEBUG_MODE
         DEBUG_MODE = debug_mode
 
-        # Create a file handler that we'll store as an instance variable
-        self.file_handler = logging.FileHandler('output/output.txt', mode='w')
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        
+        # Clear any existing handlers
+        self.logger.handlers.clear()
+        
+        # Your existing file handler setup
+        if not is_running_under_test():
+            self.file_handler = logging.FileHandler('output/output.txt', mode='w')
+            self.file_handler.setLevel(logging.INFO)
+            self.logger.addHandler(self.file_handler)
+        else:
+            self.file_handler = logging.NullHandler()
+            self.logger.addHandler(self.file_handler)
+        
+        # Always add console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        self.logger.addHandler(console_handler)
         
         # Set up logging to both console and file
         logging.basicConfig(
