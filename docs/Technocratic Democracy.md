@@ -1,6 +1,6 @@
 # Technocratic Democracy
 
-check also the [RO version](https://github.com/kul-work/Technocratic-Democracy/blob/main/docs/Technocratic%20Democracy.ro.md)
+- vezi asemeni și [varianta în Română](https://github.com/kul-work/Technocratic-Democracy/blob/main/docs/Technocratic%20Democracy.ro.md)
 
 The "Technocratic Democracy" plan proposes reforming the political system to achieve more efficient and rational governance. It suggests replacing traditional politicians with specialists in various fields capable of making informed decisions for the common good.
 

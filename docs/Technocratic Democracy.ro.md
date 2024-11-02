@@ -1,5 +1,7 @@
 # Technocratic Democracy
 
+- check also the [EN version](https://github.com/kul-work/Technocratic-Democracy/blob/main/docs/Technocratic%20Democracy.md)
+
 DEMOCRAȚIE TECHNOCRATIZATĂ SEMI-PARTICIPATIVĂ
 
 Planul "Democrația Tehnocratică" propune o reformă a sistemului politic, vizând o guvernare mai eficientă și rațională.
