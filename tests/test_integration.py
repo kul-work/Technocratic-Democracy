@@ -1,5 +1,6 @@
 import unittest
 from datetime import datetime
+
 from simulation import Simulation
 from models.society import SocietySystem
 from models.legislative import Parliament, Law, Parliamentarian, Chamber, ParliamentaryStatus
@@ -11,11 +12,24 @@ from models.economy import EconomicModel
 from models.bank_national import NationalBank, MonetaryPolicy
 from models.media import MediaLandscape, MediaOutlet, MediaType, NewsCategory
 from models.society_state import SocietyState, SocietyStateType
+
 import logging
 
 class TestSocietyIntegration(unittest.TestCase):
     def setUp(self):
         """Set up test environment with all major components"""
+        # Configure logging for console only
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        
+        # Clear any existing handlers
+        self.logger.handlers.clear()
+        
+        # Add console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        self.logger.addHandler(console_handler)
+
         self.simulation = Simulation(debug_mode=True)
         self.society = SocietySystem(initial_population=1000)
         self.parliament = Parliament(100)  # Smaller parliament for testing
@@ -252,9 +266,9 @@ class TestSocietyIntegration(unittest.TestCase):
         self.assertTrue(simulation_completed)
 
     def tearDown(self):
-        """Clean up after each test"""
-        # Close any open files or connections
-        pass
+        """Clean up resources after each test"""
+        if hasattr(self, 'logger'):
+            self.logger.handlers.clear()
 
 if __name__ == '__main__':
     unittest.main()
