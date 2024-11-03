@@ -3,11 +3,11 @@ from datetime import datetime
 from unittest.mock import patch
 
 from simulation import Simulation
-from models.government import Government
-from models.legislative import Parliament, Law
-from models.referendum import ReferendumSystem, ReferendumType, ReferendumStatus
-from models.economy import EconomicModel
-from models.media import MediaLandscape
+from models.government import *
+from models.legislative import *
+from models.referendum import *
+from models.economy import *
+from models.media import *
 
 class TestNegativeScenario(unittest.TestCase):
     def setUp(self):
@@ -18,24 +18,30 @@ class TestNegativeScenario(unittest.TestCase):
         self.economy = EconomicModel()
         self.media_landscape = MediaLandscape()
 
+        # Fill the parliament with active members
+        for _ in range(300):
+            member = Parliamentarian(Chamber.DEPUTIES)
+            member.status = ParliamentaryStatus.ACTIVE
+            self.parliament.add_member(member)
+
     def test_negative_scenario(self):
 
         # Simulate an unpopular austerity measure implemented by the government
         self.government.implement_austerity()
 
-        # Simulate an unpopular law proposed by the government
-        unpopular_law = Law(
+        # Simulate an unpopular legislation proposed by the government
+        unpopular_legislation = Legislation(
             title="Unpopular Law",
-            description="A highly unpopular law that will negatively impact the economy and public opinion.",
-            full_text="This is the full text of the unpopular law..."
+            proposer="John Doe",
+            content="A highly unpopular law that will negatively impact the economy and public opinion."
         )
 
-        # The government proposes the law
-        self.government.propose_legislation(unpopular_law)
+        # The SOMEONE proposes an 'unpopular' law
+        self.parliament.propose_legislation(f"Increase taxation", "John Doe", f"Content increase taxation plan", ignore_quorum = False)
 
         # Parliament votes and approves the law
-        self.parliament.proposed_legislation.append(unpopular_law)
-        self.assertTrue(self.parliament.vote_on_legislation(unpopular_law))
+        self.parliament.proposed_legislation.append(unpopular_legislation)
+        self.assertTrue(self.parliament.vote_on_legislation(unpopular_legislation))
 
         # The president sends the law to a referendum
         self.assertTrue(self.simulation.president.send_law_to_referendum(unpopular_law, self.referendum_system))

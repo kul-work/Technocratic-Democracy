@@ -85,7 +85,24 @@ class Parliamentarian:
         else:
             self.status = ParliamentaryStatus.ACTIVE
         if DEBUG_MODE:
-            print(f"Member {self.id} status updated to {self.status}")        
+            print(f"Member {self.id} status updated to {self.status}")
+
+    def update_status(self) -> None:
+        if self.government_role != GovernmentRole.NONE:
+            self.status = ParliamentaryStatus.GOVERNMENT_MEMBER
+        elif self.years_served >= 10:
+            # Introduce a random probability to enter the ON_BREAK or ACTIVE state
+            if random.random() < 0.7:  # 70% chance to enter the ON_BREAK state
+                self.status = ParliamentaryStatus.ON_BREAK
+                self.years_served = 0
+                self.consecutive_terms = 0
+            else:
+                self.status = ParliamentaryStatus.ACTIVE
+        else:
+            self.status = ParliamentaryStatus.ACTIVE
+
+        if DEBUG_MODE:
+            print(f"Member {self.id} status updated to {self.status}")    
 
     def get_activity_score(self) -> int:
         return self.activity_score.calculate()
@@ -191,12 +208,38 @@ class Parliament:
         active_members = sum(1 for member in self.members if member.status == ParliamentaryStatus.ACTIVE)
         return active_members >= self.total_seats * self.quorum_percentage
     
+    def update_active_members(self):
+        """
+        Update the status of members who need an update based on specific conditions.
+        """
+        for member in self.members:
+            if member.status == ParliamentaryStatus.ACTIVE and (
+                member.government_role != GovernmentRole.NONE or
+                member.years_served >= 10
+            ):
+                member.update_status()
+
+    def ensure_minimum_active_members(self, min_active_members):
+        """
+        Ensure that the number of active members is at least the specified minimum.
+        """
+        max_iterations = 50  # Numărul maxim de iterații permise
+        iteration = 0
+
+        while sum(1 for member in self.members if member.status == ParliamentaryStatus.ACTIVE) < min_active_members:
+            self.update_active_members()
+            iteration += 1
+
+            if iteration >= max_iterations:
+                print(f"Attention: Could not reach the minimum number of active members after {max_iterations} iterations.")
+            break
+    
     def propose_legislation(self, title: str, proposer: str, content: str, ignore_quorum: bool = False) -> bool:
         if not ignore_quorum and not self.has_quorum():
             if DEBUG_MODE:
                 print("Cannot propose legislation: No quorum")
             return False
-        if random.random() > 0.5:  # 50% chance of proposal acceptance
+        if random.random() <= 0.8:  # 80% chance of proposal acceptance
             legislation = Legislation(title, proposer, content)
             self.proposed_legislation.append(legislation)
             if DEBUG_MODE:
@@ -211,7 +254,7 @@ class Parliament:
         # Simplified external legislation proposal
         return random.random() > 0.6  # 40% chance of proposal acceptance
 
-    def vote_on_legislation(self, legislation: Legislation, ignore_quorum: bool = False) -> bool:
+    def vote_on_legislation(self, legislation, ignore_quorum: bool = False) -> bool:
         if not ignore_quorum and not self.has_quorum():
             print("Cannot vote: No quorum")
             return False

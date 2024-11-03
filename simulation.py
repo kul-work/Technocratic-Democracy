@@ -336,7 +336,7 @@ class Simulation:
 
             # Parliamentary activities
             if random.random() < 0.4:
-                parliament.propose_legislation(f"Bill {month}", "Parliament", f"Content of bill {month}")           
+                parliament.propose_legislation(f"Bill {month}", "Parliament", f"Content of bill {month}")
 
             if parliament.proposed_legislation:
                 legislation = parliament.proposed_legislation[0]
