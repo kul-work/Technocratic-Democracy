@@ -1,0 +1,75 @@
+GLOBALS:
+- add diagrams?
+- allowing USER to add rules
+- Educatie? influenta educatie, universitati etc.
+  - also Cultura? if not cultura => popor sad, sau invers.  
+- add: distributie real-ish de populatie
+
+- check it against 1. o firma 2. o corporatie
+- regleaza-l cu lista missing TD.md rules (paste.txt) | pune TODOz if not solved
+
+- make (more) function tests / unittest
+- add more referendum simulari
+! - unittesting pe Social Tensions
+ok - de facut test ca [guvernul] face si drege, ca inflatie si puoc!
+  - more there
+
+[OTHERS]
+- check Pax's de s-ar putea folosi, integra etc.
+  - https://tempo-online.gov2.ro/ & http://statistici.insse.ro:8077/tempo-online/#/pages/tables/insse-table
+ok - also other AI showcases rahter than 'bugs, logical inconstisentices, code smells' [Ask Perplexa]
+  - Can you suggest improvements to enhance the readability and maintainability of this code?
+  - How can I reduce the time complexity of this algorithm / society?
+  - Can you generate documentation comments for the functions in this file?
+  - Suggest places where documentation is critically needed.
+  - Suggest a set of integration tests for this module to ensure it works correctly with other components.
+  - Can you identify any areas where consistent naming conventions are not followed?
+  - Based on this code, what additional features could be implemented to enhance functionality?
+  - Assess the complexity of this function using cyclomatic complexity metrics and suggest simplifications.
+  - What parts of this codebase could benefit from simplification or modularization?
+  - Identify opportunities to apply the Observer pattern in this codebase.
+  - Show me places where we could benefit from implementing the Strategy pattern.
+  - Identify potential memory leaks or resource management issues.
+  - Find database queries that could benefit from indexing.
+  - Show me computationally expensive operations that could be cached.
+  - What are the most critical yet untested code paths?
+  - Suggest test cases for edge conditions in our business logic.
+  - Find complex conditional logic that needs more thorough testing.
+  - Identify places where we could use newer language features.
+  - Find opportunities to use more idiomatic patterns.
+  - Identify places where we should implement rate limiting.
+  - Find complex state management that could be simplified.
+  - Identify circular dependencies.
+
+Top5:
+· Can you suggest improvements to enhance the readability and maintainability of this code?
+ok · Suggest a set of integration tests for this module to ensure it works correctly with other components.
+· Assess the complexity of this function using cyclomatic complexity metrics and suggest simplifications.
+· Suggest places where documentation is critically needed.
+· Based on this code, what additional features could be implemented to enhance functionality?
+
+
+---
+
+UPDATES:
+- if:
+  ok - a) dies /  pleaca [Ask AI] | era acolo `decline_batch`
+  b) frustrari / changes - de pus mai jos in cod
+  c) baga si pe event_based [Ask AI]
+- cum [up]/[down] economia? | [Ask AI] sa explice
+- reg. com. / corporatii / garda financiara ? => UNDE? [Ask AI]?
+! - referendumul tre' legat de PE CE
+  - categorii, & factori sociali, pe 'regiuni' populatie
+
+CODE RELATED:
+- aliniaza metode import peste tot
+- revizuieste daca declararile initiale sunt sau nu impliciate, mai ales pt tipurile din proiect (ReferendumType etc.) e.g.: self.delegated_votes: int = 0 vs. self.delegated_votes = 0
+
+ELSEz:
+- simplificare calcul / mod votare | simulare, nu sa treaca prin toti cetatenii cu ciclu
+! - add comisie parlamentara speciala de referendum in cod | why?
+- add: simulation_simple.py
+  - o varianta separata pentru reprezentativa
+  - sau chiar vs. participativa
+
+BUGS
