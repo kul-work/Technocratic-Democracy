@@ -279,6 +279,43 @@ class Parliament:
     
     def propose_referendum(self, title: str, description: str, referendum_type):
         return self.referendum_system.propose_referendum(title, description, referendum_type)
+    
+    def send_law_to_referendum(self, legislation, referendum_system) -> bool:
+        """
+        Sends a law to a referendum.
+
+        Args:
+            legislation: The legislation to be sent to referendum.
+            referendum_system: The referendum system to handle the referendum.
+
+        Returns:
+            True if the law was successfully sent to referendum, False otherwise.
+        """
+        # Check if the law is already in the referendum system
+        if legislation in referendum_system.referendums:
+            return False
+
+        # Check if the law is already in the parliament
+        if legislation not in self.proposed_legislation:
+            return False
+
+        # Create a new referendum for the law
+        referendum = referendum_system.propose_referendum(
+            title=legislation.title,
+            description=legislation.content,
+            referendum_type=referendum_system.ReferendumType.NATIONAL
+        )
+
+        # Add the referendum to the referendum system
+        referendum_system.referendums.append(referendum)
+
+        # Remove the legislation from the proposed legislation list
+        self.proposed_legislation.remove(legislation)
+
+        # Log the event
+        self.logger.info(f"Law '{legislation.title}' sent to referendum.")
+
+        return True
 
     def vote_no_confidence(self) -> bool:
         if not self.has_quorum():

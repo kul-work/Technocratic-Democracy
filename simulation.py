@@ -3,6 +3,7 @@ from config import *
 
 from models.citizen import *
 from models.society import *
+from models.society_state import *
 from models.legislative import *
 from models.government import *
 from models.president import *
@@ -13,7 +14,6 @@ from models.economy import *
 from models.bank_national import *
 from models.media import *
 
-from models.society_state import SocietyState, SocietyStateType
 
 def is_running_under_test():
     """Check if code is running under unittest"""

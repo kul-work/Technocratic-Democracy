@@ -44,10 +44,9 @@ class President:
         # Simplified logic for vetoing dismissal
         return random.random() > 0.6
 
-    #TODO: use it
     def call_referendum(self, law: Legislation) -> bool:
         # Simplified logic for calling a referendum
-        return random.random() > 0.8
+        return random.random() < 0.8
     
     def propose_referendum(self, title: str, description: str, referendum_type: ReferendumType) -> Referendum:
         return self.referendum_system.propose_referendum(title, description, referendum_type)
