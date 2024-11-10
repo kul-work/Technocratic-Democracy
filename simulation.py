@@ -74,7 +74,7 @@ class Simulation:
         if DEBUG_MODE:
             logging.info(f"Processed news cycle affecting {len(citizens)} citizens")
 
-    def update_public_trust(self, society_data):
+    def calculate_public_trust(self, society_data):
         """Calculate and return the public trust score"""
         # Add weights to make calculation more nuanced
         weights = {
@@ -114,7 +114,7 @@ class Simulation:
         media_landscape = MediaLandscape()
 
         # Track demographic factors
-        demographics = {
+        demographic_factors = {
             'age_groups': {'young': 0.3, 'middle': 0.5, 'elderly': 0.2},
             'urban_rural_ratio': 0.7,  # 70% urban
             'education_levels': {'low': 0.2, 'medium': 0.5, 'high': 0.3},
@@ -169,8 +169,8 @@ class Simulation:
             ("SocialPulse", MediaType.SOCIAL_MEDIA_PLATFORM),
             ("Independent Voice", MediaType.INDEPENDENT_JOURNALIST)
         ]
-        for name, type in media_outlets:
-            media_landscape.add_outlet(MediaOutlet(name, type))
+        for outlet_name, media_type in media_outlets:
+            media_landscape.add_outlet(MediaOutlet(outlet_name, media_type))
 
         # Simulate presidential election
         presidential_candidates = [
@@ -281,7 +281,7 @@ class Simulation:
             }            
 
             # Calculate public trust
-            public_trust = self.update_public_trust(social_data)
+            public_trust = self.calculate_public_trust(social_data)
 
             # Update society state with all indicators including public trust
             society_state.update_indicators(
