@@ -29,6 +29,8 @@ class Simulation:
         
         # Clear ALL handlers
         self.logger.handlers.clear()
+        # Also clear root logger handlers to prevent duplication
+        logging.getLogger().handlers.clear()
         
         # Set up logging handlers
         handlers = []
