@@ -20,37 +20,56 @@ class SocietyIndicators:
 
 class SocietyState:
     def __init__(self):
-        self.current_state = SocietyStateType.STABLE
-        self.indicators = SocietyIndicators()
-        self.state_history = []        
-
-    def update_indicators(self, 
-                         economic_data: Dict[str, float],
-                         political_data: Dict[str, float],
+        self.indicators = {
+            'economic': {},
+            'political': {},
+            'social': {}
+        }
+        
+    def update_indicators(self, economic_data: Dict[str, float], 
+                         political_data: Dict[str, float], 
                          social_data: Dict[str, float]) -> None:
-
-        # Update indicators based on various inputs
-        self.indicators.economic_stability = self._calculate_economic_stability(economic_data)
-        self.indicators.political_stability = self._calculate_political_stability(political_data)
-        self.indicators.social_cohesion = self._calculate_social_cohesion(social_data)        
-
-        # Determine if state transition is needed
-        self._evaluate_state_transition()
-
-    def _evaluate_state_transition(self) -> None:
-        previous_state = self.current_state
-
-        if self.indicators.economic_stability < ECONOMIC_CRISIS_THRESHOLD:
-            self.current_state = SocietyStateType.ECONOMIC_CRISIS
-        elif self.indicators.political_stability < POLITICAL_CRISIS_THRESHOLD:
-            self.current_state = SocietyStateType.POLITICAL_CRISIS
-        elif self.indicators.social_cohesion < SOCIAL_UNREST_THRESHOLD:
-            self.current_state = SocietyStateType.SOCIAL_UNREST
-        elif all(getattr(self.indicators, ind) > PROSPERITY_THRESHOLD for ind in self.indicators.__annotations__):
-            self.current_state = SocietyStateType.PROSPERITY
-
-        if self.current_state != previous_state:
-            self.state_history.append((previous_state, self.current_state))
+        """Update all society indicators"""
+        self.indicators['economic'] = economic_data
+        self.indicators['political'] = political_data
+        self.indicators['social'] = social_data
+        
+        # Calculate stability scores
+        economic_stability = self._calculate_economic_stability(economic_data)
+        political_stability = self._calculate_political_stability(political_data)
+        social_stability = self._calculate_social_stability(social_data)
+        
+        # Update overall stability
+        self.indicators['overall_stability'] = (
+            economic_stability * 0.4 +
+            political_stability * 0.3 +
+            social_stability * 0.3
+        )
+        
+    def get_state_report(self) -> str:
+        """Generate a comprehensive state report"""
+        report = "Society State Report\n"
+        report += "===================\n\n"
+        
+        # Economic Indicators
+        report += "Economic Indicators:\n"
+        for key, value in self.indicators['economic'].items():
+            report += f"  {key}: {value:.2f}\n"
+            
+        # Political Indicators    
+        report += "\nPolitical Indicators:\n"
+        for key, value in self.indicators['political'].items():
+            report += f"  {key}: {value:.2f}\n"
+            
+        # Social Indicators
+        report += "\nSocial Indicators:\n"
+        for key, value in self.indicators['social'].items():
+            report += f"  {key}: {value:.2f}\n"
+            
+        # Overall Stability
+        report += f"\nOverall Stability: {self.indicators.get('overall_stability', 0):.2f}"
+        
+        return report
 
     def _calculate_economic_stability(self, economic_data: Dict[str, float]) -> float:
         """
@@ -113,7 +132,7 @@ class SocietyState:
 
         return max(-1.0, min(1.0, stability))
 
-    def _calculate_social_cohesion(self, social_data: Dict[str, float]) -> float:
+    def _calculate_social_stability(self, social_data: Dict[str, float]) -> float:
         """
         Calculate social cohesion based on social indicators
         Returns value between -1.0 and 1.0
@@ -141,18 +160,3 @@ class SocietyState:
             cohesion += weights['citizen_satisfaction'] * satisfaction_impact
 
         return max(-1.0, min(1.0, cohesion))
-
-    def get_state_report(self) -> Dict[str, Any]:
-        """
-        Generate a comprehensive report of the current society state
-        """
-        return {
-            'current_state': self.current_state.value,
-            'indicators': {
-                'economic_stability': round(self.indicators.economic_stability, 3),
-                'political_stability': round(self.indicators.political_stability, 3),
-                'social_cohesion': round(self.indicators.social_cohesion, 3),
-                'public_trust': round(self.indicators.societal_trust, 3)
-            },
-            'state_history': [(prev.value, curr.value) for prev, curr in self.state_history[-5:]]  # Last 5 transitions
-        }

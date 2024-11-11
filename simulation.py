@@ -24,36 +24,39 @@ class Simulation:
         global DEBUG_MODE
         DEBUG_MODE = debug_mode
 
+        # Get logger first
         self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.INFO)
         
-        # Clear any existing handlers
+        # Clear ALL handlers
         self.logger.handlers.clear()
         
-        # Your existing file handler setup
+        # Set up logging handlers
+        handlers = []
+        
+        # Console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.DEBUG if debug_mode else logging.INFO)
+        handlers.append(console_handler)
+        
+        # File handler
         if not is_running_under_test():
             self.file_handler = logging.FileHandler('output/output.txt', mode='w')
-            self.file_handler.setLevel(logging.INFO)
-            self.logger.addHandler(self.file_handler)
+            self.file_handler.setLevel(logging.DEBUG if debug_mode else logging.INFO)
         else:
             self.file_handler = logging.NullHandler()
-            self.logger.addHandler(self.file_handler)
+        handlers.append(self.file_handler)
         
-        # Always add console handler
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        self.logger.addHandler(console_handler)
+        # Apply format to all handlers
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        for handler in handlers:
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler)
         
-        # Set up logging to both console and file
-        logging.basicConfig(
-            level=logging.DEBUG if DEBUG_MODE else logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.StreamHandler(),  # Console handler
-                self.file_handler  # File handler (stored as instance variable)
-            ]
-        )
-        self.logger = logging.getLogger(__name__)
+        # Set logger level
+        self.logger.setLevel(logging.DEBUG if debug_mode else logging.INFO)
+        
+        # Prevent propagation to root logger to avoid duplicate messages
+        self.logger.propagate = False
 
         self.interim_government = None  # Track interim government during transitions
 
@@ -76,6 +79,15 @@ class Simulation:
 
     def calculate_public_trust(self, society_data):
         """Calculate and return the public trust score"""
+        # Validate input data
+        required_keys = ['citizen_satisfaction', 'media_trust', 'social_cohesion']
+        if not all(key in society_data for key in required_keys):
+            self.logger.warning("Missing required keys in society_data")
+            return 0.0
+        
+        if any(society_data[key] is None for key in required_keys):
+            self.logger.warning("None values found in society_data")
+            return 0.0
         # Add weights to make calculation more nuanced
         weights = {
             'citizen_satisfaction': 0.4,
@@ -281,6 +293,9 @@ class Simulation:
             }            
 
             # Calculate public trust
+            self.logger.debug(f"Social cohesion: {social_data['social_cohesion']:.2f}")
+            self.logger.debug(f"Media trust: {social_data['media_trust']:.2f}")
+            self.logger.debug(f"Citizen satisfaction: {social_data['citizen_satisfaction']:.2f}")
             public_trust = self.calculate_public_trust(social_data)
 
             # Update society state with all indicators including public trust
